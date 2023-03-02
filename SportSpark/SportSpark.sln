@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkAPI", "SportSparkAPI\SportSparkAPI.csproj", "{847C5132-B846-4754-8155-D029F2AF8422}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkAPI", "SportSparkAPI", "{3890CB3B-E3D4-435F-AEFF-07EBF1002117}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkCore", "SportSparkCore", "{8492AD43-3971-4C40-8472-0CA3B7767B15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkInfrastructure", "SportSparkInfrastructure", "{AF3DB425-D7C9-43CC-8986-A30B7B4D2274}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkUI", "SportSparkUI", "{AC7419F0-D621-4D95-A3FF-6C1CDBFDA1E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkCoreLibrary", "SportSparkCoreLibrary\SportSparkCoreLibrary.csproj", "{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSparkInfrastructureLibrary", "SportSparkInfrastructureLibrary\SportSparkInfrastructureLibrary.csproj", "{5EDEE242-29EF-4A2C-AC18-77A4B668939F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSpark", "SportSpark\SportSpark.csproj", "{D8CAA94E-5B03-4E7A-97EE-1A946925C252}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{847C5132-B846-4754-8155-D029F2AF8422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847C5132-B846-4754-8155-D029F2AF8422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847C5132-B846-4754-8155-D029F2AF8422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847C5132-B846-4754-8155-D029F2AF8422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDEE242-29EF-4A2C-AC18-77A4B668939F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDEE242-29EF-4A2C-AC18-77A4B668939F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDEE242-29EF-4A2C-AC18-77A4B668939F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDEE242-29EF-4A2C-AC18-77A4B668939F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{847C5132-B846-4754-8155-D029F2AF8422} = {3890CB3B-E3D4-435F-AEFF-07EBF1002117}
+		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B} = {8492AD43-3971-4C40-8472-0CA3B7767B15}
+		{5EDEE242-29EF-4A2C-AC18-77A4B668939F} = {AF3DB425-D7C9-43CC-8986-A30B7B4D2274}
+		{D8CAA94E-5B03-4E7A-97EE-1A946925C252} = {AC7419F0-D621-4D95-A3FF-6C1CDBFDA1E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D28FF10-3818-4C0B-894E-CC0356992953}
+	EndGlobalSection
+EndGlobal
