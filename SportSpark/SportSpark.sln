@@ -15,9 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkUI", "SportSparkU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkCoreLibrary", "SportSparkCoreLibrary\SportSparkCoreLibrary.csproj", "{C5F37882-8E4E-45E5-9AB1-BABF29345B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSparkInfrastructureLibrary", "SportSparkInfrastructureLibrary\SportSparkInfrastructureLibrary.csproj", "{5EDEE242-29EF-4A2C-AC18-77A4B668939F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkInfrastructureLibrary", "SportSparkInfrastructureLibrary\SportSparkInfrastructureLibrary.csproj", "{5EDEE242-29EF-4A2C-AC18-77A4B668939F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSpark", "SportSpark\SportSpark.csproj", "{D8CAA94E-5B03-4E7A-97EE-1A946925C252}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSpark", "SportSpark\SportSpark.csproj", "{D8CAA94E-5B03-4E7A-97EE-1A946925C252}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkCoreSharedLibrary", "SportSparkCoreSharedLibrary", "{10CAD7BD-9021-49C4-9DD7-04AEFE7FC581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSparkCoreSharedLibrary", "SportSparkCoreSharedLibrary\SportSparkCoreSharedLibrary.csproj", "{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8CAA94E-5B03-4E7A-97EE-1A946925C252}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +60,7 @@ Global
 		{C5F37882-8E4E-45E5-9AB1-BABF29345B8B} = {8492AD43-3971-4C40-8472-0CA3B7767B15}
 		{5EDEE242-29EF-4A2C-AC18-77A4B668939F} = {AF3DB425-D7C9-43CC-8986-A30B7B4D2274}
 		{D8CAA94E-5B03-4E7A-97EE-1A946925C252} = {AC7419F0-D621-4D95-A3FF-6C1CDBFDA1E9}
+		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77} = {10CAD7BD-9021-49C4-9DD7-04AEFE7FC581}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D28FF10-3818-4C0B-894E-CC0356992953}
