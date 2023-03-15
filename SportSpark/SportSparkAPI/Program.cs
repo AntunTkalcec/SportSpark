@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using SportSparkCoreLibrary.Interfaces.Seed;
 using SportSparkInfrastructureLibrary.Database;
 using SportSparkInfrastructureLibrary.Extensions;
 using System.Text.Json.Serialization;
@@ -33,5 +34,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
+    dbInitializer.Initialize();
+    dbInitializer.SeedData(true);
+}
 
 app.Run();
