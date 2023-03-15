@@ -23,7 +23,9 @@ namespace SportSparkInfrastructureLibrary.Repositories
         public Task<User> GetByIdDetailedAsync(int id)
         {
             return _context.Users
-                .Include(x => x.Friendships)
+                .Include(x => x.RequestedFriendships)
+                    .ThenInclude(x => x.User2)
+                .Include(x => x.ConfirmedFriendships)
                 .Include(x => x.Events)
                 .Include(x => x.ProfileImage)
                 .SingleOrDefaultAsync(x => x.Id == id);

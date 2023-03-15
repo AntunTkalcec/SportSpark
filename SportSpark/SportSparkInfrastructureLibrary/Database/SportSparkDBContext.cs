@@ -32,6 +32,18 @@ public class SportSparkDBContext : DbContext
         modelBuilder.Entity<User>().Property(x => x.Password)
             .UseCollation("SQL_Latin1_General_CP1_CS_AS");
 
-        modelBuilder.Entity<Friendship>().HasKey(_ => new { _.UserId, _.User2Id });
+        modelBuilder.Entity<Friendship>().HasKey(x => x.Id);
+        modelBuilder.Entity<Friendship>()
+            .HasOne(x => x.User1)
+            .WithMany(x => x.RequestedFriendships)
+            .HasForeignKey(x => x.UserId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Friendship>()
+            .HasOne(x => x.User2)
+            .WithMany(x => x.ConfirmedFriendships)
+            .HasForeignKey(x => x.User2Id)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,13 +1,17 @@
 ﻿using SportSparkCoreSharedLibrary.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportSparkCoreSharedLibrary.DTOs
 {
     public class FriendshipDTO : BaseDTO
     {
+        public int UserId { get; set; }
+
+        public int User2Id { get; set; }
+
+        public int Status { get; set; }
+
+        public UserDTO User1 { get; set; }
+
+        public UserDTO User2 { get; set; }
     }
 }
