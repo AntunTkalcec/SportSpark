@@ -25,8 +25,9 @@ namespace SportSparkInfrastructureLibrary.Repositories
             return _context.Users
                 .Include(x => x.RequestedFriendships)
                     .ThenInclude(x => x.User2)
-                .Include(x => x.ConfirmedFriendships)
                 .Include(x => x.Events)
+                .Include(x => x.ReceivedFriendships)
+                    .ThenInclude(x => x.User1)
                 .Include(x => x.ProfileImage)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }

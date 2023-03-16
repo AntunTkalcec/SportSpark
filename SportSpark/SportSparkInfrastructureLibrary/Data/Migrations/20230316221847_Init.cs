@@ -95,14 +95,14 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Lat = table.Column<decimal>(type: "decimal(8,6)", nullable: true),
                     Long = table.Column<decimal>(type: "decimal(9,6)", nullable: true),
-                    TimeOfDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Duration = table.Column<int>(type: "int", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: true),
                     NumberOfParticipants = table.Column<int>(type: "int", nullable: true),
                     Privacy = table.Column<int>(type: "int", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false),
-                    EventTypeId = table.Column<int>(type: "int", nullable: true),
+                    EventTypeId = table.Column<int>(type: "int", nullable: false),
                     RepeatTypeId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -120,7 +120,8 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                         name: "FK_Event_EventType_EventTypeId",
                         column: x => x.EventTypeId,
                         principalTable: "EventType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Event_User_UserId",
                         column: x => x.UserId,
@@ -133,12 +134,21 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                 name: "Friendship",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    User2Id = table.Column<int>(type: "int", nullable: false)
+                    User2Id = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Friendship", x => new { x.UserId, x.User2Id });
+                    table.PrimaryKey("PK_Friendship", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Friendship_User_User2Id",
+                        column: x => x.User2Id,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Friendship_User_UserId",
                         column: x => x.UserId,
@@ -160,6 +170,16 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Event_UserId",
                 table: "Event",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Friendship_User2Id",
+                table: "Friendship",
+                column: "User2Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Friendship_UserId",
+                table: "Friendship",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(

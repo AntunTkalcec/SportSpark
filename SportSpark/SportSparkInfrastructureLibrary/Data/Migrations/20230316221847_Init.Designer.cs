@@ -12,8 +12,8 @@ using SportSparkInfrastructureLibrary.Database;
 namespace SportSparkInfrastructureLibrary.Data.Migrations
 {
     [DbContext(typeof(SportSparkDBContext))]
-    [Migration("20230315070814_FriendshipsFix")]
-    partial class FriendshipsFix
+    [Migration("20230316221847_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,9 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -65,10 +68,10 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Duration")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Duration")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("EventTypeId")
+                    b.Property<int>("EventTypeId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Lat")
@@ -80,8 +83,8 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                     b.Property<int?>("NumberOfParticipants")
                         .HasColumnType("int");
 
-                    b.Property<string>("Price")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Privacy")
                         .HasColumnType("int");
@@ -89,16 +92,13 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                     b.Property<int>("RepeatTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TimeOfDay")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("Time")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -259,7 +259,9 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                 {
                     b.HasOne("SportSparkCoreLibrary.Entities.EventType", "EventType")
                         .WithMany("Events")
-                        .HasForeignKey("EventTypeId");
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SportSparkCoreLibrary.Entities.EventRepeatType", "RepeatType")
                         .WithMany("Events")
@@ -283,7 +285,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.Friendship", b =>
                 {
                     b.HasOne("SportSparkCoreLibrary.Entities.User", "User2")
-                        .WithMany("ConfirmedFriendships")
+                        .WithMany("ReceivedFriendships")
                         .HasForeignKey("User2Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -320,9 +322,9 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.User", b =>
                 {
-                    b.Navigation("ConfirmedFriendships");
-
                     b.Navigation("Events");
+
+                    b.Navigation("ReceivedFriendships");
 
                     b.Navigation("RequestedFriendships");
                 });

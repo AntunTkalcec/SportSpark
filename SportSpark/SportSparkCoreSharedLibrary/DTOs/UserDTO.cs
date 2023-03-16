@@ -29,7 +29,9 @@ namespace SportSparkCoreSharedLibrary.DTOs
 
         public ICollection<EventDTO> Events { get; set; }
 
-        public ICollection<FriendshipDTO> Friendships { get; set; }
+        public ICollection<FriendshipDTO> RequestedFriendships { get; set; }
+
+        public ICollection<FriendshipDTO> ReceivedFriendships { get; set; }
         #endregion
     }
 }

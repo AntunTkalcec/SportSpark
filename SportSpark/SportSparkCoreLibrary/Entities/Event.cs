@@ -26,23 +26,26 @@ public class Event : BaseEntity
     [Column(TypeName = "decimal(9, 6)")]
     public decimal? Long { get; set; }
 
-    public string? TimeOfDay { get; set; }
+    public DateTime? Time { get; set; }
 
-    public string? Duration { get; set; }
+    public int? Duration { get; set; }
 
-    public string? Price { get; set; }
+    public double? Price { get; set; }
 
     public int? NumberOfParticipants { get; set; }
 
     [Required]
     public Privacy Privacy { get; set; }
 
+    [Required]
+    public bool Active { get; set; }
+
     #region Relations
     public int UserId { get; set; }
 
     public User User { get; set; }
     
-    public int TypeId { get; set; }
+    public int EventTypeId { get; set; }
 
     public EventType EventType { get; set; }
     

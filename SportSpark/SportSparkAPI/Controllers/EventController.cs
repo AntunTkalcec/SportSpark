@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SportSparkAPI.Controllers.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
@@ -9,21 +9,21 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class UserController : BaseController
+    public class EventController : BaseController
     {
-        private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IEventService _eventService;
+        public EventController(IEventService eventService)
         {
-            _userService = userService;
+            _eventService = eventService;
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(UserDTO), 200)]
-        public async Task<ActionResult<UserDTO>> GetById(int id)
+        [ProducesResponseType(typeof(EventDTO), 200)]
+        public async Task<ActionResult<EventDTO>> GetById(int id)
         {
             try
             {
-                return await _userService.GetByIdAsync(id);
+                return await _eventService.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

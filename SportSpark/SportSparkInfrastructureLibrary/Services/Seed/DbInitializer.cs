@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportSparkCoreLibrary.Interfaces.Seed;
+using SportSparkInfrastructureLibrary.Data.SeedData;
 using SportSparkInfrastructureLibrary.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportSparkInfrastructureLibrary.Services.Seed
 {
@@ -29,6 +25,24 @@ namespace SportSparkInfrastructureLibrary.Services.Seed
             using var serviceScope = _scopeFactory.CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<SportSparkDBContext>();
 
+            AddIfEmpty(context.Users, DbSeeder.Users);
+            AddIfEmpty(context.EventTypes, DbSeeder.EventTypes);
+            AddIfEmpty(context.EventRepeatTypes, DbSeeder.EventRepeatTypes);
+
+            context.SaveChanges();
+
+            AddIfEmpty(context.Events, DbSeeder.Events);
+            AddIfEmpty(context.Friendships, DbSeeder.Friendships);
+
+            context.SaveChanges();
+        }
+
+        private void AddIfEmpty<T>(DbSet<T> set, IEnumerable<T> entities) where T : class
+        {
+            if (!set.Any())
+            {
+                set.AddRange(entities);
+            }
         }
     }
 }

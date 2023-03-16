@@ -41,6 +41,6 @@ public class User : BaseEntity
     public ICollection<Event> Events { get; set; }
 
     public virtual ICollection<Friendship> RequestedFriendships { get; set; }
-    public virtual ICollection<Friendship> ConfirmedFriendships { get; set; }
+    public virtual ICollection<Friendship> ReceivedFriendships { get; set; }
     #endregion
 }

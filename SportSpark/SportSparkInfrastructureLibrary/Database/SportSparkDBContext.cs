@@ -41,7 +41,7 @@ public class SportSparkDBContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Friendship>()
             .HasOne(x => x.User2)
-            .WithMany(x => x.ConfirmedFriendships)
+            .WithMany(x => x.ReceivedFriendships)
             .HasForeignKey(x => x.User2Id)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);

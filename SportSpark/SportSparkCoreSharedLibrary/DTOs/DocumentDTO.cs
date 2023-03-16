@@ -1,13 +1,11 @@
 ﻿using SportSparkCoreSharedLibrary.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportSparkCoreSharedLibrary.DTOs
 {
     public class DocumentDTO : BaseDTO
     {
+        public string BlobId { get; set; }
+
+        public UserDTO Owner { get; set; }
     }
 }
