@@ -40,7 +40,7 @@ using (var scope = scopeFactory.CreateScope())
 {
     var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
     dbInitializer.Initialize();
-    dbInitializer.SeedData(true);
+    dbInitializer.SeedData();
 }
 
 app.Run();

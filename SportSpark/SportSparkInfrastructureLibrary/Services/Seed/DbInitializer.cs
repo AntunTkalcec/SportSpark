@@ -20,7 +20,7 @@ namespace SportSparkInfrastructureLibrary.Services.Seed
             context.Database.Migrate();
         }
 
-        public void SeedData(bool useAdditionalSeeds)
+        public void SeedData()
         {
             using var serviceScope = _scopeFactory.CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<SportSparkDBContext>();

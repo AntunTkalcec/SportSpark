@@ -1,28 +1,32 @@
 ﻿using AutoMapper;
-using SportSparkCoreLibrary.Interfaces.Repositories;
+using SportSparkCoreLibrary.Entities;
+using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
     public class EventService : IEventService
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly IBaseRepository<Event> _eventRepository;
         private readonly IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository, IMapper mapper)
+        public EventService(IBaseRepository<Event> eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
         }
+
+        public async Task<List<EventDTO>> GetAllAsync()
+        {
+            var events = await _eventRepository.GetAllAsync(e => e.User, e => e.EventType, e => e.RepeatType);
+
+            return _mapper.Map<List<EventDTO>>(events);
+        }
+
         public async Task<EventDTO> GetByIdAsync(int id)
         {
-            var ev = await _eventRepository.GetByIdDetailedAsync(id);
+            var ev = await _eventRepository.GetByIdAsync(id, e => e.User, e => e.EventType, e => e.RepeatType);
 
             return _mapper.Map<EventDTO>(ev);
         }

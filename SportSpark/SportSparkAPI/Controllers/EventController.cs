@@ -17,6 +17,20 @@ namespace SportSparkAPI.Controllers
             _eventService = eventService;
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(EventDTO), 200)]
+        public async Task<ActionResult<List<EventDTO>>> Get()
+        {
+            try
+            {
+                return await _eventService.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(EventDTO), 200)]
         public async Task<ActionResult<EventDTO>> GetById(int id)

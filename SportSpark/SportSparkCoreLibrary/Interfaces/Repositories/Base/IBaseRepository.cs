@@ -1,17 +1,30 @@
 ﻿using SportSparkCoreLibrary.Entities;
+using System.Linq.Expressions;
 
 namespace SportSparkCoreLibrary.Interfaces.Repositories.Base
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
-        Task<int> AddAsync(T entity);
+        IQueryable<T> Fetch();
 
-        Task<T> GetByIdAsync(int id);
+        Task<T> AddAsync(T entity);
 
-        Task<List<T>> GetAllAsync(int id);
+        Task AddRangeAsync(ICollection<T> entities);
 
-        Task UpdateAsync(T entity);
+        Task<T> AddOrUpdateAsync(T entity);
 
         Task DeleteAsync(T entity);
+
+        Task DeleteAsync(int id);
+
+        Task DeleteAllAsync(List<T> entities);
+
+        Task<T> UpdateAsync(T entity);
+
+        Task UpdateRangeAsync(ICollection<T> entities);
+
+        Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
+
+        Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
     }
 }

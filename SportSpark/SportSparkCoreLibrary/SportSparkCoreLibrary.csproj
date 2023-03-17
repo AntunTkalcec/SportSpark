@@ -18,7 +18,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Profiles\" />
+	  <Compile Remove="Profiles\**" />
+	  <EmbeddedResource Remove="Profiles\**" />
+	  <MauiCss Remove="Profiles\**" />
+	  <MauiXaml Remove="Profiles\**" />
+	  <None Remove="Profiles\**" />
 	</ItemGroup>
 
 	<ItemGroup>

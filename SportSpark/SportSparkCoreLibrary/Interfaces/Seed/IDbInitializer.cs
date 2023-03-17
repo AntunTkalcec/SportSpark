@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SportSparkCoreLibrary.Interfaces.Seed
+﻿namespace SportSparkCoreLibrary.Interfaces.Seed
 {
     public interface IDbInitializer
     {
@@ -17,6 +11,6 @@ namespace SportSparkCoreLibrary.Interfaces.Seed
         /// <summary>
         /// Adds some default values to the Db
         /// </summary>
-        void SeedData(bool useAdditionalSeeds);
+        void SeedData();
     }
 }

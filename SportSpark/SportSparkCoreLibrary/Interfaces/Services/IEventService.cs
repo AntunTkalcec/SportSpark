@@ -1,14 +1,9 @@
-﻿using SportSparkCoreSharedLibrary.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SportSparkCoreLibrary.Interfaces.Services.Base;
+using SportSparkCoreSharedLibrary.DTOs;
 
 namespace SportSparkCoreLibrary.Interfaces.Services
 {
-    public interface IEventService
+    public interface IEventService : IBaseService<EventDTO>
     {
-        Task<EventDTO> GetByIdAsync(int id);
     }
 }
