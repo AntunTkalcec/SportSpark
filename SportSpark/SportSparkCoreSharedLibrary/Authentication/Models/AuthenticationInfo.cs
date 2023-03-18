@@ -1,4 +1,4 @@
-﻿namespace SportSparkCoreLibrary.Authentication.Models;
+﻿namespace SportSparkCoreSharedLibrary.Authentication.Models;
 
 public class AuthenticationInfo
 {

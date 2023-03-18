@@ -6,6 +6,8 @@ namespace SportSparkCoreLibrary.Interfaces.Services
 {
     public interface IUserService : IBaseService<UserDTO>
     {
-        Task<UserDTO> Login(User user);
+        UserDTO Login(User user);
+
+        Task<User> UserValid(string emailOrUserName, string password);
     }
 }

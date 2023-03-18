@@ -1,22 +1,31 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreLibrary.Entities;
 using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
-using System.Linq;
+using SportSparkInfrastructureLibrary.Authentication;
+using SportSparkInfrastructureLibrary.Helpers;
+using System.Security.Claims;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
     public class UserService : IUserService
     {
         private readonly IBaseRepository<User> _userRepository;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly TokenDataConfiguration _tokenDataConfiguration;
 
-        public UserService(IBaseRepository<User> userRepository, IMapper mapper)
+        public UserService(IBaseRepository<User> userRepository, IMapper mapper, ITokenService tokenService, 
+            IOptions<TokenDataConfiguration> tokenDataConfiguration)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _tokenService = tokenService;
+            _tokenDataConfiguration = tokenDataConfiguration.Value;
         }
 
         public async Task<List<UserDTO>> GetAllAsync()
@@ -39,9 +48,33 @@ namespace SportSparkInfrastructureLibrary.Services
             return _mapper.Map<UserDTO>(user);
         }
 
-        public Task<UserDTO> Login(User user)
+        public UserDTO Login(User user)
         {
-            throw new NotImplementedException();
+            UserDTO userDto = _mapper.Map<UserDTO>(user);
+
+            List<Claim> claims = new()
+            {
+                new Claim("UserId", user.Id.ToString())
+            };
+
+            AuthenticationInfo authInfo = new()
+            {
+                AccessToken = _tokenService.GenerateJwt(claims, _tokenDataConfiguration.AccessTokenExpirationInMinutes),
+                RefreshToken = _tokenService.GenerateJwt(claims, _tokenDataConfiguration.RefreshTokenExpirationInMinutes)
+            };
+            userDto.AuthenticationInfo = authInfo;
+
+            return userDto;
+        }
+
+        public async Task<User> UserValid(string emailOrUserName, string password)
+        {
+            var currentEmailOrUserName = emailOrUserName.ToLower();
+            var user = await _userRepository.Fetch().AsNoTracking().Where(user => user.Email == currentEmailOrUserName
+                || user.UserName == currentEmailOrUserName).SingleOrDefaultAsync();
+
+            if (user is not null && user.Password == HashHelper.Hash(user.Email, password)) return user;
+            return null;
         }
     }
 }

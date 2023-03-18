@@ -1,11 +1,5 @@
 ﻿using SportSparkCoreSharedLibrary.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportSparkCoreSharedLibrary.Authentication.Models;
 
 namespace SportSparkCoreSharedLibrary.DTOs
 {
@@ -33,5 +27,7 @@ namespace SportSparkCoreSharedLibrary.DTOs
 
         public ICollection<FriendshipDTO> ReceivedFriendships { get; set; }
         #endregion
+
+        public AuthenticationInfo AuthenticationInfo { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SportSparkAPI.Controllers.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
@@ -9,6 +8,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [SportSparkAPI.ActionFilters.AuthorizationFilter()]
     public class EventController : BaseController
     {
         private readonly IEventService _eventService;

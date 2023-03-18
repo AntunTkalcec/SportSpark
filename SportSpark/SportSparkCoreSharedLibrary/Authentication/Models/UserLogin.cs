@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SportSparkCoreLibrary.Authentication.Models;
+namespace SportSparkCoreSharedLibrary.Authentication.Models;
 
 public class UserLogin
 {
     [Required]
-    public string Email { get; set; }
+    public string EmailOrUserName { get; set; }
 
     [Required]
     [StringLength(50)]
