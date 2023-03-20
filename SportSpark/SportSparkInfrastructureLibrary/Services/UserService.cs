@@ -28,6 +28,21 @@ namespace SportSparkInfrastructureLibrary.Services
             _tokenDataConfiguration = tokenDataConfiguration.Value;
         }
 
+        public async Task<int> CreateAsync(UserDTO entity)
+        {
+            if (!ValidateUser(entity))
+            {
+                throw new Exception("Required fields cannot remain empty!");
+            }
+            await _userRepository.AddAsync(_mapper.Map<User>(entity));
+            return entity.Id;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _userRepository.DeleteAsync(id);
+        }
+
         public async Task<List<UserDTO>> GetAllAsync()
         {
             var users = await _userRepository.GetAllAsync(u => u.Events, u => u.ReceivedFriendships, u => u.RequestedFriendships, u => u.ProfileImage);
@@ -67,6 +82,15 @@ namespace SportSparkInfrastructureLibrary.Services
             return userDto;
         }
 
+        public async Task UpdateAsync(int id, UserDTO entity)
+        {
+            if (!ValidateUser(entity))
+            {
+                throw new Exception("Required fields cannot remain empty!");
+            }
+            await _userRepository.UpdateAsync(_mapper.Map<User>(entity));
+        }
+
         public async Task<User> UserValid(string emailOrUserName, string password)
         {
             var currentEmailOrUserName = emailOrUserName.ToLower();
@@ -76,5 +100,15 @@ namespace SportSparkInfrastructureLibrary.Services
             if (user is not null && user.Password == HashHelper.Hash(user.Email, password)) return user;
             return null;
         }
+
+        #region Private methods
+        private static bool ValidateUser(UserDTO entity)
+        {
+            return !string.IsNullOrEmpty(entity.FirstName) &&
+            !string.IsNullOrEmpty(entity.LastName) &&
+            !string.IsNullOrEmpty(entity.UserName) &&
+            !string.IsNullOrEmpty(entity.Email);
+        }
+        #endregion
     }
 }

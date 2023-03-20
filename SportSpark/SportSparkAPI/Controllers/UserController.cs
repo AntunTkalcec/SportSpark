@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SportSparkAPI.Controllers.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
@@ -9,6 +8,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    //[ActionFilters.AuthorizationFilter()]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -38,6 +38,51 @@ namespace SportSparkAPI.Controllers
             try
             {
                 return await _userService.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(UserDTO userDto)
+        {
+            try
+            {
+                await _userService.CreateAsync(userDto);
+
+                return Created("", userDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, UserDTO userDto)
+        {
+            try
+            {
+                await _userService.UpdateAsync(id, userDto);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await _userService.DeleteAsync(id);
+
+                return NoContent();
             }
             catch (Exception ex)
             {

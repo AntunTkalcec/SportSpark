@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SportSparkAPI.Controllers.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
@@ -8,7 +9,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [SportSparkAPI.ActionFilters.AuthorizationFilter()]
+    //[ActionFilters.AuthorizationFilter()]
     public class EventController : BaseController
     {
         private readonly IEventService _eventService;
@@ -23,6 +24,16 @@ namespace SportSparkAPI.Controllers
         {
             try
             {
+                var test = new EventDTO()
+                {
+                    Id = 0,
+                    Title = "Title",
+                    Description = "Desc",
+                    Privacy = 1,
+                    RepeatTypeId = 1,
+                    TypeId = 1,
+                };
+                var test2 = JsonConvert.SerializeObject(test);
                 return await _eventService.GetAllAsync();
             }
             catch (Exception ex)
@@ -38,6 +49,51 @@ namespace SportSparkAPI.Controllers
             try
             {
                 return await _eventService.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(EventDTO eventDto)
+        {
+            try
+            {
+                await _eventService.CreateAsync(eventDto);
+
+                return Created("", eventDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, EventDTO eventDto)
+        {
+            try
+            {
+                await _eventService.UpdateAsync(id, eventDto);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await _eventService.DeleteAsync(id);
+
+                return NoContent();
             }
             catch (Exception ex)
             {

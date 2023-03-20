@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using SportSparkCoreLibrary.Entities;
 using SportSparkCoreSharedLibrary.DTOs;
-using System.Reflection.Metadata;
-using System.Linq;
 using Document = SportSparkCoreLibrary.Entities.Document;
 
 namespace SportSparkAPI.AutoMapper
@@ -24,7 +22,10 @@ namespace SportSparkAPI.AutoMapper
             CreateMap<Event, EventDTO>()
                 .ForMember(x => x.Privacy, opt => opt.MapFrom(_ => (int)_.Privacy))
                 .ForMember(x => x.User, opt => opt.MapFrom(_ => _.User));
-            CreateMap<EventDTO, Event>();
+            CreateMap<EventDTO, Event>()
+                .ForMember(x => x.User, opt => opt.Ignore())
+                .ForMember(x => x.EventType, opt => opt.Ignore())
+                .ForMember(x => x.RepeatType, opt => opt.Ignore());
             CreateMap<EventRepeatType, EventRepeatTypeDTO>();
             CreateMap<EventRepeatTypeDTO, EventRepeatType>();
             CreateMap<EventType, EventTypeDTO>();

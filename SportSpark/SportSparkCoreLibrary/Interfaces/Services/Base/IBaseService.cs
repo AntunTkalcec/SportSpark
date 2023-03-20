@@ -7,5 +7,11 @@ namespace SportSparkCoreLibrary.Interfaces.Services.Base
         Task<List<T>> GetAllAsync();
 
         Task<T> GetByIdAsync(int id);
+
+        Task<int> CreateAsync(T entity);
+
+        Task UpdateAsync(int id, T entity);
+
+        Task DeleteAsync(int id);
     }
 }

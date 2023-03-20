@@ -25,16 +25,14 @@ namespace SportSparkCoreSharedLibrary.DTOs
         public bool Active { get; set; }
 
         #region Relations
-        public int UserId { get; set; }
+        public int UserId { get; set; }        
 
-        public UserDTO User { get; set; }
-
-        public int TypeId { get; set; }
-
-        public EventTypeDTO EventType { get; set; }
+        public int TypeId { get; set; }        
 
         public int RepeatTypeId { get; set; }
 
+        public UserDTO User { get; set; }
+        public EventTypeDTO EventType { get; set; }
         public EventRepeatTypeDTO RepeatType { get; set; }
         #endregion
     }

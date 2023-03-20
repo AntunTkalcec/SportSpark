@@ -17,6 +17,21 @@ namespace SportSparkInfrastructureLibrary.Services
             _mapper = mapper;
         }
 
+        public async Task<int> CreateAsync(EventDTO entity)
+        {
+            if (!ValidateEvent(entity))
+            {
+                throw new Exception("Required fields cannot remain empty!");
+            }
+            await _eventRepository.AddAsync(_mapper.Map<Event>(entity));
+            return entity.Id;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _eventRepository.DeleteAsync(id);
+        }
+
         public async Task<List<EventDTO>> GetAllAsync()
         {
             var events = await _eventRepository.GetAllAsync(e => e.User, e => e.EventType, e => e.RepeatType);
@@ -30,5 +45,23 @@ namespace SportSparkInfrastructureLibrary.Services
 
             return _mapper.Map<EventDTO>(ev);
         }
+
+        public async Task UpdateAsync(int id, EventDTO entity)
+        {
+            if (!ValidateEvent(entity))
+            {
+                throw new Exception("Required fields cannot remain empty!");
+            }
+            await _eventRepository.UpdateAsync(_mapper.Map<Event>(entity));
+        }
+
+        #region Private Methods
+        private static bool ValidateEvent(EventDTO entity)
+        {
+            return !string.IsNullOrEmpty(entity.Title) &&
+                !string.IsNullOrEmpty(entity.Description) &&
+                (object)entity.Privacy is not null;
+        }
+        #endregion
     }
 }
