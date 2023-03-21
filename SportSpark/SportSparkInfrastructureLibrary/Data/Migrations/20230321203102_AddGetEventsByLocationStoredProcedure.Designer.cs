@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportSparkInfrastructureLibrary.Database;
 
@@ -11,9 +12,11 @@ using SportSparkInfrastructureLibrary.Database;
 namespace SportSparkInfrastructureLibrary.Data.Migrations
 {
     [DbContext(typeof(SportSparkDBContext))]
-    partial class SportSparkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230321203102_AddGetEventsByLocationStoredProcedure")]
+    partial class AddGetEventsByLocationStoredProcedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

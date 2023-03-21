@@ -23,6 +23,7 @@ namespace SportSparkInfrastructureLibrary.Extensions
         {
             services.AddScoped<IBaseRepository<User>, UserRepository>();
             services.AddScoped<IBaseRepository<Event>, EventRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IEventService, EventService>();

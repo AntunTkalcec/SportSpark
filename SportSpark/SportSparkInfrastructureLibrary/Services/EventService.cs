@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SportSparkCoreLibrary.Entities;
+using SportSparkCoreLibrary.Interfaces.Repositories;
 using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
@@ -9,10 +10,10 @@ namespace SportSparkInfrastructureLibrary.Services
 {
     public class EventService : IEventService
     {
-        private readonly IBaseRepository<Event> _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
 
-        public EventService(IBaseRepository<Event> eventRepository, IMapper mapper)
+        public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
@@ -58,8 +59,7 @@ namespace SportSparkInfrastructureLibrary.Services
 
         public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, int radius)
         {
-            var targetLocation = $"POINT ({wrapper.Longitude} {wrapper.Latitude})";
-            var res = await _eventRepository.Fetch().Where(x => ( <= radius * 1000).ToListAsync();
+            var res = await _eventRepository.GetEventsByLocation(wrapper, radius);
             return _mapper.Map<List<EventDTO>>(res);
         }
 
