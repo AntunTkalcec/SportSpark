@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SportSparkCoreLibrary.Entities;
 using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
@@ -53,6 +54,13 @@ namespace SportSparkInfrastructureLibrary.Services
                 throw new Exception("Required fields cannot remain empty!");
             }
             await _eventRepository.UpdateAsync(_mapper.Map<Event>(entity));
+        }
+
+        public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, int radius)
+        {
+            var targetLocation = $"POINT ({wrapper.Longitude} {wrapper.Latitude})";
+            var res = await _eventRepository.Fetch().Where(x => ( <= radius * 1000).ToListAsync();
+            return _mapper.Map<List<EventDTO>>(res);
         }
 
         #region Private Methods
