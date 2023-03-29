@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             x:Class="SportSpark.Views.FirstStartupView"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewModels:FirstStartupViewModel">
+    <Grid RowDefinitions="*, *, *" ColumnDefinitions="*">
+        <skia:SKLottieView HeightRequest="550" WidthRequest="450" IsAnimationEnabled="True" RepeatCount="-1"
+                           Source="greet.json" TranslationY="-40" Grid.RowSpan="2" Grid.Row="0"/>
+        <Border BackgroundColor="{StaticResource SportSparkLightGreen}"
+                HorizontalOptions="CenterAndExpand" StrokeThickness="0" Margin="15" Grid.RowSpan="1" Grid.Row="2">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+            </Border.Shadow>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Hello!" FontSize="32" HorizontalOptions="CenterAndExpand" TextColor="Black" FontAttributes="Bold"
+                       Shadow="{StaticResource DefaultShadow}" VerticalOptions="StartAndExpand" Margin="0, 10, 0, 0"/>
+                <Label Text="With SportSpark, you can find sports events in your vicinity that may interest you!"
+                       FontSize="15" TextColor="Black" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                       VerticalOptions="CenterAndExpand" Margin="15" Shadow="{StaticResource DefaultShadow}"/>
+                <Button BackgroundColor="{StaticResource SportSparkDarkBlue}" Text="Get started" TextColor="White" 
+                        FontAttributes="Bold" FontSize="20" Margin="15, 0, 15, 15" CornerRadius="30" 
+                        Shadow="{StaticResource DefaultShadow}" Command="{Binding GetStartedCommand}"/>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
