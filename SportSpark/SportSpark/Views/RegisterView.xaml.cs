@@ -2,9 +2,9 @@ using SportSpark.ViewModels;
 
 namespace SportSpark.Views;
 
-public partial class StartingView : ContentPage
+public partial class RegisterView : ContentPage
 {
-	public StartingView(StartingViewModel vm)
+	public RegisterView(RegisterViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

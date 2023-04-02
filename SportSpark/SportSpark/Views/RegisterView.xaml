@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             x:Class="SportSpark.Views.RegisterView"
+             x:DataType="viewModels:RegisterViewModel"
+             xmlns:fonts="clr-namespace:SportSpark.Models.Font"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Margin="15, 0">
+            <Label Text="Welcome to SportSpark" TextColor="Black" Margin="0, 65, 0, 0" HorizontalOptions="CenterAndExpand"
+                   FontSize="36" FontAttributes="Bold" HorizontalTextAlignment="Center" 
+                   Shadow="{StaticResource DefaultShadow}"/>
+            <Label Text="Enter your information to register" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center" Shadow="{StaticResource DefaultShadow}" Margin="0, 0, 0, 15"/>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="First name" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Placeholder="Enter first name..." TextColor="Black" PlaceholderColor="#B4B4B4"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Last name" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Placeholder="Enter last name..." TextColor="Black" PlaceholderColor="#B4B4B4"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Username" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Placeholder="Enter username..." TextColor="Black" PlaceholderColor="#B4B4B4"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Email" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Placeholder="Enter email..." TextColor="Black" PlaceholderColor="#B4B4B4"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Password" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Entry Placeholder="Enter password..." TextColor="Black" PlaceholderColor="#B4B4B4" 
+                               IsPassword="{Binding IsPassword}"/>
+                        <Label Text="{Binding PasswordVisibilityCode}" TextColor="Black" HorizontalOptions="EndAndExpand" 
+                               VerticalOptions="CenterAndExpand" FontFamily="faSolid" FontSize="24">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangePasswordVisibilityIconCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Register" FontAttributes="Bold" FontSize="28" 
+                    BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 0, 0, 15"
+                    TextColor="White" Shadow="{StaticResource DefaultShadow}"
+                    CornerRadius="30"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

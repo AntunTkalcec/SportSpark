@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
 using Microsoft.Maui.LifecycleEvents;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using SportSpark.Services;
 using SportSpark.ViewModels;
+using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 
 namespace SportSpark
@@ -21,20 +23,10 @@ namespace SportSpark
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                .ConfigureLifecycleEvents(events =>
-                {
-#if ANDROID
-                    events.AddAndroid(android => android.OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
-
-                    static void MakeStatusBarTranslucent(Android.App.Activity activity) 
-                    {
-                        activity.Window.SetFlags(Android.Views.WindowManagerFlags.LayoutNoLimits, Android.Views.WindowManagerFlags.LayoutNoLimits);
-                        activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
-                        activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
-                    }
-#endif
-                });                
+                    fonts.AddFont("fa-brands-400.ttf", "faBrands");
+                    fonts.AddFont("fa-regular-400.ttf", "faRegular");
+                    fonts.AddFont("fa-solid-900.ttf", "faSolid");
+                });              
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -46,9 +38,14 @@ namespace SportSpark
             //views
             builder.Services.AddSingleton<FirstStartupView>();
             builder.Services.AddSingleton<StartingView>();
+            builder.Services.AddSingleton<RegisterView>();
+            builder.Services.AddSingleton<SignInView>();
 
             //viewmodels
+            builder.Services.AddTransient<BaseViewModel>();
             builder.Services.AddSingleton<FirstStartupViewModel>();
+            builder.Services.AddSingleton<StartingViewModel>();
+            builder.Services.AddSingleton<RegisterViewModel>();
 
             return builder.Build();
         }

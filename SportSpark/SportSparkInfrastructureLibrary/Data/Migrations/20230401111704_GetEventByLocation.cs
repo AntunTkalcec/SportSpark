@@ -5,7 +5,7 @@
 namespace SportSparkInfrastructureLibrary.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddGetEventsByLocationStoredProcedure : Migration
+    public partial class GetEventByLocation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

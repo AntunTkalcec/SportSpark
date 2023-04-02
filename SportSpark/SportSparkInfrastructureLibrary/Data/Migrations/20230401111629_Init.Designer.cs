@@ -12,7 +12,7 @@ using SportSparkInfrastructureLibrary.Database;
 namespace SportSparkInfrastructureLibrary.Data.Migrations
 {
     [DbContext(typeof(SportSparkDBContext))]
-    [Migration("20230316221847_Init")]
+    [Migration("20230401111629_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,13 +33,16 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BlobId")
-                        .IsRequired()
-                        .HasMaxLength(511)
-                        .HasColumnType("nvarchar(511)");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");

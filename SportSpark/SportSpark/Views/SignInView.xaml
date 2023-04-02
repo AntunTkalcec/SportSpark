@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SportSpark.Views.SignInView"
+             Title="SignInView">
+    <Grid>
+        <Label Text="Hello again!"/>
+        <Label Text="Welcome back to SportSpark."/>
+
+        <Label Text="Username or email"/>
+        <Entry Placeholder="Enter username or email..."/>
+
+        <Label Text="Password"/>
+        <Entry Placeholder="Enter password..."/>
+
+        <Button Text="Sign In"/>
+
+        <Image/>
+
+        <HorizontalStackLayout>
+            <Label Text="Not a member?"/>
+            <Label Text="Register now"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

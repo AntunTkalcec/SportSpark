@@ -17,7 +17,8 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BlobId = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: false),
+                    ImageTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

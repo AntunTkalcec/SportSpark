@@ -8,8 +8,9 @@ namespace SportSpark
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(FirstStartupView), typeof(FirstStartupView));
             Routing.RegisterRoute(nameof(StartingView), typeof(StartingView));
+            Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
+            Routing.RegisterRoute(nameof(SignInView), typeof(SignInView));
         }
     }
 }

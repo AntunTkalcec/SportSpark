@@ -6,8 +6,10 @@ namespace SportSparkCoreLibrary.Entities;
 [Table("Document")]
 public class Document : BaseEntity
 {
-    [Required, MaxLength(511)]
-    public string BlobId { get; set; }
+    [Required, MaxLength(250)]
+    public string ImageTitle { get; set; }
+
+    public byte[] ImageData { get; set; }
 
     #region Relations
     [NotMapped]

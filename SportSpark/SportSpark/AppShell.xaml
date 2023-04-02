@@ -4,7 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SportSpark.Views"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
     Shell.FlyoutBehavior="Disabled">
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" StatusBarColor="{StaticResource BackgroundLight}"/>
+    </Shell.Behaviors>
 
     <ShellContent
         ContentTemplate="{DataTemplate views:FirstStartupView}"
