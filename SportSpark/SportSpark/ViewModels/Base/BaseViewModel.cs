@@ -6,12 +6,7 @@ namespace SportSpark.ViewModels.Base
 {
     public partial class BaseViewModel : ObservableObject
     {
-        protected readonly INavigationService _navigationService;
-
-        public BaseViewModel(INavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
+        public INavigation Navigation => Application.Current.MainPage.Navigation;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]

@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
+	  <None Remove="Resources\Images\or_group.png" />
 	  <None Remove="Resources\Raw\manonphone.json" />
 	  <None Remove="Resources\Splash\splash.png" />
 	</ItemGroup>
@@ -62,7 +63,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Converters\" />
-	  <Folder Include="Resources\Images\" />
 	</ItemGroup>
 
 	<ItemGroup>

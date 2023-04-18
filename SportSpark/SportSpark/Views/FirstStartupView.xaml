@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+                xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="SportSpark.Views.FirstStartupView"
              Shell.NavBarIsVisible="False"
              x:DataType="viewModels:FirstStartupViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" StatusBarColor="{StaticResource BackgroundLight}"/>
+    </ContentPage.Behaviors>
     <Grid RowDefinitions="*, *, *" ColumnDefinitions="*">
         <skia:SKLottieView HeightRequest="550" WidthRequest="450" IsAnimationEnabled="True" RepeatCount="-1"
                            Source="greet.json" TranslationY="-40" Grid.RowSpan="2" Grid.Row="0"/>
@@ -24,7 +28,7 @@
                        FontSize="15" TextColor="Black" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
                        VerticalOptions="CenterAndExpand" Margin="15" Shadow="{StaticResource DefaultShadow}"/>
                 <Button BackgroundColor="{StaticResource SportSparkDarkBlue}" Text="Get started" TextColor="White" 
-                        FontAttributes="Bold" FontSize="20" Margin="15, 0, 15, 15" CornerRadius="30" 
+                        FontAttributes="Bold" FontSize="20" Margin="15, 25, 15, 15" CornerRadius="30"
                         Shadow="{StaticResource DefaultShadow}" Command="{Binding GetStartedCommand}"/>
             </VerticalStackLayout>
         </Border>

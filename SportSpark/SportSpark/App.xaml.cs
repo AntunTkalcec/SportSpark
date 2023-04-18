@@ -1,4 +1,6 @@
 ﻿using SportSpark.Helpers;
+using SportSpark.ViewModels.Base;
+using SportSpark.Views;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -12,7 +14,7 @@ public partial class App : Application
 
         SetCulture();
 
-        MainPage = new AppShell();
+        MainPage = new NavigationPage(new FirstStartupView());
     }
 
     private static async void SetCulture()

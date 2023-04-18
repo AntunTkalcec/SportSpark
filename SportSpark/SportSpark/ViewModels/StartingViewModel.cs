@@ -7,20 +7,14 @@ namespace SportSpark.ViewModels
 {
     public partial class StartingViewModel : BaseViewModel
     {
-        public StartingViewModel(INavigationService navigationService) : base(navigationService)
+        public StartingViewModel()
         {
         }
 
         [RelayCommand]
-        async Task RegisterAsync()
+        async void SignIn()
         {
-            await _navigationService.NavigateToAsync(nameof(RegisterView));
-        }
-
-        [RelayCommand]
-        async Task SignInAsync()
-        {
-            await _navigationService.NavigateToAsync(nameof(SignInView));
+            await Navigation.PushAsync(new SignInView());
         }
     }
 }

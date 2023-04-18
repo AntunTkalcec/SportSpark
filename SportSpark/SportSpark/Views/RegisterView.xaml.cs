@@ -4,9 +4,10 @@ namespace SportSpark.Views;
 
 public partial class RegisterView : ContentPage
 {
-	public RegisterView(RegisterViewModel vm)
+	private RegisterViewModel vm;
+	public RegisterView()
 	{
 		InitializeComponent();
-		BindingContext = vm;
+		BindingContext = vm = new RegisterViewModel();
 	}
 }

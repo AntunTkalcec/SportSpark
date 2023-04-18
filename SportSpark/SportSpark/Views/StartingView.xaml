@@ -18,14 +18,11 @@
         <Label Text="Discover awesome events in just a few clicks" FontSize="32" Grid.Row="1" TextColor="Black"
                HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.ColumnSpan="2" FontAttributes="Bold"
                Shadow="{StaticResource DefaultShadow}" Margin="20"/>
-        <Label Text="Explore all the sports possibilities after you log in to your account." FontSize="15" Grid.Row="2"
+        <Label Text="Explore all the sports possibilities after you sign in to your account." FontSize="15" Grid.Row="2"
                Grid.ColumnSpan="2" TextColor="Black" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
                Shadow="{StaticResource DefaultShadow}" Margin="25, 5"/>
-        <Button Text="Register" FontAttributes="Bold" FontSize="28" BackgroundColor="{StaticResource SportSparkDarkBlue}"
-                Grid.Row="3" HeightRequest="70" WidthRequest="150" TextColor="White" Shadow="{StaticResource DefaultShadow}"
-                CornerRadius="30" Command="{Binding RegisterCommand}"/>
         <Button Text="Sign In" FontAttributes="Bold" FontSize="28" BackgroundColor="{StaticResource SportSparkDarkBlue}"
-                Grid.Row="3" HeightRequest="70" WidthRequest="150" TextColor="White" Shadow="{StaticResource DefaultShadow}"
-                CornerRadius="30" Grid.Column="1" Command="{Binding SignInCommand}"/>
+                Grid.Row="3" HeightRequest="70" Margin="15, 0" TextColor="White" Shadow="{StaticResource DefaultShadow}"
+                CornerRadius="30" Grid.ColumnSpan="2" Command="{Binding SignInCommand}"/>
     </Grid>
 </ContentPage>

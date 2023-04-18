@@ -4,9 +4,10 @@ namespace SportSpark.Views;
 
 public partial class StartingView : ContentPage
 {
-	public StartingView(StartingViewModel vm)
+	private StartingViewModel vm;
+	public StartingView()
 	{
 		InitializeComponent();
-		BindingContext = vm;
+		BindingContext = vm = new StartingViewModel();
 	}
 }

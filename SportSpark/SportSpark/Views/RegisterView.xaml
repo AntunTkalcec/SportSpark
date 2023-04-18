@@ -8,7 +8,7 @@
              Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout Spacing="20" Margin="15, 0">
-            <Label Text="Welcome to SportSpark" TextColor="Black" Margin="0, 65, 0, 0" HorizontalOptions="CenterAndExpand"
+            <Label Text="Welcome to SportSpark" TextColor="Black" Margin="0, 35, 0, 0" HorizontalOptions="CenterAndExpand"
                    FontSize="36" FontAttributes="Bold" HorizontalTextAlignment="Center" 
                    Shadow="{StaticResource DefaultShadow}"/>
             <Label Text="Enter your information to register" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
@@ -74,7 +74,7 @@
             </VerticalStackLayout>
 
             <Button Text="Register" FontAttributes="Bold" FontSize="28" 
-                    BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 0, 0, 15"
+                    BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 15, 0, 25"
                     TextColor="White" Shadow="{StaticResource DefaultShadow}"
                     CornerRadius="30"/>
         </VerticalStackLayout>

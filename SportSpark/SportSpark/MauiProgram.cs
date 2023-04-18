@@ -1,12 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Handlers;
-using Microsoft.Maui.LifecycleEvents;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using SportSpark.Services;
-using SportSpark.ViewModels;
-using SportSpark.ViewModels.Base;
-using SportSpark.Views;
 
 namespace SportSpark
 {
@@ -33,19 +27,6 @@ namespace SportSpark
 #endif
 
             //services
-            builder.Services.AddSingleton<INavigationService, NavigationService>();
-
-            //views
-            builder.Services.AddSingleton<FirstStartupView>();
-            builder.Services.AddSingleton<StartingView>();
-            builder.Services.AddSingleton<RegisterView>();
-            builder.Services.AddSingleton<SignInView>();
-
-            //viewmodels
-            builder.Services.AddTransient<BaseViewModel>();
-            builder.Services.AddSingleton<FirstStartupViewModel>();
-            builder.Services.AddSingleton<StartingViewModel>();
-            builder.Services.AddSingleton<RegisterViewModel>();
 
             return builder.Build();
         }

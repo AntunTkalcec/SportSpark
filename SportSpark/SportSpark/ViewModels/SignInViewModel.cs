@@ -7,7 +7,7 @@ using SportSpark.Views;
 
 namespace SportSpark.ViewModels
 {
-    public partial class RegisterViewModel : BaseViewModel
+    public partial class SignInViewModel : BaseViewModel
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsPassword))]
@@ -19,7 +19,7 @@ namespace SportSpark.ViewModels
         string passwordVisibility = FaSolid.Eye;
         public string PasswordVisibilityCode => PasswordVisibility;
 
-        public RegisterViewModel()
+        public SignInViewModel()
         {
         }
 
@@ -38,9 +38,9 @@ namespace SportSpark.ViewModels
         }
 
         [RelayCommand]
-        async void SignIn()
+        async void Register()
         {
-            await Navigation.PushAsync(new SignInView());
+            await Navigation.PushAsync(new RegisterView());
         }
     }
 }
