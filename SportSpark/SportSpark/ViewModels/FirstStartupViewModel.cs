@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 
 namespace SportSpark.ViewModels
 {
-    public partial class FirstStartupViewModel : BaseViewModel
+    public partial class FirstStartupViewModel
     {
         public FirstStartupViewModel()
         {
@@ -13,7 +12,7 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async Task GetStartedAsync()
         {
-            await Navigation.PushAsync(new StartingView());
+            await Application.Current.MainPage.Navigation.PushAsync(new StartingView());
         }
     }
 }

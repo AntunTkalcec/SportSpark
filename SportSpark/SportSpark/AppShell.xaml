@@ -11,7 +11,7 @@
     </Shell.Behaviors>
 
     <ShellContent
-        ContentTemplate="{DataTemplate views:FirstStartupView}"
-        Route="FirstStartupView" />
+        ContentTemplate="{DataTemplate views:SignInView}"
+        Route="SignInView" />
 
 </Shell>

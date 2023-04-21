@@ -4,11 +4,9 @@ namespace SportSpark.Views;
 
 public partial class SignInView : ContentPage
 {
-	private SignInViewModel vm;
-
-    public SignInView()
+    public SignInView(SignInViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = vm = new SignInViewModel();
+		BindingContext = vm;
 	}
 }

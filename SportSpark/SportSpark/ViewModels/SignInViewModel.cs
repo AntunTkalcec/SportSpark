@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SportSpark.Helpers;
 using SportSpark.Models.Font;
+using SportSpark.Services;
 using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 
@@ -9,6 +9,8 @@ namespace SportSpark.ViewModels
 {
     public partial class SignInViewModel : BaseViewModel
     {
+        private readonly INavigationService _navigationService;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsPassword))]
         bool isNotPassword = false;
@@ -19,8 +21,9 @@ namespace SportSpark.ViewModels
         string passwordVisibility = FaSolid.Eye;
         public string PasswordVisibilityCode => PasswordVisibility;
 
-        public SignInViewModel()
+        public SignInViewModel(INavigationService navigationService) : base(navigationService)
         {
+            _navigationService = navigationService;
         }
 
         [RelayCommand]
@@ -40,7 +43,7 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async void Register()
         {
-            await Navigation.PushAsync(new RegisterView());
+            await _navigationService.NavigateToAsync(nameof(RegisterView));
         }
     }
 }

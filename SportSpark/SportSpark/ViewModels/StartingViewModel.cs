@@ -1,20 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using SportSpark.Services;
-using SportSpark.ViewModels.Base;
-using SportSpark.Views;
 
 namespace SportSpark.ViewModels
 {
-    public partial class StartingViewModel : BaseViewModel
+    public partial class StartingViewModel
     {
         public StartingViewModel()
         {
         }
 
         [RelayCommand]
-        async void SignIn()
+        void SignIn()
         {
-            await Navigation.PushAsync(new SignInView());
+            Preferences.Set("welcomed", "1");
+            Application.Current.MainPage = new AppShell();
         }
     }
 }

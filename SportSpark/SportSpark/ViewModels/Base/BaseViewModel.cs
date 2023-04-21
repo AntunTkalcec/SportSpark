@@ -24,5 +24,11 @@ namespace SportSpark.ViewModels.Base
                 return LanguageHelper.Instance;
             }
         }
+
+        protected readonly INavigationService _navigationService;
+        public BaseViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
     }
 }
