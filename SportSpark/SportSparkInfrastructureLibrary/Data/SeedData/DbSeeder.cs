@@ -1,12 +1,7 @@
 ﻿using SportSparkCoreLibrary.Entities;
 using SportSparkCoreLibrary.Enums;
 using SportSparkInfrastructureLibrary.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportSparkInfrastructureLibrary.Data.SeedData
 {

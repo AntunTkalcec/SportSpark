@@ -72,6 +72,7 @@ public partial class RegisterView : ContentPage
             passwordBorder.Stroke = Colors.Red;
         }
     }
+
     private void FirstName_Completed(object sender, EventArgs e)
     {
         CheckFirstName();
@@ -110,12 +111,13 @@ public partial class RegisterView : ContentPage
         CheckEmail();
         password.Focus();
     }
+
     private void Email_Unfocused(object sender, EventArgs e)
     {
         CheckEmail();
     }
 
-    private async void Password_Completed(object sender, EventArgs e)
+    private void Password_Completed(object sender, EventArgs e)
     {
         CheckPassword();
     }

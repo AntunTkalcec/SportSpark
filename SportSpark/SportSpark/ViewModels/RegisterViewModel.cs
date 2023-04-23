@@ -1,16 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SportSpark.Helpers;
 using SportSpark.Models.Font;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
+using SportSparkCoreSharedLibrary.DTOs;
 using SportSparkInfrastructureLibrary.Helpers;
 
 namespace SportSpark.ViewModels
 {
     public partial class RegisterViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
-
+        #region Properties
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsPassword))]
         bool isNotPassword = false;
@@ -50,20 +53,34 @@ namespace SportSpark.ViewModels
         [NotifyPropertyChangedFor(nameof(PasswordValue))]
         string password = string.Empty;
         public string PasswordValue => Password;
+        #endregion
 
-        public RegisterViewModel(INavigationService navigationService) : base(navigationService)
+        public RegisterViewModel(INavigationService navigationService, IRestService restService) 
+            : base(navigationService, restService)
         {
-            _navigationService = navigationService;
         }
 
         [RelayCommand]
         async Task RegisterAsync()
         {
-            var test1 = FirstNameValue;
-            var test2 = LastNameValue;
-            var test3 = UsernameValue;
-            var test4 = EmailValue;
-            var test5 = PasswordValue;
+            UserDTO userDTO = new()
+            {
+                FirstName = FirstNameValue,
+                LastName = LastNameValue,
+                Email = EmailValue,
+                UserName = UsernameValue,
+                Password = PasswordValue
+            };
+
+            if (await _restService.RegisterAsync(userDTO))
+            {
+                await Toast.Make("Registration successful", CommunityToolkit.Maui.Core.ToastDuration.Short, 24).Show();
+                await _navigationService.NavigateToAsync("..");
+            }
+            else
+            {
+                await Toast.Make("Registration failed", CommunityToolkit.Maui.Core.ToastDuration.Short, 24).Show();
+            }
         }
 
         [RelayCommand]

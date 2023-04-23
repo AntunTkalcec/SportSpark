@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
+	  <None Remove="Resources\Images\anonymous_person.jpg" />
 	  <None Remove="Resources\Images\or_group.png" />
 	  <None Remove="Resources\Raw\manonphone.json" />
 	  <None Remove="Resources\Splash\splash.png" />
@@ -86,6 +87,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\ControlTemplates.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterView.xaml">

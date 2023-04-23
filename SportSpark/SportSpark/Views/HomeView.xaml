@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             x:Class="SportSpark.Views.HomeView"
+             x:DataType="viewModels:HomeViewModel"
+             Title="HomeView"
+             Shell.NavBarIsVisible="False">
+    <Grid IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
+
+        <!-- Menu -->
+        <Grid x:Name="MenuContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#666666" Offset="0.0" />
+                    <GradientStop Color="#000000" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <VerticalStackLayout>
+                <Label Text="Test" TextColor="Black"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="90, 110, 30, 280, 30, 280"
+              ColumnDefinitions="*, *">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="MainContainerTapped"/>
+            </Grid.GestureRecognizers>
+            
+            <Border BackgroundColor="{StaticResource BackgroundLight}" Grid.Row="0" Grid.ColumnSpan="2">
+                <HorizontalStackLayout>
+                    <Label Text="Menu" HorizontalOptions="Start"/>
+                    <Border WidthRequest="56" HeightRequest="56" VerticalOptions="Center" HorizontalOptions="End"
+                            Stroke="{StaticResource BackgroundLight}"
+                            StrokeThickness="6"
+                            Grid.Row="0"
+                            Grid.Column="1">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="28"/>
+                        </Border.StrokeShape>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ProfilePictureClicked" />
+                        </Border.GestureRecognizers>
+
+                        <Image  VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="50" HeightRequest="50"
+                                Source="anonymous_person.jpg">
+                            <Image.Clip>
+                                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                            </Image.Clip>
+                        </Image>
+                    </Border>
+                </HorizontalStackLayout>
+            </Border>
+
+            <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Never"
+                        VerticalScrollBarVisibility="Never" Margin="0, 32, -24, 0">
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="Discover" FontSize="20" TextColor="Black"/>
+                    <!-- Search -->
+                    <Border
+                        Padding="12,4"
+                        BackgroundColor="#33CCCCCC"
+                        Stroke="{StaticResource LightThemeEntry}"
+                        HorizontalOptions="Fill"
+                        Margin="0,0,24,0"
+                        HeightRequest="48">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+
+                        <Grid
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Center"
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="16">
+                            
+                            <Entry Text="{Binding SearchInput}" x:Name="searchEntry" Placeholder="Search for events" 
+                                   TextColor="Black" PlaceholderColor="{StaticResource LightThemeEntry}"
+                                   Completed="searchEntry_Completed"/>
+                            <Label Text="{Binding SearchIcon}" WidthRequest="18" HeightRequest="18" Grid.Column="0" 
+                                   VerticalOptions="Center"/>
+                            
+                        </Grid>
+
+                    </Border>
+                    
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

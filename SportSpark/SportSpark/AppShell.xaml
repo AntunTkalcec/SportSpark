@@ -10,7 +10,7 @@
         <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" StatusBarColor="{StaticResource BackgroundLight}"/>
     </Shell.Behaviors>
 
-    <ShellContent
+    <ShellContent x:Name="shellContent"
         ContentTemplate="{DataTemplate views:SignInView}"
         Route="SignInView" />
 

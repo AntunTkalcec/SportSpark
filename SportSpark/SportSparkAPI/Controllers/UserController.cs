@@ -8,7 +8,6 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[ActionFilters.AuthorizationFilter()]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -17,6 +16,7 @@ namespace SportSparkAPI.Controllers
             _userService = userService;
         }
 
+        //[ActionFilters.AuthorizationFilter()]
         [HttpGet]
         [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<ActionResult<List<UserDTO>>> Get()
@@ -31,6 +31,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
+        //[ActionFilters.AuthorizationFilter()]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<ActionResult<UserDTO>> GetById(int id)
@@ -60,6 +61,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
+        //[ActionFilters.AuthorizationFilter()]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, UserDTO userDto)
         {
@@ -75,6 +77,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
+        //[ActionFilters.AuthorizationFilter()]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

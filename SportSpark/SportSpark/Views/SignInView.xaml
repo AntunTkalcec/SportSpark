@@ -20,7 +20,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry Placeholder="Enter username or email..." TextColor="Black" PlaceholderColor="#B4B4B4"/>
+                    <Entry Placeholder="Enter username or email..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                           Text="{Binding UsernameOrEmail}"/>
                 </Border>
             </VerticalStackLayout>
 
@@ -32,7 +33,7 @@
                     </Border.StrokeShape>
                     <Grid>
                         <Entry Placeholder="Enter password..." TextColor="Black" PlaceholderColor="#B4B4B4" 
-                               IsPassword="{Binding IsPassword}"/>
+                               IsPassword="{Binding IsPassword}" Text="{Binding Password}"/>
                         <Label Text="{Binding PasswordVisibilityCode}" TextColor="Black" HorizontalOptions="EndAndExpand" 
                                VerticalOptions="CenterAndExpand" FontFamily="faSolid" FontSize="24">
                             <Label.GestureRecognizers>
@@ -46,7 +47,7 @@
             <Button Text="Sign In" FontAttributes="Bold" FontSize="28" 
                     BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 0, 0, 10"
                     TextColor="White" Shadow="{StaticResource DefaultShadow}"
-                    CornerRadius="30"/>
+                    CornerRadius="30" Command="{Binding SignInCommand}"/>
 
             <Image Source="or_group.png" HorizontalOptions="CenterAndExpand"/>
 

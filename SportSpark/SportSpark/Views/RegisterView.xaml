@@ -4,7 +4,6 @@
              xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
              x:Class="SportSpark.Views.RegisterView"
              x:DataType="viewModels:RegisterViewModel"
-             xmlns:fonts="clr-namespace:SportSpark.Models.Font"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style x:Key="EntryBorderStyle" TargetType="Border">
@@ -28,7 +27,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="firstName" Placeholder="Enter first name..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                    <Entry x:Name="firstName" Placeholder="Enter first name..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="FirstName_Completed" Unfocused="FirstName_Unfocused" Text="{Binding FirstName}">
                         <Entry.Keyboard>
                             <Keyboard x:FactoryMethod="Create">
@@ -47,7 +47,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="lastName" Placeholder="Enter last name..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                    <Entry x:Name="lastName" Placeholder="Enter last name..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="LastName_Completed" Unfocused="LastName_Unfocused" Text="{Binding LastName}">
                         <Entry.Keyboard>
                             <Keyboard x:FactoryMethod="Create">
@@ -66,7 +67,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="username" Placeholder="Enter username..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                    <Entry x:Name="username" Placeholder="Enter username..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="Username_Completed" Unfocused="Username_Unfocused" Text="{Binding Username}"/>
                 </Border>
             </VerticalStackLayout>
@@ -77,7 +79,8 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="email" Placeholder="Enter email..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                    <Entry x:Name="email" Placeholder="Enter email..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="Email_Completed" Unfocused="Email_Unfocused" Text="{Binding Email}"/>
                 </Border>
             </VerticalStackLayout>
@@ -89,7 +92,8 @@
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <Grid>
-                        <Entry x:Name="password" Placeholder="Enter password..." TextColor="Black" PlaceholderColor="#B4B4B4" 
+                        <Entry x:Name="password" Placeholder="Enter password..." TextColor="Black" 
+                               PlaceholderColor="{StaticResource LightThemeEntry}"
                                IsPassword="{Binding IsPassword}" Completed="Password_Completed" 
                                Unfocused="Password_Unfocused" Text="{Binding Password}"/>
                         <Label Text="{Binding PasswordVisibilityCode}" TextColor="Black" HorizontalOptions="EndAndExpand" 

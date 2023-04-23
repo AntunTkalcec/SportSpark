@@ -1,4 +1,5 @@
 ﻿using SportSpark.Views;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SportSpark
 {
@@ -8,9 +9,32 @@ namespace SportSpark
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(StartingView), typeof(StartingView));
             Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
             Routing.RegisterRoute(nameof(SignInView), typeof(SignInView));
+            Routing.RegisterRoute(nameof(HomeView), typeof(HomeView));
+
+            if (CheckIfAuthenticated())
+            {
+                shellContent.ContentTemplate = new DataTemplate(typeof(HomeView));
+                shellContent.Route = nameof(HomeView);
+            }
+        }
+
+        private static bool CheckIfAuthenticated()
+        {
+            string accessToken = Preferences.Get("access_token", "");
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                return false;
+            }
+            JwtSecurityTokenHandler jwtHandler = new();
+            var jwtToken = jwtHandler.ReadJwtToken(accessToken);
+
+            if (jwtToken.ValidTo <= DateTime.UtcNow)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
