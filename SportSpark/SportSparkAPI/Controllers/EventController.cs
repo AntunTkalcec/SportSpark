@@ -24,16 +24,6 @@ namespace SportSparkAPI.Controllers
         {
             try
             {
-                var test = new EventDTO()
-                {
-                    Id = 0,
-                    Title = "Title",
-                    Description = "Desc",
-                    Privacy = 1,
-                    RepeatTypeId = 1,
-                    TypeId = 1,
-                };
-                var test2 = JsonConvert.SerializeObject(test);
                 return await _eventService.GetAllAsync();
             }
             catch (Exception ex)

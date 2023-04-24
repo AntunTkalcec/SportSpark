@@ -34,6 +34,7 @@ namespace SportSparkInfrastructureLibrary.Services
             {
                 throw new Exception("Required fields cannot remain empty!");
             }
+            entity.Password = HashHelper.Hash(entity.Email, entity.Password);
             await _userRepository.AddAsync(_mapper.Map<User>(entity));
             return entity.Id;
         }

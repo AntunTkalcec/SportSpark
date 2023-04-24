@@ -12,38 +12,40 @@
         <Grid x:Name="MenuContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#666666" Offset="0.0" />
-                    <GradientStop Color="#000000" Offset="1.0"/>
+                    <GradientStop Color="{StaticResource SportSparkLightGreen}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource SportSparkDarkBlue}" Offset="1.0"/>
                 </LinearGradientBrush>
             </Grid.Background>
 
             <VerticalStackLayout>
-                <Label Text="Test" TextColor="Black"/>
+                <Label Text="Test" TextColor="Black" HorizontalOptions="Start"/>
             </VerticalStackLayout>
         </Grid>
 
-        <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="90, 110, 30, 280, 30, 280"
-              ColumnDefinitions="*, *">
+         <!-- Main content -->
+        <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="90, *"
+              ColumnDefinitions="*, *" BackgroundColor="{StaticResource BackgroundLight}">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="MainContainerTapped"/>
             </Grid.GestureRecognizers>
             
             <Border BackgroundColor="{StaticResource BackgroundLight}" Grid.Row="0" Grid.ColumnSpan="2">
-                <HorizontalStackLayout>
-                    <Label Text="Menu" HorizontalOptions="Start"/>
-                    <Border WidthRequest="56" HeightRequest="56" VerticalOptions="Center" HorizontalOptions="End"
-                            Stroke="{StaticResource BackgroundLight}"
-                            StrokeThickness="6"
-                            Grid.Row="0"
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ColumnDefinitions="*, *" RowDefinitions="*">
+                    <Label Text="{Binding MenuIconCode}" TextColor="{StaticResource SportSparkLightGreen}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" 
+                           Grid.Column="0" FontFamily="faSolid" FontSize="24"
+                           Margin="15, 0, 0, 0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MenuClicked"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Border WidthRequest="55" HeightRequest="55" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand"
+                            Stroke="{StaticResource SportSparkDarkBlue}" Margin="0, 0, 15, 0"
+                            StrokeThickness="1"
                             Grid.Column="1">
 
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="28"/>
                         </Border.StrokeShape>
-
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ProfilePictureClicked" />
-                        </Border.GestureRecognizers>
 
                         <Image  VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="50" HeightRequest="50"
                                 Source="anonymous_person.jpg">
@@ -52,44 +54,42 @@
                             </Image.Clip>
                         </Image>
                     </Border>
-                </HorizontalStackLayout>
+                </Grid>
             </Border>
 
-            <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Never"
-                        VerticalScrollBarVisibility="Never" Margin="0, 32, -24, 0">
+            <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Never" HorizontalOptions="FillAndExpand"
+                        VerticalScrollBarVisibility="Never" Grid.RowSpan="2">
 
-                <VerticalStackLayout Spacing="12">
+                <Grid ColumnDefinitions="*, *" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                    <VerticalStackLayout Spacing="12" Margin="15, 0" Grid.ColumnSpan="2">
 
-                    <Label Text="Discover" FontSize="20" TextColor="Black"/>
-                    <!-- Search -->
-                    <Border
-                        Padding="12,4"
-                        BackgroundColor="#33CCCCCC"
-                        Stroke="{StaticResource LightThemeEntry}"
-                        HorizontalOptions="Fill"
-                        Margin="0,0,24,0"
-                        HeightRequest="48">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
+                        <Label Text="Discover" FontSize="20" TextColor="Black"/>
+                        <!-- Search -->
+                        <Border BackgroundColor="{StaticResource BackgroundLight}" Stroke="{StaticResource LightThemeEntry}" HorizontalOptions="FillAndExpand">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="30"/>
+                            </Border.StrokeShape>
 
-                        <Grid
-                            HorizontalOptions="Fill"
-                            VerticalOptions="Center"
-                            ColumnDefinitions="Auto,*"
-                            ColumnSpacing="16">
-                            
-                            <Entry Text="{Binding SearchInput}" x:Name="searchEntry" Placeholder="Search for events" 
+                            <Grid>
+                                <Label Text="{Binding SearchIconCode}" FontSize="20"
+                                   VerticalOptions="Center" TextColor="{StaticResource LightThemeEntry}" FontFamily="faSolid" HorizontalOptions="Start"
+                                   Margin="10, 0, 0, 0"/>
+                                <Entry Text="{Binding SearchInput}" x:Name="searchEntry" Placeholder="Search for events" 
                                    TextColor="Black" PlaceholderColor="{StaticResource LightThemeEntry}"
-                                   Completed="searchEntry_Completed"/>
-                            <Label Text="{Binding SearchIcon}" WidthRequest="18" HeightRequest="18" Grid.Column="0" 
-                                   VerticalOptions="Center"/>
-                            
+                                   Completed="searchEntry_Completed" Margin="30, 0, 0, 0"/>
+                            </Grid>
+
+                        </Border>
+
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ColumnDefinitions="*, *" RowDefinitions="75, *" Margin="0, -10, 0, 0">
+                            <Label Text="Near you" FontSize="20" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0"/>
+                            <Label Text="See more" FontSize="14" TextColor="{StaticResource LightThemeEntry}" VerticalOptions="CenterAndExpand" Grid.Column="1" 
+                                   HorizontalOptions="End"/>
                         </Grid>
 
-                    </Border>
-                    
-                </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+                
             </ScrollView>
         </Grid>
     </Grid>

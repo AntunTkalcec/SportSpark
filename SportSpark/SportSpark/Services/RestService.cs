@@ -4,6 +4,7 @@ using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace SportSpark.Services
@@ -112,6 +113,27 @@ namespace SportSpark.Services
             {
                 Debug.WriteLine(ex.Message);
                 return false;
+            }
+        }
+
+        public async Task<List<EventDTO>> GetEventsNearUserAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+                }
+                else
+                {
+                    return new List<EventDTO>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return new List<EventDTO>();
             }
         }
     }

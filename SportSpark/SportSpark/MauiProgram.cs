@@ -44,6 +44,7 @@ namespace SportSpark
             //viewmodels
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<SignInViewModel>();
+            builder.Services.AddSingleton<HomeViewModel>();
 
             return builder.Build();
         }

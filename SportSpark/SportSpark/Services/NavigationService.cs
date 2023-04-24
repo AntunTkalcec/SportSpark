@@ -6,7 +6,7 @@
         {
             if (parameters != null)
             {
-                return Shell.Current.GoToAsync(route, true, parameters);                
+                return Shell.Current.GoToAsync(route, true, parameters);
             }
             return Shell.Current.GoToAsync(route, true);
         }

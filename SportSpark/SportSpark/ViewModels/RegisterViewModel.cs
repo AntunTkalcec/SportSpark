@@ -2,7 +2,6 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SportSpark.Helpers;
 using SportSpark.Models.Font;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
@@ -55,7 +54,7 @@ namespace SportSpark.ViewModels
         public string PasswordValue => Password;
         #endregion
 
-        public RegisterViewModel(INavigationService navigationService, IRestService restService) 
+        public RegisterViewModel(INavigationService navigationService, IRestService restService)
             : base(navigationService, restService)
         {
         }
@@ -74,12 +73,12 @@ namespace SportSpark.ViewModels
 
             if (await _restService.RegisterAsync(userDTO))
             {
-                await Toast.Make("Registration successful", CommunityToolkit.Maui.Core.ToastDuration.Short, 24).Show();
+                await Toast.Make("Registration successful", ToastDuration.Short, 24).Show();
                 await _navigationService.NavigateToAsync("..");
             }
             else
             {
-                await Toast.Make("Registration failed", CommunityToolkit.Maui.Core.ToastDuration.Short, 24).Show();
+                await Toast.Make("Registration failed", ToastDuration.Short, 24).Show();
             }
         }
 
