@@ -28,7 +28,12 @@ namespace SportSpark.Services
             else
             {
                 _httpClient = new HttpClient();
-            }            
+            }
+
+            if (CheckIfAuthenticated())
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessToken());
+            }
         }
 
         public static string GetAccessToken() => Preferences.Get(AccessTokenKey, "");

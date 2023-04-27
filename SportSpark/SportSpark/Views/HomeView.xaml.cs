@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.Messaging;
+using SportSpark.Models;
 using SportSpark.ViewModels;
 
 namespace SportSpark.Views;
@@ -8,17 +10,10 @@ public partial class HomeView : ContentPage
 	{
 		InitializeComponent();
         BindingContext = vm;
-	}
-
-    private void MenuClicked(object sender, TappedEventArgs e)
-    {
-        _ = MainContainer.TranslateTo(this.Width * 0.8, 0, 250, Easing.CubicIn);
-        _ = MainContainer.FadeTo(0.8, 250);
-    }
-
-    private async void MainContainerTapped(object sender, TappedEventArgs e)
-    {
-        await CloseMenu();
+        WeakReferenceMessenger.Default.Register<Message>(this, (r, m) =>
+        {
+            OnMessageReceived(m.Value);
+        });
     }
 
     private void searchEntry_Completed(object sender, EventArgs e)
@@ -26,9 +21,13 @@ public partial class HomeView : ContentPage
 
     }
 
-    private async Task CloseMenu()
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        _ = MainContainer.FadeTo(1, 250);
-        await MainContainer.TranslateTo(0, 0, 250, Easing.CubicIn);
+        await btmGrid.TranslateTo(0, 0, 250, Easing.SinInOut);
+    }
+
+    private async void OnMessageReceived(string value)
+    {
+        await btmGrid.TranslateTo(0, 360, 250, Easing.SinInOut);
     }
 }
