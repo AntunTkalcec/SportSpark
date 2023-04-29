@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Newtonsoft.Json;
 using SportSpark.Models;
 using SportSpark.Models.Font;
 using SportSpark.Services;
@@ -30,6 +31,10 @@ namespace SportSpark.ViewModels
         public string MenuIconCode => MenuIcon;
 
         public ObservableCollection<EventDTO> EventsNearUser { get; } = new();
+
+        [ObservableProperty]
+        string firstName = JsonConvert.DeserializeObject<UserDTO>(Preferences.Get("userInfo", "")).FirstName;
+        public string FirstNameValue => FirstName;
         #endregion
         public HomeViewModel(INavigationService navigationService, IRestService restService)
             : base(navigationService, restService)
@@ -43,13 +48,16 @@ namespace SportSpark.ViewModels
             await _navigationService.NavigateToAsync(nameof(MenuView));
         }
 
-        public async void Receive(Message message)
+        public void Receive(Message message)
         {
-            Preferences.Set("access_token", "");
-            Preferences.Set("refresh_token", "");
-            Preferences.Set("token_expiration", "");
+            if (message.Value == "SignOut")
+            {
+                Preferences.Set("access_token", "");
+                Preferences.Set("refresh_token", "");
+                Preferences.Set("token_expiration", "");
 
-            Application.Current.MainPage = new AppShell();
+                Application.Current.MainPage = new AppShell();
+            }
         }
     }
 }

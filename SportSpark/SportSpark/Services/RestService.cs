@@ -88,6 +88,8 @@ namespace SportSpark.Services
 
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authInfo.AccessToken);
 
+                    Preferences.Set("userInfo", JsonConvert.SerializeObject(userDto));
+
                     return true;
                 }
 

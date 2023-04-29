@@ -52,6 +52,7 @@
 	  <None Remove="Resources\Images\anonymous_person.jpg" />
 	  <None Remove="Resources\Images\or_group.png" />
 	  <None Remove="Resources\Raw\manonphone.json" />
+	  <None Remove="Resources\Raw\sadface.json" />
 	  <None Remove="Resources\Splash\splash.png" />
 	</ItemGroup>
 
@@ -92,7 +93,10 @@
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\MenuView.xaml">
+	  <MauiXaml Update="Views\ContentViews\MenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\LocationPermissionPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterView.xaml">
