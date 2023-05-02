@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
@@ -9,6 +10,8 @@ using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows.Input;
 
 namespace SportSpark.ViewModels
 {
@@ -30,15 +33,23 @@ namespace SportSpark.ViewModels
         string menuIcon = FaSolid.BarsStaggered;
         public string MenuIconCode => MenuIcon;
 
-        public ObservableCollection<EventDTO> EventsNearUser { get; } = new();
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(EventsNearUserCollection))]
+        ObservableCollection<EventDTO> eventsNearUser;
+        public ObservableCollection<EventDTO> EventsNearUserCollection => EventsNearUser;
 
         [ObservableProperty]
-        string firstName = JsonConvert.DeserializeObject<UserDTO>(Preferences.Get("userInfo", "")).FirstName;
-        public string FirstNameValue => FirstName;
+        [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
+        UserDTO loggedInUser = null;
+        public UserDTO LoggedInUserValue => LoggedInUser;
+
+        public ICommand GetEventsNearUser { get; }
         #endregion
         public HomeViewModel(INavigationService navigationService, IRestService restService)
             : base(navigationService, restService)
         {
+            GetEventsNearUser = new AsyncRelayCommand(GetEventsNearUserAsync);
+            GetEventsNearUser.Execute(null);
             WeakReferenceMessenger.Default.Register(this);
         }
 
@@ -48,16 +59,53 @@ namespace SportSpark.ViewModels
             await _navigationService.NavigateToAsync(nameof(MenuView));
         }
 
-        public void Receive(Message message)
+        [RelayCommand]
+        async Task RefreshPageAsync()
         {
-            if (message.Value == "SignOut")
-            {
-                Preferences.Set("access_token", "");
-                Preferences.Set("refresh_token", "");
-                Preferences.Set("token_expiration", "");
+            EventsNearUser.Clear();
+            await GetEventsNearUserAsync();
+        }
 
-                Application.Current.MainPage = new AppShell();
+        private async Task GetUser()
+        {
+            LoggedInUser = await _restService.GetLoggedInUser();
+        }
+
+        public async void Receive(Message message)
+        {
+            switch (message.Value)
+            {
+                case "SignOut":
+                    Preferences.Set("access_token", "");
+                    Preferences.Set("refresh_token", "");
+                    Preferences.Set("token_expiration", "");
+                    Application.Current.MainPage = new AppShell();
+                    break;
+                case "GoToProfile":
+                    await _navigationService.NavigateToAsync(nameof(ProfileView));
+                    break;
+                case "GetLoggedInUser":
+                    await GetUser();
+                    break;
             }
         }
+
+        private async Task GetEventsNearUserAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync());
+            }
+            catch (Exception ex)
+            {
+                Toast.Make("An unknown error occurred.");
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        } 
     }
 }

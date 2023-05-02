@@ -10,7 +10,7 @@ public partial class MenuView : ContentView
 		InitializeComponent();
 	}
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void CloseMenu(object sender, TappedEventArgs e)
     {
 		WeakReferenceMessenger.Default.Send(new Message("CloseMenu"));
     }
@@ -18,5 +18,10 @@ public partial class MenuView : ContentView
     private void SignOut(object sender, EventArgs e)
     {
         WeakReferenceMessenger.Default.Send(new Message("SignOut"));
+    }
+
+    private void GoToProfile(object sender, EventArgs e)
+    {
+        WeakReferenceMessenger.Default.Send(new Message("GoToProfile"));
     }
 }

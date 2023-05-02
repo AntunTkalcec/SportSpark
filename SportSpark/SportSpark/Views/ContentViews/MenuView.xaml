@@ -17,14 +17,14 @@
                        HorizontalOptions="EndAndExpand" Margin="15, 0" FontFamily="faSolid"
                        VerticalOptions="CenterAndExpand">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        <TapGestureRecognizer Tapped="CloseMenu"/>
                     </Label.GestureRecognizers>
                 </Label>
                 
             </Grid>
             <Button BackgroundColor="{StaticResource SportSparkLightGreen}" Text="My profile" TextColor="Black" 
                     FontAttributes="Bold" HeightRequest="50" WidthRequest="200"
-                    Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="SignOut">
+                    Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="GoToProfile">
                 <Button.Shadow>
                     <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
                 </Button.Shadow>

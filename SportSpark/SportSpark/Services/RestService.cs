@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Maui.Alerts;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Newtonsoft.Json;
 using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
@@ -17,6 +19,7 @@ namespace SportSpark.Services
 
         private readonly HttpClient _httpClient;
         private readonly IHttpsClientHandlerService _httpsClientHandlerService;
+
         public RestService(IHttpsClientHandlerService httpsClientHandlerService)
         {
             _httpsClientHandlerService = httpsClientHandlerService;
@@ -33,6 +36,31 @@ namespace SportSpark.Services
             if (CheckIfAuthenticated())
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessToken());
+            }
+        }
+
+        private async Task<UserDTO> GetUser()
+        {
+            try
+            {
+                JwtSecurityTokenHandler jwtHandler = new();
+                var jwtToken = jwtHandler.ReadJwtToken(GetAccessToken());
+                int id = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/User/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<UserDTO>();
+                }
+                else
+                {
+                    return new UserDTO();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return new UserDTO();
             }
         }
 
@@ -56,6 +84,11 @@ namespace SportSpark.Services
                 return false;
             }
             return true;
+        }
+
+        public async Task<UserDTO> GetLoggedInUser()
+        {
+            return await GetUser();
         }
 
         public async Task<bool> SignInAsync(string usernameOrEmail, string password)
@@ -87,8 +120,6 @@ namespace SportSpark.Services
                     Preferences.Set(TokenExpirationKey, tokenS.ValidTo);
 
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authInfo.AccessToken);
-
-                    Preferences.Set("userInfo", JsonConvert.SerializeObject(userDto));
 
                     return true;
                 }
@@ -125,21 +156,15 @@ namespace SportSpark.Services
 
         public async Task<List<EventDTO>> GetEventsNearUserAsync()
         {
-            try
+            //todo get only events inside specified radius
+            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
+            if (response.IsSuccessStatusCode)
             {
-                var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
-                }
-                else
-                {
-                    return new List<EventDTO>();
-                }
+                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine(ex.Message);
+                Toast.Make($"{response.Content}");
                 return new List<EventDTO>();
             }
         }

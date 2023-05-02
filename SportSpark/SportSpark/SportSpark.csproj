@@ -50,7 +50,10 @@
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
 	  <None Remove="Resources\Images\anonymous_person.jpg" />
+	  <None Remove="Resources\Images\football.jpg" />
 	  <None Remove="Resources\Images\or_group.png" />
+	  <None Remove="Resources\Images\other_sport.png" />
+	  <None Remove="Resources\Raw\loading.json" />
 	  <None Remove="Resources\Raw\manonphone.json" />
 	  <None Remove="Resources\Raw\sadface.json" />
 	  <None Remove="Resources\Splash\splash.png" />
@@ -97,6 +100,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\LocationPermissionPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProfileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterView.xaml">
