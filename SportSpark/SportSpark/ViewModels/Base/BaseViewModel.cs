@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SportSpark.Helpers;
 using SportSpark.Services;
+using SportSparkCoreSharedLibrary.DTOs;
 
 namespace SportSpark.ViewModels.Base
 {
@@ -14,6 +15,11 @@ namespace SportSpark.ViewModels.Base
         string title;
 
         public bool IsNotBusy => !IsBusy;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
+        UserDTO loggedInUser = null;
+        public UserDTO LoggedInUserValue => LoggedInUser;
 
         public static LanguageHelper Language
         {
@@ -29,6 +35,11 @@ namespace SportSpark.ViewModels.Base
         {
             _navigationService = navigationService;
             _restService = restService;
+        }
+
+        public async Task GetUser()
+        {
+            LoggedInUser = await _restService.GetLoggedInUser();
         }
     }
 }

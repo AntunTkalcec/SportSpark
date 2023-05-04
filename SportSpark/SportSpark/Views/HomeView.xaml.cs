@@ -19,9 +19,9 @@ public partial class HomeView : ContentPage
         WeakReferenceMessenger.Default.Send(new Message("GetLoggedInUser"));
     }
 
-    private void searchEntry_Completed(object sender, EventArgs e)
+    private async void SearchEntry_Completed(object sender, EventArgs e)
     {
-
+        //await viewModel.SearchAsync();
     }
 
     private async void ShowMenu(object sender, TappedEventArgs e)
@@ -32,5 +32,10 @@ public partial class HomeView : ContentPage
     private async void OnMessageReceived(string value)
     {
         await btmGrid.TranslateTo(0, 360, 250, Easing.SinInOut);
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+
     }
 }

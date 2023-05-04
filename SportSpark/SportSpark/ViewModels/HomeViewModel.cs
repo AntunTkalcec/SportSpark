@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Newtonsoft.Json;
 using SportSpark.Models;
 using SportSpark.Models.Font;
 using SportSpark.Services;
@@ -38,11 +37,6 @@ namespace SportSpark.ViewModels
         ObservableCollection<EventDTO> eventsNearUser;
         public ObservableCollection<EventDTO> EventsNearUserCollection => EventsNearUser;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
-        UserDTO loggedInUser = null;
-        public UserDTO LoggedInUserValue => LoggedInUser;
-
         public ICommand GetEventsNearUser { get; }
         #endregion
         public HomeViewModel(INavigationService navigationService, IRestService restService)
@@ -66,9 +60,10 @@ namespace SportSpark.ViewModels
             await GetEventsNearUserAsync();
         }
 
-        private async Task GetUser()
+        [RelayCommand]
+        public async Task SearchAsync()
         {
-            LoggedInUser = await _restService.GetLoggedInUser();
+            // TO DO
         }
 
         public async void Receive(Message message)
