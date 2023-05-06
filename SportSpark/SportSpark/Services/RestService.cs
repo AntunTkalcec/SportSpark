@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
@@ -142,10 +140,9 @@ namespace SportSpark.Services
 
                 var response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/User", content);
                 if (response.IsSuccessStatusCode)
-                {
                     return true;
-                }
-                else return false;
+                else 
+                    return false;
             }
             catch (Exception ex)
             {
@@ -164,7 +161,40 @@ namespace SportSpark.Services
             }
             else
             {
-                Toast.Make($"{response.Content}");
+                //Toast.Make($"{response.Content}");
+                return new List<EventDTO>();
+            }
+        }
+
+        public async Task<bool> UpdateUserInfoAsync(UserDTO userDTO)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(userDTO);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync($"{SettingsManager.BaseURL}/User/{userDTO.Id}", content);
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<List<EventDTO>> GetUserEventsAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/{id}");
+            if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
+            {
+                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+            }
+            else
+            {
                 return new List<EventDTO>();
             }
         }

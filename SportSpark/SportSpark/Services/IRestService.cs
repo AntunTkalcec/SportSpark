@@ -8,6 +8,8 @@ namespace SportSpark.Services
         Task<bool> SignInAsync(string emailOrUsername, string password);
         Task<bool> RegisterAsync(UserDTO userDTO);
         Task<List<EventDTO>> GetEventsNearUserAsync();
+        Task<bool> UpdateUserInfoAsync(UserDTO userDTO);
+        Task<List<EventDTO>> GetUserEventsAsync(int id);
 
         bool CheckIfAuthenticated();
     }

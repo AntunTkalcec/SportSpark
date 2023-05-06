@@ -41,13 +41,13 @@ namespace SportSpark
             builder.Services.AddSingleton<SignInView>();
             builder.Services.AddSingleton<HomeView>();
             builder.Services.AddSingleton<MenuView>();
-            builder.Services.AddSingleton<ProfileView>();
+            builder.Services.AddTransient<ProfileView>();
 
             //viewmodels
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<SignInViewModel>();
             builder.Services.AddSingleton<HomeViewModel>();
-            builder.Services.AddSingleton<ProfileViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
 
             return builder.Build();
         }

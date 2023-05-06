@@ -77,7 +77,11 @@ namespace SportSpark.ViewModels
                     Application.Current.MainPage = new AppShell();
                     break;
                 case "GoToProfile":
-                    await _navigationService.NavigateToAsync(nameof(ProfileView));
+                    await GetUser();
+                    await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
+                    {
+                        { "User", LoggedInUserValue }, { "SameUser", true }
+                    });
                     break;
                 case "GetLoggedInUser":
                     await GetUser();
@@ -94,7 +98,7 @@ namespace SportSpark.ViewModels
             }
             catch (Exception ex)
             {
-                Toast.Make("An unknown error occurred.");
+                await Toast.Make("An unknown error occurred.").Show();
                 Debug.WriteLine(ex.Message);
             }
             finally

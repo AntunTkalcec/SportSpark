@@ -21,7 +21,7 @@ namespace SportSpark.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.ShowPopupAsync(new LocationPermissionPopup());
+                await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("SportSpark cannot function without location permissions"));
             }
         }
     }

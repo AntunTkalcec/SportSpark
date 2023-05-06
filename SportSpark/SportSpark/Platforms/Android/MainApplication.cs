@@ -16,6 +16,12 @@ namespace SportSpark
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
 #endif
             });
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+#if __ANDROID__
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#endif
+            });
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
