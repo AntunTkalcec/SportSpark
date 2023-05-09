@@ -9,7 +9,6 @@ using SportSpark.Views.Popups;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows.Input;
 
 namespace SportSpark.ViewModels
 {

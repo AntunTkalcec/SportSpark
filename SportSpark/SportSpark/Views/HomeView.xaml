@@ -6,12 +6,14 @@
              xmlns:eventModel="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:converters="clr-namespace:SportSpark.Converters"
              x:Class="SportSpark.Views.HomeView"
              x:DataType="viewModels:HomeViewModel"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
+            <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="65, *"
@@ -61,7 +63,7 @@
                                    HorizontalOptions="End" Grid.Row="1" Margin="15, 0"/>
 
                 <CollectionView ItemsSource="{Binding EventsNearUser}" SelectionMode="None" Grid.Row="2" Grid.ColumnSpan="2"
-                            VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Margin="15, 0">
+                            VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Margin="15, 0" x:Name="eventsCollection">
                     <CollectionView.EmptyView>
                         <Label Text="There are no events found near you." TextColor="Black" FontSize="24" FontAttributes="Bold" 
                                HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -83,20 +85,21 @@
                                     <Image Source="football.jpg" Grid.RowSpan="3" Grid.ColumnSpan="2" ZIndex="1"
                                            Aspect="AspectFill"/>
 
-                                    <Border ZIndex="2" WidthRequest="45" HeightRequest="45" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10"
-                                            Stroke="{StaticResource SportSparkDarkBlue}" StrokeThickness="1">
+                                    <Border ZIndex="2" WidthRequest="55" HeightRequest="55" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10"
+                                            BackgroundColor="{StaticResource SportSparkLightGreen}" StrokeThickness="1">
                                         <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.GoToUserProfileCommand, Source={x:Reference eventsCollection}}"
+                                                                  CommandParameter="{Binding User}"/>
                                         </Border.GestureRecognizers>
 
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="28"/>
                                         </Border.StrokeShape>
 
-                                        <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="50" HeightRequest="50"
+                                        <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="45" HeightRequest="45"
                                            Source="anonymous_person.jpg">
                                             <Image.Clip>
-                                                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                                                <EllipseGeometry Center="22,22" RadiusX="22" RadiusY="22"/>
                                             </Image.Clip>
                                         </Image>
                                     </Border>
@@ -111,7 +114,8 @@
                                         <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowDefinitions="*, *" ColumnDefinitions="*, *" Margin="10, 5">
                                             <Label Text="{Binding Title}" FontAttributes="Bold" HorizontalOptions="Start" HorizontalTextAlignment="Center"
                                                    Grid.Row="0" Grid.ColumnSpan="2" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black"/>
-                                            <Label Text="10.04.2023." FontSize="14" HorizontalOptions="Start" HorizontalTextAlignment="Center"
+                                            <Label Text="{Binding Time, Converter={StaticResource DateTimeConverter}}" FontSize="14" HorizontalOptions="Start" 
+                                                   HorizontalTextAlignment="Center"
                                                    Grid.Row="1" Grid.Column="0" TextColor="Black"/>
                                             <Label Text="Xkm away" FontSize="14" HorizontalOptions="End" HorizontalTextAlignment="Center"
                                                    Grid.Row="1" Grid.Column="1" TextColor="Black"/>

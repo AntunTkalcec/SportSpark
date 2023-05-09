@@ -63,6 +63,12 @@ namespace SportSparkInfrastructureLibrary.Services
             return _mapper.Map<List<EventDTO>>(res);
         }
 
+        public async Task<List<EventDTO>> GetUserEventsAsync(int userId)
+        {
+            var res = await _eventRepository.Fetch().Where(x => x.UserId == userId).ToListAsync();
+            return _mapper.Map<List<EventDTO>>(res);
+        }
+
         #region Private Methods
         private static bool ValidateEvent(EventDTO entity)
         {

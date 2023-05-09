@@ -33,9 +33,4 @@ public partial class HomeView : ContentPage
     {
         await btmGrid.TranslateTo(0, 360, 250, Easing.SinInOut);
     }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-
-    }
 }

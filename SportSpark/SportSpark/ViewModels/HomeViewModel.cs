@@ -66,6 +66,15 @@ namespace SportSpark.ViewModels
             // TO DO
         }
 
+        [RelayCommand]
+        async Task GoToUserProfile(UserDTO eventCreator)
+        {
+            await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
+            {
+                { "User", eventCreator }, { "SameUser", false }
+            });
+        }
+
         public async void Receive(Message message)
         {
             switch (message.Value)

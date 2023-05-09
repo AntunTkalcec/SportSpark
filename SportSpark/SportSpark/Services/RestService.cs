@@ -188,7 +188,7 @@ namespace SportSpark.Services
 
         public async Task<List<EventDTO>> GetUserEventsAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/{id}");
+            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/user/{id}");
             if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
             {
                 return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
