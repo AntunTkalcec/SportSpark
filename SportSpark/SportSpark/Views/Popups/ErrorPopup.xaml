@@ -8,7 +8,7 @@
              HorizontalOptions="Center" VerticalOptions="Center"
              Size="300, 450">
     <VerticalStackLayout BackgroundColor="Transparent" Spacing="10">
-        <skia:SKLottieView WidthRequest="150" HeightRequest="200" IsAnimationEnabled="True" RepeatCount="-1"
+        <skia:SKLottieView WidthRequest="100" HeightRequest="150" IsAnimationEnabled="True" RepeatCount="-1"
                            Source="sadface.json" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
 
         <Label Text="Oops!" FontSize="32" FontAttributes="Bold" TextColor="Black" HorizontalOptions="CenterAndExpand" 

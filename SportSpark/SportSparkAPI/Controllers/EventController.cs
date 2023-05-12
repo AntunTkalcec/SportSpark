@@ -60,7 +60,21 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        [HttpPost("{radius}")]
+        [HttpGet("term/{term}")]
+        [ProducesResponseType(typeof(List<EventDTO>), 200)]
+        public async Task<ActionResult<List<EventDTO>>> GetEventsByTerm(string term)
+        {
+            try
+            {
+                return await _eventService.GetEventsByTermAsync(term);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
+
+        [HttpGet("{radius}")]
         [ProducesResponseType(typeof(List<EventDTO>), 200)]
         public async Task<ActionResult<List<EventDTO>>> GetEventsInRadius(int radius, LatLongWrapperDTO latLongWrapperDTO)
         {

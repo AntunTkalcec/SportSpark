@@ -31,6 +31,7 @@ namespace SportSpark.ViewModels.Base
 
         protected readonly INavigationService _navigationService;
         protected readonly IRestService _restService;
+
         public BaseViewModel(INavigationService navigationService, IRestService restService)
         {
             _navigationService = navigationService;

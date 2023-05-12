@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using SportSpark.Helpers;
 using SportSpark.Services;
 using SportSpark.ViewModels;
-using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 
 namespace SportSpark

@@ -198,5 +198,18 @@ namespace SportSpark.Services
                 return new List<EventDTO>();
             }
         }
+
+        public async Task<List<EventDTO>> GetEventsByTermAsync(string term)
+        {
+            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/term/{term}");
+            if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
+            {
+                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+            }
+            else
+            {
+                return new List<EventDTO>();
+            }
+        }
     }
 }

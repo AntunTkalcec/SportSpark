@@ -21,7 +21,7 @@ public partial class HomeView : ContentPage
 
     private async void SearchEntry_Completed(object sender, EventArgs e)
     {
-        //await viewModel.SearchAsync();
+        await viewModel.SearchAsync((sender as Entry).Text);
     }
 
     private async void ShowMenu(object sender, TappedEventArgs e)

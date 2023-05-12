@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SportSparkCoreLibrary.Entities;
 using SportSparkCoreLibrary.Interfaces.Repositories;
-using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
 
@@ -66,6 +65,16 @@ namespace SportSparkInfrastructureLibrary.Services
         public async Task<List<EventDTO>> GetUserEventsAsync(int userId)
         {
             var res = await _eventRepository.Fetch().Where(x => x.UserId == userId).ToListAsync();
+            return _mapper.Map<List<EventDTO>>(res);
+        }
+
+        public async Task<List<EventDTO>> GetEventsByTermAsync(string term)
+        {
+            var res = await _eventRepository.Fetch()
+                .Include(x => x.User)
+                .Include(x => x.RepeatType)
+                .Include(x => x.EventType)
+                .Where(x => x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)).ToListAsync();
             return _mapper.Map<List<EventDTO>>(res);
         }
 

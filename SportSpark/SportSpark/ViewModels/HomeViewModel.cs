@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -7,6 +8,7 @@ using SportSpark.Models.Font;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
 using SportSpark.Views;
+using SportSpark.Views.Popups;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -56,14 +58,70 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async Task RefreshPageAsync()
         {
-            EventsNearUser.Clear();
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                var result = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("No internet connection"));
+
+                if (result is bool boolResult)
+                {
+                    if (boolResult)
+                    {
+                        await RefreshPageAsync();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
+            EventsNearUser?.Clear();
+
             await GetEventsNearUserAsync();
         }
 
         [RelayCommand]
-        public async Task SearchAsync()
+        public async Task SearchAsync(string text)
         {
             // TO DO
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                var result = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("No internet connection"));
+
+                if (result is bool boolResult)
+                {
+                    if (boolResult)
+                    {
+                        await RefreshPageAsync();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
+            EventsNearUser?.Clear();
+
+            if (string.IsNullOrEmpty(text))
+            {
+                await GetEventsNearUserAsync();
+            }
+
+            try
+            {
+                IsBusy = true;
+                EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsByTermAsync(text));
+            }
+            catch (Exception ex)
+            {
+                await Toast.Make("An unknown error occurred.").Show();
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]
@@ -100,6 +158,23 @@ namespace SportSpark.ViewModels
 
         private async Task GetEventsNearUserAsync()
         {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                var result = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("No internet connection"));
+
+                if (result is bool boolResult)
+                {
+                    if (boolResult)
+                    {
+                        await RefreshPageAsync();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
             try
             {
                 IsBusy = true;

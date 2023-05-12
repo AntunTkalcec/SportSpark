@@ -10,6 +10,7 @@ namespace SportSpark.Services
         Task<List<EventDTO>> GetEventsNearUserAsync();
         Task<bool> UpdateUserInfoAsync(UserDTO userDTO);
         Task<List<EventDTO>> GetUserEventsAsync(int id);
+        Task<List<EventDTO>> GetEventsByTermAsync(string term);
 
         bool CheckIfAuthenticated();
     }
