@@ -5,7 +5,7 @@ namespace SportSpark.Views;
 
 public partial class ProfileView : ContentPage
 {
-	ProfileViewModel viewModel;
+    private readonly ProfileViewModel viewModel;
 	public ProfileView(ProfileViewModel vm)
 	{
 		InitializeComponent();

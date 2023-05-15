@@ -165,26 +165,26 @@ namespace SportSparkInfrastructureLibrary.Data.SeedData
         {
             new Friendship
             {
-                UserId = 1,
-                User2Id = 2,
+                SenderId = 1,
+                ReceiverId = 2,
                 Status = FriendshipStatus.Confirmed
             },
             new Friendship
             {
-                UserId = 3,
-                User2Id = 4,
+                SenderId = 3,
+                ReceiverId = 4,
                 Status = FriendshipStatus.Confirmed
             },
             new Friendship
             {
-                UserId = 4,
-                User2Id = 5,
+                SenderId = 4,
+                ReceiverId = 5,
                 Status = FriendshipStatus.Confirmed
             },
             new Friendship
             {
-                UserId = 5,
-                User2Id = 6,
+                SenderId = 5,
+                ReceiverId = 6,
                 Status = FriendshipStatus.Requested
             },
         };

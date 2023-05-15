@@ -35,7 +35,7 @@ namespace SportSparkInfrastructureLibrary.Services
 
         public async Task<List<EventDTO>> GetAllAsync()
         {
-            var events = await _eventRepository.GetAllAsync(e => e.User, e => e.EventType, e => e.RepeatType);
+            var events = await _eventRepository.GetAllAsync(e => e.User, e => e.EventType, e => e.RepeatType, e => e.User.RequestedFriendships, e => e.User.ReceivedFriendships);
 
             return _mapper.Map<List<EventDTO>>(events);
         }
@@ -72,6 +72,9 @@ namespace SportSparkInfrastructureLibrary.Services
         {
             var res = await _eventRepository.Fetch()
                 .Include(x => x.User)
+                    .ThenInclude(x => x.RequestedFriendships)
+                .Include(x => x.User)
+                    .ThenInclude(x => x.ReceivedFriendships)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
                 .Where(x => x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)).ToListAsync();

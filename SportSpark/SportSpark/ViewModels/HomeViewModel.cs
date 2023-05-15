@@ -83,9 +83,11 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async Task GoToUserProfile(UserDTO eventCreator)
         {
+            bool userIsNotFriend = !(eventCreator.RequestedFriendships.Any(x => x.SenderId == LoggedInUserValue.Id || x.ReceiverId == LoggedInUserValue.Id) ||
+                eventCreator.ReceivedFriendships.Any(x => x.SenderId == LoggedInUserValue.Id || x.ReceiverId == LoggedInUserValue.Id));
             await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
             {
-                { "User", eventCreator }, { "SameUser", false }
+                { "User", eventCreator }, { "SameUser", false }, { "UserIsNotFriend",  userIsNotFriend },
             });
         }
 

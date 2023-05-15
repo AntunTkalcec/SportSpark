@@ -34,15 +34,13 @@ public class SportSparkDBContext : DbContext
 
         modelBuilder.Entity<Friendship>().HasKey(x => x.Id);
         modelBuilder.Entity<Friendship>()
-            .HasOne(x => x.User1)
+            .HasOne(x => x.Sender)
             .WithMany(x => x.RequestedFriendships)
-            .HasForeignKey(x => x.UserId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Friendship>()
-            .HasOne(x => x.User2)
+            .HasOne(x => x.Receiver)
             .WithMany(x => x.ReceivedFriendships)
-            .HasForeignKey(x => x.User2Id)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
     }

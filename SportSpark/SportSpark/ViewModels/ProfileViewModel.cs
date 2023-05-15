@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace SportSpark.ViewModels
 {
-    [QueryProperty(nameof(User), "User"), QueryProperty(nameof(SameUser), "SameUser")]
+    [QueryProperty(nameof(User), "User"), QueryProperty(nameof(SameUser), "SameUser"), QueryProperty(nameof(UserIsNotFriend), "UserIsNotFriend")]
     public partial class ProfileViewModel : BaseViewModel
     {
         #region Properties
@@ -23,6 +23,9 @@ namespace SportSpark.ViewModels
 
         [ObservableProperty]
         bool sameUser;
+
+        [ObservableProperty]
+        bool userIsNotFriend;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(StarCode))]

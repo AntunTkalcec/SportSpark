@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Maui.Alerts;
+using Newtonsoft.Json;
 using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
@@ -216,8 +217,8 @@ namespace SportSpark.Services
         {
             try
             {
-                string jsonData = JsonConvert.SerializeObject(userId);
-                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+                string json = userId.ToString();
+                StringContent content = new(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/User/befriend", content);
                 if (response.IsSuccessStatusCode)

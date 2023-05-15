@@ -19,6 +19,7 @@
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
+            <toolkit:VariableMultiValueConverter x:Key="MultiConverter" ConditionType="All"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -98,7 +99,14 @@
             <Button Text="{Binding SameUser, Converter={StaticResource BoolToObject}}" FontAttributes="Bold" FontSize="28" 
                 BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="End" Grid.Row="2"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" Command="{Binding EditOrAddCommand}"
-                CornerRadius="30" IsVisible="{Binding ProfileSelectedValue}" Grid.ColumnSpan="2"/>
+                CornerRadius="30" Grid.ColumnSpan="2">
+                <Button.IsVisible>
+                    <MultiBinding Converter="{StaticResource MultiConverter}">
+                        <Binding Path="ProfileSelectedValue"/>
+                        <Binding Path="UserIsNotFriend"/>
+                    </MultiBinding>
+                </Button.IsVisible>
+            </Button>
 
         </Grid>
 

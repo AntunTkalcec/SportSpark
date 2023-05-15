@@ -59,9 +59,9 @@ namespace SportSparkInfrastructureLibrary.Services
             var user = await _userRepository.Fetch()
                 .Include(u => u.Events)
                 .Include(u => u.ReceivedFriendships)
-                    .ThenInclude(_ => _.User1)
+                    .ThenInclude(_ => _.Sender)
                 .Include(u => u.RequestedFriendships)
-                    .ThenInclude(_ => _.User2)
+                    .ThenInclude(_ => _.Receiver)
                 .Include(u => u.ProfileImage)
                 .FirstOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDTO>(user);
@@ -107,12 +107,21 @@ namespace SportSparkInfrastructureLibrary.Services
 
         public async Task AddAsFriendAsync(int senderId, int receiverId)
         {
-            await _friendshipRepository.AddFriendship(new Friendship()
+            bool friendshipExists = await _friendshipRepository.CheckFriendshipExistsAsync(senderId, receiverId);
+
+            if (friendshipExists)
             {
-                Status = SportSparkCoreLibrary.Enums.FriendshipStatus.Requested,
-                UserId = senderId,
-                User2Id = receiverId
-            });
+                throw new Exception("This friendship request already exists!");
+            }
+            else
+            {
+                await _friendshipRepository.AddFriendshipAsync(new Friendship()
+                {
+                    Status = SportSparkCoreLibrary.Enums.FriendshipStatus.Requested,
+                    SenderId = senderId,
+                    ReceiverId = receiverId
+                });
+            }
         }
 
         #region Private methods

@@ -94,7 +94,7 @@ namespace SportSparkAPI.Controllers
         }
 
         [HttpPost("befriend")]
-        public async Task<ActionResult> AddAsFriend(int id)
+        public async Task<ActionResult> AddAsFriend([FromBody] int id)
         {
             try
             {
