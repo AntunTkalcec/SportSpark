@@ -6,7 +6,7 @@ namespace SportSpark.Views;
 
 public partial class HomeView : ContentPage
 {
-    private HomeViewModel viewModel;
+    private readonly HomeViewModel viewModel;
 	public HomeView(HomeViewModel vm)
 	{
 		InitializeComponent();
@@ -14,14 +14,14 @@ public partial class HomeView : ContentPage
         viewModel = vm;
         WeakReferenceMessenger.Default.Register<Message>(this, (r, m) =>
         {
-            OnMessageReceived(m.Value);
+            OnMessageReceived();
         });
         WeakReferenceMessenger.Default.Send(new Message("GetLoggedInUser"));
     }
 
     private async void SearchEntry_Completed(object sender, EventArgs e)
     {
-        await viewModel.SearchAsync((sender as Entry).Text);
+        await viewModel.GetEventsNearUserAsync((sender as Entry).Text);
     }
 
     private async void ShowMenu(object sender, TappedEventArgs e)
@@ -29,7 +29,7 @@ public partial class HomeView : ContentPage
         await btmGrid.TranslateTo(0, 0, 250, Easing.SinInOut);
     }
 
-    private async void OnMessageReceived(string value)
+    private async void OnMessageReceived()
     {
         await btmGrid.TranslateTo(0, 360, 250, Easing.SinInOut);
     }

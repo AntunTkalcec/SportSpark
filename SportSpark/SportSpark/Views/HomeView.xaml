@@ -41,7 +41,8 @@
             </Image>
         </Border>
 
-        <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshPageCommand}" RefreshColor="{StaticResource SportSparkLightGreen}"
+        <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshPageCommand}" CommandParameter="{Binding SearchInput}"
+                     RefreshColor="{StaticResource SportSparkLightGreen}"
                      IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBool}}" HorizontalOptions="Fill" VerticalOptions="Fill" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid HorizontalOptions="Fill" VerticalOptions="Fill" ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, *"
                           RowSpacing="20" Grid.ColumnSpan="2">

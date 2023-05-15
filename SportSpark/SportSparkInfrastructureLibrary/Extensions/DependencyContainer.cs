@@ -29,6 +29,7 @@ namespace SportSparkInfrastructureLibrary.Extensions
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IFriendshipRepository, FriendshipRepository>();
         }
     }
 }

@@ -9,23 +9,26 @@ using SportSparkCoreSharedLibrary.DTOs;
 using SportSparkInfrastructureLibrary.Authentication;
 using SportSparkInfrastructureLibrary.Helpers;
 using System.Security.Claims;
+using SportSparkCoreLibrary.Interfaces.Repositories;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
     public class UserService : IUserService
     {
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IFriendshipRepository _friendshipRepository;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
         private readonly TokenDataConfiguration _tokenDataConfiguration;
 
         public UserService(IBaseRepository<User> userRepository, IMapper mapper, ITokenService tokenService, 
-            IOptions<TokenDataConfiguration> tokenDataConfiguration)
+            IOptions<TokenDataConfiguration> tokenDataConfiguration, IFriendshipRepository friendshipRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _tokenService = tokenService;
             _tokenDataConfiguration = tokenDataConfiguration.Value;
+            _friendshipRepository = friendshipRepository;
         }
 
         public async Task<int> CreateAsync(UserDTO entity)
@@ -100,6 +103,16 @@ namespace SportSparkInfrastructureLibrary.Services
 
             if (user is not null && user.Password == HashHelper.Hash(user.Email, password)) return user;
             return null;
+        }
+
+        public async Task AddAsFriendAsync(int senderId, int receiverId)
+        {
+            await _friendshipRepository.AddFriendship(new Friendship()
+            {
+                Status = SportSparkCoreLibrary.Enums.FriendshipStatus.Requested,
+                UserId = senderId,
+                User2Id = receiverId
+            });
         }
 
         #region Private methods

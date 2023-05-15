@@ -1,5 +1,4 @@
 ﻿using SportSparkCoreLibrary.Entities;
-using SportSparkCoreLibrary.Interfaces.Repositories;
 using SportSparkInfrastructureLibrary.Database;
 using SportSparkInfrastructureLibrary.Repositories.Base;
 

@@ -44,7 +44,7 @@ namespace SportSpark.ViewModels
         public HomeViewModel(INavigationService navigationService, IRestService restService)
             : base(navigationService, restService)
         {
-            GetEventsNearUser = new AsyncRelayCommand(GetEventsNearUserAsync);
+            GetEventsNearUser = new AsyncRelayCommand(async () => await GetEventsNearUserAsync(null));
             GetEventsNearUser.Execute(null);
             WeakReferenceMessenger.Default.Register(this);
         }
@@ -56,7 +56,7 @@ namespace SportSpark.ViewModels
         }
 
         [RelayCommand]
-        async Task RefreshPageAsync()
+        async Task RefreshPageAsync(string searchText = null)
         {
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
@@ -66,7 +66,7 @@ namespace SportSpark.ViewModels
                 {
                     if (boolResult)
                     {
-                        await RefreshPageAsync();
+                        await RefreshPageAsync(searchText);
                     }
                     else
                     {
@@ -77,51 +77,7 @@ namespace SportSpark.ViewModels
 
             EventsNearUser?.Clear();
 
-            await GetEventsNearUserAsync();
-        }
-
-        [RelayCommand]
-        public async Task SearchAsync(string text)
-        {
-            // TO DO
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                var result = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("No internet connection"));
-
-                if (result is bool boolResult)
-                {
-                    if (boolResult)
-                    {
-                        await RefreshPageAsync();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-            }
-
-            EventsNearUser?.Clear();
-
-            if (string.IsNullOrEmpty(text))
-            {
-                await GetEventsNearUserAsync();
-            }
-
-            try
-            {
-                IsBusy = true;
-                EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsByTermAsync(text));
-            }
-            catch (Exception ex)
-            {
-                await Toast.Make("An unknown error occurred.").Show();
-                Debug.WriteLine(ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            await GetEventsNearUserAsync(searchText);
         }
 
         [RelayCommand]
@@ -153,10 +109,13 @@ namespace SportSpark.ViewModels
                 case "GetLoggedInUser":
                     await GetUser();
                     break;
+                case "GoToFriends":
+                    //go to friends page
+                    break;
             }
         }
 
-        private async Task GetEventsNearUserAsync()
+        public async Task GetEventsNearUserAsync(string text = null)
         {
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
@@ -178,7 +137,15 @@ namespace SportSpark.ViewModels
             try
             {
                 IsBusy = true;
-                EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync());
+
+                if (string.IsNullOrEmpty(text))
+                {
+                    EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync());
+                }
+                else
+                {
+                    EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsByTermAsync(text));
+                }
             }
             catch (Exception ex)
             {

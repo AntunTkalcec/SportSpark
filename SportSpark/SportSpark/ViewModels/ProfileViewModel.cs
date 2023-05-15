@@ -69,6 +69,23 @@ namespace SportSpark.ViewModels
             else
             {
                 //add friend
+                bool success = await _restService.AddAsFriendAsync(UserValue.Id);
+                if (success)
+                {
+                    await Toast.Make("Friendship request sent!").Show();
+                }
+                else
+                {
+                    var res = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("Friendship request couldn't be sent"));
+
+                    if (res is bool boolResult)
+                    {
+                        if (boolResult)
+                        {
+                            await EditOrAddAsync();
+                        }
+                    }
+                }
             } 
         }
 

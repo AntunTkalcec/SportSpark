@@ -9,5 +9,7 @@ namespace SportSparkCoreLibrary.Interfaces.Services
         UserDTO Login(User user);
 
         Task<User> UserValid(string emailOrUserName, string password);
+
+        Task AddAsFriendAsync(int senderId, int receiverId);
     }
 }

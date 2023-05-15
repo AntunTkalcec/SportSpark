@@ -138,7 +138,7 @@ namespace SportSpark.Services
                 string jsonData = JsonConvert.SerializeObject(userDTO);
                 StringContent content = new(jsonData, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/User", content);
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/User", content);
                 if (response.IsSuccessStatusCode)
                     return true;
                 else 
@@ -154,7 +154,7 @@ namespace SportSpark.Services
         public async Task<List<EventDTO>> GetEventsNearUserAsync()
         {
             //todo get only events inside specified radius
-            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
@@ -173,7 +173,7 @@ namespace SportSpark.Services
                 string jsonData = JsonConvert.SerializeObject(userDTO);
                 StringContent content = new(jsonData, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"{SettingsManager.BaseURL}/User/{userDTO.Id}", content);
+                HttpResponseMessage response = await _httpClient.PutAsync($"{SettingsManager.BaseURL}/User/{userDTO.Id}", content);
                 if (response.IsSuccessStatusCode)
                     return true;
                 else
@@ -188,7 +188,7 @@ namespace SportSpark.Services
 
         public async Task<List<EventDTO>> GetUserEventsAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/user/{id}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/user/{id}");
             if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
             {
                 return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
@@ -201,7 +201,7 @@ namespace SportSpark.Services
 
         public async Task<List<EventDTO>> GetEventsByTermAsync(string term)
         {
-            var response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/term/{term}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/term/{term}");
             if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
             {
                 return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
@@ -209,6 +209,26 @@ namespace SportSpark.Services
             else
             {
                 return new List<EventDTO>();
+            }
+        }
+
+        public async Task<bool> AddAsFriendAsync(int userId)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(userId);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/User/befriend", content);
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
             }
         }
     }

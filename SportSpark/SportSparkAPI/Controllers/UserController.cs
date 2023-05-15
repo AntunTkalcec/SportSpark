@@ -92,5 +92,20 @@ namespace SportSparkAPI.Controllers
                 return BadRequest(new ApiResponseHelper(400, ex.Message));
             }
         }
+
+        [HttpPost("befriend")]
+        public async Task<ActionResult> AddAsFriend(int id)
+        {
+            try
+            {
+                await _userService.AddAsFriendAsync(UserId, id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
     }
 }
