@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             xmlns:contentViews="clr-namespace:SportSpark.Views.ContentViews"
+             xmlns:eventModel="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             x:DataType="viewModels:CreateEventViewModel"
+             x:Class="SportSpark.Views.CreateEventView"
+             Title="CreateEventView"
+             Shell.PresentationMode="Animated">
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorderStyle" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Stroke" Value="{StaticResource LightThemeEntry}"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ScrollView x:Name="scrollView">
+        <VerticalStackLayout Spacing="18" Margin="15, 10">
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Title" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border Style="{StaticResource EntryBorderStyle}" x:Name="titleBorder">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry x:Name="title" Placeholder="Enter a title..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
+                           Completed="title_Completed" Text="{Binding NewEvent.Title}">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeWord</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </Entry>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Description" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border VerticalOptions="Center" HorizontalOptions="Fill" Stroke="{StaticResource LightThemeEntry}" 
+                        BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="300">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="30"/>
+                    </Border.StrokeShape>
+
+                    <Editor Text="{Binding NewEvent.Description}" TextColor="Black" FontSize="14" Margin="5" MaxLength="500"
+                            Placeholder="Enter a description..." PlaceholderColor="Black"
+                            Completed="Editor_Completed" x:Name="description"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Location" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="Choose a location..." TextColor="Blue" FontAttributes="Bold" FontSize="20">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLocationSelectionPopupCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Time" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <TimePicker TextColor="Black" FontAttributes="Bold" Time="{Binding NewEvent.Time}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Duration" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border Style="{StaticResource EntryBorderStyle}" x:Name="durationBorder">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry x:Name="duration" Placeholder="Enter a duration (hours)..." TextColor="Black" 
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
+                           Completed="duration_Completed" Text="{Binding NewEvent.Duration}" Keyboard="Numeric">
+                    </Entry>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Price" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border Style="{StaticResource EntryBorderStyle}" x:Name="priceBorder">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry x:Name="price" Placeholder="Enter a price..." TextColor="Black"
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
+                           Completed="price_Completed" Text="{Binding NewEvent.Price}" Keyboard="Numeric">
+                    </Entry>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Number of participants" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Border Style="{StaticResource EntryBorderStyle}" x:Name="participantsBorder">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry x:Name="participants" Placeholder="How many participants?" TextColor="Black"
+                           PlaceholderColor="{StaticResource LightThemeEntry}"
+                           Text="{Binding NewEvent.NumberOfParticipants}" Keyboard="Numeric">
+                    </Entry>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Privacy" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Picker ItemsSource="{Binding EventPrivacies}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedPrivacy}" Title="Select privacy..." TextColor="Black" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <Button Text="Create event" FontAttributes="Bold" FontSize="28" 
+                    BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 15, 0, 25"
+                    TextColor="White" Shadow="{StaticResource DefaultShadow}"
+                    CornerRadius="30" x:Name="RegisterBtn" Command="{Binding CreateEventCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+        
+</ContentPage>

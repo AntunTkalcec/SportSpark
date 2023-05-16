@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using SportSpark.Models.Font;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
+using SportSpark.Views;
 using SportSpark.Views.Popups;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Collections.ObjectModel;
@@ -124,6 +125,15 @@ namespace SportSpark.ViewModels
         {
             ProfileSelected = false;
             await GetUserEventsAsync();
+        }
+
+        [RelayCommand]
+        async Task CreateEventAsync()
+        {
+            await _navigationService.NavigateToAsync(nameof(CreateEventView), new Dictionary<string, object>
+            {
+                { "User", UserValue }
+            });
         }
 
         private async Task GetUserEventsAsync()

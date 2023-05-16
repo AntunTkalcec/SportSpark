@@ -177,7 +177,7 @@
             <Button Text="Create an event" FontAttributes="Bold" FontSize="28"
                 BackgroundColor="{StaticResource SportSparkDarkBlue}" Grid.ColumnSpan="2" Grid.Row="2"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" IsVisible="{Binding SameUser}"
-                CornerRadius="30"/>
+                CornerRadius="30" Command="{Binding CreateEventCommand}"/>
 
         </Grid>
 

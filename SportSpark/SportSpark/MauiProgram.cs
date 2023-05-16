@@ -16,6 +16,7 @@ namespace SportSpark
                 .UseMauiApp<App>()
                 .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
+                .UseMauiMaps()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -40,12 +41,14 @@ namespace SportSpark
             builder.Services.AddSingleton<HomeView>();
             builder.Services.AddSingleton<MenuView>();
             builder.Services.AddTransient<ProfileView>();
+            builder.Services.AddTransient<CreateEventView>();
 
             //viewmodels
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<SignInViewModel>();
             builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<CreateEventViewModel>();
 
             return builder.Build();
         }
