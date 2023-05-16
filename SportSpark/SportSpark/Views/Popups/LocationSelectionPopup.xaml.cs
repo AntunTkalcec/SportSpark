@@ -19,6 +19,7 @@ public partial class LocationSelectionPopup : Popup
         GetCurrentLocation.Execute(null);
     }
 
+
     private async Task GetCurrentLocationAsync()
     {
         try
@@ -29,19 +30,13 @@ public partial class LocationSelectionPopup : Popup
 
             if (location != null)
             {
-                Map map = new(new MapSpan(location, 0.01, 0.01));
+                map.MapClicked += OnMapClicked;
                 map.Pins.Add(new Pin
                 {
                     Label = "You",
                     Location = location
                 });
-                map.MapClicked += OnMapClicked;
-                if (map.VisibleRegion != null)
-                {
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.4)));
-                }
-                mainGrid.Add(map);
-                mainGrid.SetColumnSpan(map, 2);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.4)));
             }
         }
         catch (Exception ex)
@@ -53,6 +48,7 @@ public partial class LocationSelectionPopup : Popup
 
     void OnMapClicked(object sender, MapClickedEventArgs e)
     {
+        mainGrid.Children.Remove(mainGrid.Children.FirstOrDefault());
         Close(new List<double> { e.Location.Latitude, e.Location.Longitude });
     }
 }

@@ -2,11 +2,12 @@
 <toolkit:Popup  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
                 x:Class="SportSpark.Views.Popups.LocationSelectionPopup"
                 CanBeDismissedByTappingOutsideOfPopup="False" Color="{StaticResource BackgroundLight}"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Size="300, 450">
-    <Grid RowDefinitions="*" ColumnDefinitions="*, *" Margin="5" x:Name="mainGrid">
-        
+    <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="5" x:Name="mainGrid">
+		<maps:Map x:Name="map"/>
     </Grid>
 </toolkit:Popup>
