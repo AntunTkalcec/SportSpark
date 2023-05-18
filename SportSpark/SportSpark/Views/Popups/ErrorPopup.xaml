@@ -7,23 +7,25 @@
              CanBeDismissedByTappingOutsideOfPopup="False" Color="{StaticResource BackgroundLight}"
              HorizontalOptions="Center" VerticalOptions="Center"
              Size="300, 450">
-    <VerticalStackLayout BackgroundColor="Transparent" Spacing="10">
-        <skia:SKLottieView WidthRequest="100" HeightRequest="150" IsAnimationEnabled="True" RepeatCount="1"
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="Transparent" Spacing="10">
+            <skia:SKLottieView WidthRequest="100" HeightRequest="150" IsAnimationEnabled="True" RepeatCount="1"
                            Source="sadface.json" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
 
-        <Label Text="Oops!" FontSize="32" FontAttributes="Bold" TextColor="Black" HorizontalOptions="CenterAndExpand" 
+            <Label Text="Oops!" FontSize="32" FontAttributes="Bold" TextColor="Black" HorizontalOptions="CenterAndExpand" 
                VerticalOptions="CenterAndExpand"/>
-        <Label Text="{Binding ErrorMsg}" FontSize="16" TextColor="Black" 
+            <Label Text="{Binding ErrorMsg}" FontSize="16" TextColor="Black" 
                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="50, 10"
                HorizontalTextAlignment="Center"/>
 
-        <Button Text="Ok" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource BackgroundLight}"
+            <Button Text="Ok" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource BackgroundLight}"
                 BackgroundColor="Green" CornerRadius="15" Margin="15, 5" VerticalOptions="End" 
                 HorizontalOptions="CenterAndExpand"
                 Clicked="Ok"/>
-        <Button Text="Try again" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource BackgroundLight}"
+            <Button Text="Try again" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource BackgroundLight}"
                 BackgroundColor="Red" CornerRadius="15" Margin="15, 5" VerticalOptions="End" 
                 HorizontalOptions="CenterAndExpand"
                 Clicked="TryAgain"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </toolkit:Popup>

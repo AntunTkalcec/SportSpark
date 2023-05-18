@@ -12,6 +12,12 @@
              Shell.PresentationMode="Animated">
 
     <ContentPage.Resources>
+        <Style x:Key="EntryBorderStyle" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Stroke" Value="{StaticResource LightThemeEntry}"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
         <ResourceDictionary>
             <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Edit profile" FalseObject="Add as friend"/>
             <toolkit:BoolToObjectConverter x:Key="BoolToColor" FalseObject="{StaticResource SportSparkLightGreen}" TrueObject="{StaticResource Gray100}"/>
@@ -38,8 +44,9 @@
         </Label>
 
         <!-- Profile -->
-        <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, *" Grid.Row="1" Grid.ColumnSpan="2" 
-              x:Name="ProfileLayout" VerticalOptions="FillAndExpand">
+        <Grid RowDefinitions="Auto, Auto, Auto, *" ColumnDefinitions="*, *" Grid.Row="1" Grid.ColumnSpan="2" 
+              x:Name="ProfileLayout" VerticalOptions="FillAndExpand" RowSpacing="20">
+            
             <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" Spacing="10">
                 <Border WidthRequest="80" HeightRequest="80" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"
                 StrokeThickness="1" BackgroundColor="{StaticResource SportSparkLightGreen}">
@@ -85,9 +92,23 @@
                    IsVisible="{Binding UserValue.Rating, Converter={StaticResource IsNullConverter}}"/>
             </VerticalStackLayout>
 
+            <VerticalStackLayout Spacing="5" Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding SameUser}" Margin="0, 20, 0, 0">
+                <Label Text="Radius in which you want to see events" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+
+                <Border Style="{StaticResource EntryBorderStyle}" x:Name="radiusBorder" Stroke="{Binding EditableValue, Converter={StaticResource BoolToColor}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    
+                    <Entry Text="{Binding User.DesiredRadius}" Placeholder="Enter desired radius..." PlaceholderColor="{StaticResource LightThemeEntry}" TextColor="Black"
+                       IsReadOnly="{Binding EditableValue}"/>
+                </Border>
+
+            </VerticalStackLayout>
+
             <!-- Bio editor -->
             <Border VerticalOptions="Center" HorizontalOptions="Fill" Stroke="{Binding EditableValue, Converter={StaticResource BoolToColor}}" 
-                BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="300" Grid.Row="1" Grid.ColumnSpan="2">
+                BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="200" Grid.Row="2" Grid.ColumnSpan="2">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="30"/>
                 </Border.StrokeShape>
@@ -97,7 +118,7 @@
             </Border>
 
             <Button Text="{Binding SameUser, Converter={StaticResource BoolToObject}}" FontAttributes="Bold" FontSize="28" 
-                BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="End" Grid.Row="2"
+                BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="End" Grid.Row="3"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" Command="{Binding EditOrAddCommand}"
                 CornerRadius="30" Grid.ColumnSpan="2">
                 <Button.IsVisible>

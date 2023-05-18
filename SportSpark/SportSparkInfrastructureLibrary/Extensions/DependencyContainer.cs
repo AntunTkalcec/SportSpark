@@ -6,7 +6,6 @@ using SportSparkCoreLibrary.Interfaces.Seed;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkInfrastructureLibrary.Database;
 using SportSparkInfrastructureLibrary.Repositories;
-using SportSparkInfrastructureLibrary.Repositories.Base;
 using SportSparkInfrastructureLibrary.Services;
 using SportSparkInfrastructureLibrary.Services.Seed;
 
@@ -22,7 +21,7 @@ namespace SportSparkInfrastructureLibrary.Extensions
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IBaseRepository<User>, UserRepository>();
-            services.AddScoped<IBaseRepository<Event>, EventRepository>();
+            services.AddScoped<IBaseRepository<EventType>, EventTypeRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDbInitializer, DbInitializer>();
@@ -30,6 +29,9 @@ namespace SportSparkInfrastructureLibrary.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+            services.AddScoped<IEventTypeService, EventTypeService>();
+            services.AddScoped<IEventRepeatTypeService, EventRepeatTypeService>();
+            services.AddScoped<IBaseRepository<EventRepeatType>, EventRepeatTypeRepository>();
         }
     }
 }

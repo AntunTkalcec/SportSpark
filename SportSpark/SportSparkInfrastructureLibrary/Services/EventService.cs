@@ -24,7 +24,8 @@ namespace SportSparkInfrastructureLibrary.Services
             {
                 throw new Exception("Required fields cannot remain empty!");
             }
-            await _eventRepository.AddAsync(_mapper.Map<Event>(entity));
+            var test = _mapper.Map<Event>(entity);
+            await _eventRepository.AddAsync(test);
             return entity.Id;
         }
 
@@ -56,9 +57,19 @@ namespace SportSparkInfrastructureLibrary.Services
             await _eventRepository.UpdateAsync(_mapper.Map<Event>(entity));
         }
 
-        public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, int radius)
+        public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, double radius)
         {
-            var res = await _eventRepository.GetEventsByLocation(wrapper, radius);
+            var ids = await _eventRepository.GetEventsByLocation(wrapper, radius);
+
+            var res = await _eventRepository.Fetch()
+                .Include(x => x.User)
+                    .ThenInclude(x => x.RequestedFriendships)
+                .Include(x => x.User)
+                    .ThenInclude(x => x.ReceivedFriendships)
+                .Include(x => x.RepeatType)
+                .Include(x => x.EventType)
+                .Where(x => ids.Contains(x.Id)).ToListAsync();
+
             return _mapper.Map<List<EventDTO>>(res);
         }
 
@@ -68,8 +79,10 @@ namespace SportSparkInfrastructureLibrary.Services
             return _mapper.Map<List<EventDTO>>(res);
         }
 
-        public async Task<List<EventDTO>> GetEventsByTermAsync(string term)
+        public async Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term)
         {
+            var ids = await _eventRepository.GetEventsByLocation(wrapper, radius);
+
             var res = await _eventRepository.Fetch()
                 .Include(x => x.User)
                     .ThenInclude(x => x.RequestedFriendships)
@@ -77,7 +90,8 @@ namespace SportSparkInfrastructureLibrary.Services
                     .ThenInclude(x => x.ReceivedFriendships)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
-                .Where(x => x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)).ToListAsync();
+                .Where(x => (x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)) && ids.Contains(x.Id)).ToListAsync();
+
             return _mapper.Map<List<EventDTO>>(res);
         }
 

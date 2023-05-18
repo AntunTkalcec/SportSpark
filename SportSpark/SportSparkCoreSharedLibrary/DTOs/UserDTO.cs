@@ -19,6 +19,8 @@ namespace SportSparkCoreSharedLibrary.DTOs
 
         public int? Age { get; set; }
 
+        public double? DesiredRadius { get; set; }
+
         #region relations
         public int? ProfileImageId { get; set; }
         public DocumentDTO ProfileImage { get; set; }

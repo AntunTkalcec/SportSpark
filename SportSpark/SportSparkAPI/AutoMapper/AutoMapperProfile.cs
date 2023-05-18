@@ -23,6 +23,9 @@ namespace SportSparkAPI.AutoMapper
                 .ForMember(x => x.Privacy, opt => opt.MapFrom(_ => (int)_.Privacy))
                 .ForMember(x => x.User, opt => opt.MapFrom(_ => _.User));
             CreateMap<EventDTO, Event>()
+                .ForMember(x => x.EventTypeId, opt => opt.MapFrom(_ => _.EventType.Id))
+                .ForMember(x => x.RepeatTypeId, opt => opt.MapFrom(_ => _.RepeatType.Id))
+                .ForMember(x => x.UserId, opt => opt.MapFrom(_ => _.User.Id))
                 .ForMember(x => x.User, opt => opt.Ignore())
                 .ForMember(x => x.EventType, opt => opt.Ignore())
                 .ForMember(x => x.RepeatType, opt => opt.Ignore());

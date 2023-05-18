@@ -64,10 +64,10 @@
                                    HorizontalOptions="End" Grid.Row="1" Margin="15, 0"/>
 
                 <CollectionView ItemsSource="{Binding EventsNearUser}" SelectionMode="None" Grid.Row="2" Grid.ColumnSpan="2"
-                            VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Margin="15, 0" x:Name="eventsCollection">
+                            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0" x:Name="eventsCollection">
                     <CollectionView.EmptyView>
-                        <Label Text="There are no events found near you." TextColor="Black" FontSize="24" FontAttributes="Bold" 
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Text="There are no events found near you." TextColor="Black" FontSize="24" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>

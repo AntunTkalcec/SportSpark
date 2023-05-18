@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 using Newtonsoft.Json;
+using SportSpark.Models;
+using SportSpark.Views.Popups;
 using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
@@ -152,17 +155,26 @@ namespace SportSpark.Services
             }
         }
 
-        public async Task<List<EventDTO>> GetEventsNearUserAsync()
+        public async Task<List<EventDTO>> GetEventsNearUserAsync(double? radius, LatLongWrapperDTO location)
         {
-            //todo get only events inside specified radius
-            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+                string jsonData = JsonConvert.SerializeObject(location);
+                StringContent content = new(jsonData, Encoding.UTF8 , "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/Event/{radius}", content);
+                if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
+                {
+                    return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+                }
+                else
+                {
+                    return new List<EventDTO>();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //Toast.Make($"{response.Content}");
+                Debug.WriteLine(ex.Message);
                 return new List<EventDTO>();
             }
         }
@@ -200,15 +212,26 @@ namespace SportSpark.Services
             }
         }
 
-        public async Task<List<EventDTO>> GetEventsByTermAsync(string term)
+        public async Task<List<EventDTO>> GetEventsByTermAsync(double? radius, LatLongWrapperDTO location, string term)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Event/term/{term}");
-            if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
+            try
             {
-                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+                string jsonData = JsonConvert.SerializeObject(location);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/Event/term/{radius}/{term}", content);
+                if (response.IsSuccessStatusCode && !string.IsNullOrEmpty(await response.Content.ReadAsStringAsync()))
+                {
+                    return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+                }
+                else
+                {
+                    return new List<EventDTO>();
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 return new List<EventDTO>();
             }
         }
@@ -230,6 +253,57 @@ namespace SportSpark.Services
             {
                 Debug.WriteLine(ex.Message);
                 return false;
+            }
+        }
+
+        public async Task CreateNewEventAsync(EventDTO eventDTO)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(eventDTO);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/Event", content);
+                ApiResponseModel responseModel = JsonConvert.DeserializeObject<ApiResponseModel>(await response.Content.ReadAsStringAsync());
+                if (response.IsSuccessStatusCode)
+                {
+                    await Toast.Make("Event created!").Show();
+                }
+                else
+                {
+                    _ = await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup(responseModel.Message));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Toast.Make("An unknown error occurred.").Show();
+            }
+        }
+
+        public async Task<List<EventTypeDTO>> GetEventTypesAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/EventType");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<EventTypeDTO>>();
+            }
+            else
+            {
+                return new List<EventTypeDTO>();
+            }
+        }
+
+        public async Task<List<EventRepeatTypeDTO>> GetEventRepeatTypesAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/EventRepeatType");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<EventRepeatTypeDTO>>();
+            }
+            else
+            {
+                return new List<EventRepeatTypeDTO>();
             }
         }
     }

@@ -18,13 +18,16 @@
             <Setter Property="Stroke" Value="{StaticResource LightThemeEntry}"/>
             <Setter Property="Padding" Value="10"/>
         </Style>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
+        </ResourceDictionary>
     </ContentPage.Resources>
     
     <ScrollView x:Name="scrollView">
         <VerticalStackLayout Spacing="18" Margin="15, 10">
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Title" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="Title*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="titleBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
@@ -44,7 +47,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Description" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="Description*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border VerticalOptions="Center" HorizontalOptions="Fill" Stroke="{StaticResource LightThemeEntry}" 
                         BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="300">
                     <Border.StrokeShape>
@@ -59,7 +62,13 @@
 
             <VerticalStackLayout Spacing="5">
                 <Label Text="Location" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
-                <Label Text="Choose a location..." TextColor="Blue" FontAttributes="Bold" FontSize="20">
+                <Label Text="Choose a location..." TextColor="Blue" FontAttributes="Bold" FontSize="20" IsVisible="{Binding LocationNotChosenValue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLocationSelectionPopupCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="{Binding LocationCoordinatesValue}" TextColor="Blue" FontAttributes="Bold" FontSize="20" IsVisible="{Binding LocationNotChosenValue, 
+                    Converter={StaticResource InvertedBool}}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenLocationSelectionPopupCommand}"/>
                     </Label.GestureRecognizers>
@@ -67,8 +76,13 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
+                <Label Text="Date" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <DatePicker TextColor="Black" FontAttributes="Bold" Date="{Binding ChosenDate}" MinimumDate="{Binding TodayValue}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
                 <Label Text="Time" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
-                <TimePicker TextColor="Black" FontAttributes="Bold" Time="{Binding NewEvent.Time}"/>
+                <TimePicker TextColor="Black" FontAttributes="Bold" Time="{Binding ChosenTime}"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
@@ -111,10 +125,24 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Privacy" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="Privacy*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Picker ItemsSource="{Binding EventPrivacies}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedPrivacy}" Title="Select privacy..." TextColor="Black" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Event type*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Picker ItemsSource="{Binding EventTypes}"
+                        ItemDisplayBinding="{Binding Description}"
+                        SelectedItem="{Binding NewEvent.EventType}" Title="Select event type..." TextColor="Black" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Event repeat type*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Picker ItemsSource="{Binding EventRepeatTypes}"
+                        ItemDisplayBinding="{Binding Description}"
+                        SelectedItem="{Binding NewEvent.RepeatType}" Title="Select event repeat type..." TextColor="Black" FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <Button Text="Create event" FontAttributes="Bold" FontSize="28" 

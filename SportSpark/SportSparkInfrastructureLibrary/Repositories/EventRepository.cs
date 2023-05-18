@@ -13,12 +13,14 @@ namespace SportSparkInfrastructureLibrary.Repositories
         {
         }
 
-        public async Task<List<Event>> GetEventsByLocation(LatLongWrapperDTO wrapper, int radius)
+        public async Task<List<int>> GetEventsByLocation(LatLongWrapperDTO wrapper, double radius)
         {
-            return await _context.Events.FromSqlInterpolated(
+            //must call ToListAsync() to make query composable
+            var events = await _context.Events.FromSqlInterpolated(
                 @$"EXEC dbo.GetEventsByLocation @latitude = {wrapper.Latitude}, 
-                @longitude = {wrapper.Longitude}, @radius = {radius}")
-                .ToListAsync();
+                @longitude = {wrapper.Longitude}, @radius = {radius}").ToListAsync();
+
+            return events.Select(_ => _.Id).ToList();
         }
     }
 }

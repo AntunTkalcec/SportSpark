@@ -6,5 +6,5 @@ namespace SportSparkCoreLibrary.Interfaces.Repositories;
 
 public interface IEventRepository : IBaseRepository<Event>
 {
-    Task<List<Event>> GetEventsByLocation(LatLongWrapperDTO wrapper, int radius);
+    Task<List<int>> GetEventsByLocation(LatLongWrapperDTO wrapper, double radius);
 }

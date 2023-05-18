@@ -19,7 +19,6 @@ namespace SportSpark
             if (CheckIfAuthenticated())
             {
                 shellContent.ContentTemplate = new DataTemplate(typeof(HomeView));
-                shellContent.Route = nameof(HomeView);
             }
         }
 

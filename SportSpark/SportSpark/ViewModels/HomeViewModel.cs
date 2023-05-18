@@ -102,14 +102,10 @@ namespace SportSpark.ViewModels
                     Application.Current.MainPage = new AppShell();
                     break;
                 case "GoToProfile":
-                    await GetUser();
                     await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
                     {
-                        { "User", LoggedInUserValue }, { "SameUser", true }
+                        { "User", LoggedInUserValue }, { "SameUser", true }, { "UserIsNotFriend", true }
                     });
-                    break;
-                case "GetLoggedInUser":
-                    await GetUser();
                     break;
                 case "GoToFriends":
                     //go to friends page
@@ -140,13 +136,28 @@ namespace SportSpark.ViewModels
             {
                 IsBusy = true;
 
-                if (string.IsNullOrEmpty(text))
+                await GetUser();
+
+                GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(60));
+
+                Location location = await Geolocation.Default.GetLocationAsync(request);
+
+                if (location != null)
                 {
-                    EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync());
-                }
-                else
-                {
-                    EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsByTermAsync(text));
+                    LatLongWrapperDTO wrapper = new()
+                    {
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude
+                    };
+
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync(LoggedInUserValue.DesiredRadius, wrapper));
+                    }
+                    else
+                    {
+                        EventsNearUser = new ObservableCollection<EventDTO>(await _restService.GetEventsByTermAsync(LoggedInUserValue.DesiredRadius, wrapper, text));
+                    }
                 }
             }
             catch (Exception ex)

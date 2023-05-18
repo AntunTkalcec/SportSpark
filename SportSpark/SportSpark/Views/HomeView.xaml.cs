@@ -16,7 +16,6 @@ public partial class HomeView : ContentPage
         {
             OnMessageReceived();
         });
-        WeakReferenceMessenger.Default.Send(new Message("GetLoggedInUser"));
     }
 
     private async void SearchEntry_Completed(object sender, EventArgs e)

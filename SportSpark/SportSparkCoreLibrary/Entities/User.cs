@@ -34,6 +34,8 @@ public class User : BaseEntity
 
     public int? Age { get; set; }
 
+    public double? DesiredRadius { get; set; }
+
     #region relations
     public int? ProfileImageId { get; set; }
     public Document ProfileImage { get; set; }

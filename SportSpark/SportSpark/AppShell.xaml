@@ -11,7 +11,6 @@
     </Shell.Behaviors>
 
     <ShellContent x:Name="shellContent"
-        ContentTemplate="{DataTemplate views:SignInView}"
-        Route="SignInView" />
+        ContentTemplate="{DataTemplate views:SignInView}" />
 
 </Shell>

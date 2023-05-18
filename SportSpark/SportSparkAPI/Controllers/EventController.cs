@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SportSparkAPI.Controllers.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
@@ -19,7 +18,7 @@ namespace SportSparkAPI.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(EventDTO), 200)]
+        [ProducesResponseType(typeof(List<EventDTO>), 200)]
         public async Task<ActionResult<List<EventDTO>>> Get()
         {
             try
@@ -60,13 +59,13 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        [HttpGet("term/{term}")]
+        [HttpPost("term/{radius}/{term}")]
         [ProducesResponseType(typeof(List<EventDTO>), 200)]
-        public async Task<ActionResult<List<EventDTO>>> GetEventsByTerm(string term)
+        public async Task<ActionResult<List<EventDTO>>> GetEventsByTerm(double radius, LatLongWrapperDTO latLongWrapperDTO, string term)
         {
             try
             {
-                return await _eventService.GetEventsByTermAsync(term);
+                return await _eventService.GetEventsByTermAsync(latLongWrapperDTO, radius, term);
             }
             catch (Exception ex)
             {
@@ -74,13 +73,20 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        [HttpGet("{radius}")]
+        [HttpPost("{radius}")]
         [ProducesResponseType(typeof(List<EventDTO>), 200)]
-        public async Task<ActionResult<List<EventDTO>>> GetEventsInRadius(int radius, LatLongWrapperDTO latLongWrapperDTO)
+        public async Task<ActionResult<List<EventDTO>>> GetEventsInRadius(double radius, LatLongWrapperDTO latLongWrapperDTO)
         {
-            var res = await _eventService.GetInRadiusAsync(latLongWrapperDTO, radius);
+            try
+            {
+                var res = await _eventService.GetInRadiusAsync(latLongWrapperDTO, radius);
 
-            return Ok(res);
+                return Ok(res.Where(_ => _.UserId != UserId).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(500, ex.Message));
+            }
         }
 
         [HttpPost]
