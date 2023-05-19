@@ -6,5 +6,8 @@ namespace SportSparkCoreLibrary.Interfaces.Repositories
     {
         Task AddFriendshipAsync(Friendship friendship);
         Task<bool> CheckFriendshipExistsAsync(int id, int id_2);
+
+        Task<List<Friendship>> GetReceivedFriendshipsAsync(int id);
+        Task<Friendship> UpdateAsync(Friendship friendship);
     }
 }

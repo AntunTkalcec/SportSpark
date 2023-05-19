@@ -42,6 +42,8 @@ namespace SportSpark
             builder.Services.AddSingleton<MenuView>();
             builder.Services.AddTransient<ProfileView>();
             builder.Services.AddTransient<CreateEventView>();
+            builder.Services.AddTransient<FriendsView>();
+            builder.Services.AddTransient<FriendsListView>();
 
             //viewmodels
             builder.Services.AddSingleton<RegisterViewModel>();
@@ -49,6 +51,8 @@ namespace SportSpark
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<CreateEventViewModel>();
+            builder.Services.AddTransient<FriendsViewModel>();
+            builder.Services.AddTransient<FriendsListViewModel>();
 
             return builder.Build();
         }

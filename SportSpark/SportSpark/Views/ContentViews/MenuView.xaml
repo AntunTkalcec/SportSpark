@@ -11,7 +11,7 @@
             <RoundRectangle CornerRadius="30"/>
         </Border.StrokeShape>
         
-        <Grid RowDefinitions="Auto, *, *, *" ColumnDefinitions="*, *">
+        <Grid RowDefinitions="Auto, *, *, *, *" ColumnDefinitions="*, *">
             <Grid ColumnDefinitions="*, *" Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="50" RowDefinitions="50, 10">
                 <Label Text="&#xf057;" TextColor="Black" FontSize="32" FontAttributes="Bold" Grid.Column="1" 
                        HorizontalOptions="EndAndExpand" Margin="15, 0" FontFamily="faSolid"
@@ -30,17 +30,25 @@
                 </Button.Shadow>
             </Button>
 
-            <Button BackgroundColor="{StaticResource SportSparkLightGreen}" Text="My friends" TextColor="Black" 
+            <Button BackgroundColor="{StaticResource SportSparkLightGreen}" Text="My friend requests" TextColor="Black" 
                     FontAttributes="Bold" HeightRequest="50" WidthRequest="200" CornerRadius="30"
                     Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="GoToFriends">
                 <Button.Shadow>
                     <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
                 </Button.Shadow>
             </Button>
-            
+
+            <Button BackgroundColor="{StaticResource SportSparkLightGreen}" Text="My friends" TextColor="Black" 
+                    FontAttributes="Bold" HeightRequest="50" WidthRequest="200" CornerRadius="30"
+                    Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="GoToFriendsList">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                </Button.Shadow>
+            </Button>
+
             <Button BackgroundColor="{StaticResource SportSparkLightGreen}" Text="Sign Out" TextColor="Black" 
                     FontAttributes="Bold" HeightRequest="50" WidthRequest="200" CornerRadius="30"
-                    Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="SignOut">
+                    Grid.Row="4" Grid.ColumnSpan="2" HorizontalOptions="Center" Clicked="SignOut">
                 <Button.Shadow>
                     <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
                 </Button.Shadow>

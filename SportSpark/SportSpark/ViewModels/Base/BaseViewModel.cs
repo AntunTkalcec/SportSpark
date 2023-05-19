@@ -16,11 +16,6 @@ namespace SportSpark.ViewModels.Base
 
         public bool IsNotBusy => !IsBusy;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
-        UserDTO loggedInUser = null;
-        public UserDTO LoggedInUserValue => LoggedInUser;
-
         public static LanguageHelper Language
         {
             get
@@ -36,11 +31,6 @@ namespace SportSpark.ViewModels.Base
         {
             _navigationService = navigationService;
             _restService = restService;
-        }
-
-        public async Task GetUser()
-        {
-            LoggedInUser = await _restService.GetLoggedInUser();
         }
     }
 }

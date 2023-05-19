@@ -6,12 +6,12 @@ namespace SportSpark.Views;
 
 public partial class HomeView : ContentPage
 {
-    private readonly HomeViewModel viewModel;
+    private readonly HomeViewModel _viewModel;
 	public HomeView(HomeViewModel vm)
 	{
 		InitializeComponent();
         BindingContext = vm;
-        viewModel = vm;
+        _viewModel = vm;
         WeakReferenceMessenger.Default.Register<Message>(this, (r, m) =>
         {
             OnMessageReceived();
@@ -20,7 +20,7 @@ public partial class HomeView : ContentPage
 
     private async void SearchEntry_Completed(object sender, EventArgs e)
     {
-        await viewModel.GetEventsNearUserAsync((sender as Entry).Text);
+        await _viewModel.GetEventsNearUserAsync((sender as Entry).Text);
     }
 
     private async void ShowMenu(object sender, TappedEventArgs e)

@@ -10,6 +10,7 @@ using SportSparkInfrastructureLibrary.Authentication;
 using SportSparkInfrastructureLibrary.Helpers;
 using System.Security.Claims;
 using SportSparkCoreLibrary.Interfaces.Repositories;
+using System.Runtime.InteropServices;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
@@ -92,6 +93,8 @@ namespace SportSparkInfrastructureLibrary.Services
             {
                 throw new Exception("Required fields cannot remain empty!");
             }
+            User currentEntity = await _userRepository.GetByIdAsync(id);
+            entity.Password = currentEntity.Password;
             await _userRepository.UpdateAsync(_mapper.Map<User>(entity));
         }
 

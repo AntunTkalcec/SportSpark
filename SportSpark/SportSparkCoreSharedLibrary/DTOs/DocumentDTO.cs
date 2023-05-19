@@ -4,7 +4,9 @@ namespace SportSparkCoreSharedLibrary.DTOs
 {
     public class DocumentDTO : BaseDTO
     {
-        public string BlobId { get; set; }
+        public string ImageTitle { get; set; }
+
+        public byte[] ImageData { get; set; }
 
         public UserDTO Owner { get; set; }
     }

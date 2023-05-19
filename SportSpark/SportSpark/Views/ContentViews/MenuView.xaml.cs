@@ -29,4 +29,9 @@ public partial class MenuView : ContentView
     {
         WeakReferenceMessenger.Default.Send(new Message("GoToFriends"));
     }
+
+    private void GoToFriendsList(object sender, EventArgs e)
+    {
+        WeakReferenceMessenger.Default.Send(new Message("GoToFriendsList"));
+    }
 }

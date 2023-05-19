@@ -9,6 +9,7 @@ using SportSpark.Services;
 using SportSpark.ViewModels.Base;
 using SportSpark.Views;
 using SportSpark.Views.Popups;
+using SportSparkCoreLibrary.Enums;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -19,6 +20,11 @@ namespace SportSpark.ViewModels
     public partial class HomeViewModel : BaseViewModel, IRecipient<Message>
     {
         #region Properties
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
+        UserDTO loggedInUser = null;
+        public UserDTO LoggedInUserValue => LoggedInUser;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SearchIconCode))]
         string searchIcon = FaSolid.MagnifyingGlass;
@@ -108,7 +114,19 @@ namespace SportSpark.ViewModels
                     });
                     break;
                 case "GoToFriends":
-                    //go to friends page
+                    await _navigationService.NavigateToAsync(nameof(FriendsView), new Dictionary<string, object>
+                    {
+                        { "ReceivedFriendships", new ObservableCollection<FriendshipDTO>(await _restService.GetReceivedFriendshipsForUserAsync(LoggedInUserValue.Id)) }
+                    });
+                    break;
+                case "GoToFriendsList":
+                    await GetUser();
+                    List<FriendshipDTO> friendships = LoggedInUserValue.RequestedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed).ToList();
+                    friendships.AddRange(LoggedInUserValue.ReceivedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed));
+                    await _navigationService.NavigateToAsync(nameof(FriendsListView), new Dictionary<string, object>
+                    {
+                        { "Friendships", new ObservableCollection<FriendshipDTO>(friendships) }, { "User", LoggedInUserValue }
+                    });
                     break;
             }
         }
@@ -169,6 +187,11 @@ namespace SportSpark.ViewModels
             {
                 IsBusy = false;
             }
-        } 
+        }
+
+        public async Task GetUser()
+        {
+            LoggedInUser = await _restService.GetLoggedInUser();
+        }
     }
 }

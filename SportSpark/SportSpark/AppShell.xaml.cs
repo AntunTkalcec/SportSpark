@@ -15,6 +15,8 @@ namespace SportSpark
             Routing.RegisterRoute(nameof(MenuView), typeof(MenuView));
             Routing.RegisterRoute(nameof(ProfileView), typeof(ProfileView));
             Routing.RegisterRoute(nameof(CreateEventView), typeof(CreateEventView));
+            Routing.RegisterRoute(nameof(FriendsView), typeof(FriendsView));
+            Routing.RegisterRoute(nameof(FriendsListView), typeof(FriendsListView));
 
             if (CheckIfAuthenticated())
             {

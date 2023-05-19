@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             xmlns:views="clr-namespace:SportSpark.Views"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:SportSpark.Converters"
+             xmlns:models="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
+             x:DataType="viewModels:FriendsViewModel"
+             x:Class="SportSpark.Views.FriendsView"
+             Title="My Requests"
+             Shell.PresentationMode="Animated">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout x:Name="mainLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0"
+                        ItemsSource="{Binding ReceivedFriendships}">
+            <CollectionView.EmptyView>
+                <Label Text="You have no friend requests at this time." TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:FriendshipDTO">
+
+                    <Border HeightRequest="260" BackgroundColor="{StaticResource BackgroundLight}" Margin="0, 0, 0, 15"
+                            StrokeThickness="1" Stroke="{StaticResource LightThemeEntry}">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                        </Border.Shadow>
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+
+                        <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
+
+                            <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                <Border WidthRequest="75" HeightRequest="75" VerticalOptions="Start" HorizontalOptions="Center" Margin="10, 10"
+                                    BackgroundColor="{StaticResource SportSparkLightGreen}" StrokeThickness="1">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="28"/>
+                                    </Border.StrokeShape>
+
+                                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="65" HeightRequest="65"
+                                           Source="{Binding Sender.ProfileImage.ImageData}">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="32,32" RadiusX="32" RadiusY="32"/>
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+
+                                <Label FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Start">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Sender.FirstName"/>
+                                            <Binding Path="Sender.LastName"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </VerticalStackLayout>
+
+                            <BoxView BackgroundColor="{StaticResource LightThemeEntry}" HeightRequest="2" HorizontalOptions="Fill" Margin="20, 10"
+                                     Grid.Row="1" Grid.ColumnSpan="2"/>
+
+
+                            <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="{Binding Sender.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                   HorizontalOptions="Center" VerticalOptions="Start"/>
+
+                                <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNotNullConverter}}">
+                                    <Label Text="{Binding Sender.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                                       IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
+                                
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Button Text="Confirm" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                                        HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ConfirmRequestCommand, Source={x:Reference mainLayout}}"
+                                        CommandParameter="{Binding .}" TextColor="White"/>
+                                <Button Text="Decline" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
+                                        CornerRadius="30"
+                                        Command="{Binding BindingContext.DenyRequestCommand, Source={x:Reference mainLayout}}"
+                                        CommandParameter="{Binding .}" TextColor="White"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

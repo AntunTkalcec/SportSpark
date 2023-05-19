@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using Newtonsoft.Json;
 using SportSpark.Models;
 using SportSpark.Views.Popups;
+using SportSparkCoreLibrary.Enums;
 using SportSparkCoreSharedLibrary.Authentication.Models;
 using SportSparkCoreSharedLibrary.DTOs;
 using System.Diagnostics;
@@ -304,6 +305,55 @@ namespace SportSpark.Services
             else
             {
                 return new List<EventRepeatTypeDTO>();
+            }
+        }
+
+        public async Task<List<FriendshipDTO>> GetReceivedFriendshipsForUserAsync(int userId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{SettingsManager.BaseURL}/Friendship/{userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<FriendshipDTO>>();
+            }
+            else
+            {
+                return new List<FriendshipDTO>();
+            }
+        }
+
+        public async Task<bool> UpdateFriendshipStatus(FriendshipDTO friendshipDTO)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(friendshipDTO);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PutAsync($"{SettingsManager.BaseURL}/Friendship/{friendshipDTO.Id}", content);
+                ApiResponseModel responseModel = JsonConvert.DeserializeObject<ApiResponseModel>(await response.Content.ReadAsStringAsync());
+                if (response.IsSuccessStatusCode)
+                {
+                    switch (friendshipDTO.Status)
+                    {
+                        case (int)FriendshipStatus.Confirmed:
+                            await Toast.Make("Friendship successfully confirmed!").Show();
+                            break;
+                        case (int)FriendshipStatus.Denied:
+                            await Toast.Make("Friendship successfully denied.").Show();
+                            break;
+                    }
+                    return true;
+                }
+                else
+                {
+                    await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup(responseModel.Message));
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Toast.Make("An unknown error occurred.").Show();
+                return false;
             }
         }
     }

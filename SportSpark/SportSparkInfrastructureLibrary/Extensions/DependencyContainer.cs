@@ -32,6 +32,7 @@ namespace SportSparkInfrastructureLibrary.Extensions
             services.AddScoped<IEventTypeService, EventTypeService>();
             services.AddScoped<IEventRepeatTypeService, EventRepeatTypeService>();
             services.AddScoped<IBaseRepository<EventRepeatType>, EventRepeatTypeRepository>();
+            services.AddScoped<IFriendshipService, FriendshipService>();
         }
     }
 }

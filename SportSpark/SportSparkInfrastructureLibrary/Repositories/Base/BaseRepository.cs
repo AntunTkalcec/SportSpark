@@ -4,7 +4,6 @@ using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkInfrastructureLibrary.Database;
 using System.Linq.Expressions;
 using System.Web.Http;
-using System.Security.Authentication.ExtendedProtection;
 using System.Net;
 
 namespace SportSparkInfrastructureLibrary.Repositories.Base
