@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
+            <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -52,7 +53,7 @@
                                     </Border.StrokeShape>
 
                                     <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="65" HeightRequest="65"
-                                           Source="{Binding Sender.ProfileImage.ImageData}">
+                                           Source="{Binding Sender.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}">
                                         <Image.Clip>
                                             <EllipseGeometry Center="32,32" RadiusX="32" RadiusY="32"/>
                                         </Image.Clip>

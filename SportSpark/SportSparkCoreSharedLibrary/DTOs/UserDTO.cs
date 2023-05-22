@@ -25,6 +25,8 @@ namespace SportSparkCoreSharedLibrary.DTOs
         public int? ProfileImageId { get; set; }
         public DocumentDTO ProfileImage { get; set; }
 
+        public byte[] ProfileImageData { get; set; }
+
         public ICollection<EventDTO> Events { get; set; }
 
         public ICollection<FriendshipDTO> RequestedFriendships { get; set; }

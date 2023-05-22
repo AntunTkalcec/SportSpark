@@ -17,6 +17,7 @@ namespace SportSpark.Services
         Task CreateNewEventAsync(EventDTO eventDTO);
         Task<List<FriendshipDTO>> GetReceivedFriendshipsForUserAsync(int userId);
         Task<bool> UpdateFriendshipStatus(FriendshipDTO friendshipDTO);
+        Task CreateNewProfilePictureAsync(DocumentDTO documentDTO);
 
         bool CheckIfAuthenticated();
     }

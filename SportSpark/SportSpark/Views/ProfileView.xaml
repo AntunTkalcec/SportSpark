@@ -26,6 +26,7 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <toolkit:VariableMultiValueConverter x:Key="MultiConverter" ConditionType="All"/>
+            <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -54,8 +55,12 @@
                         <RoundRectangle CornerRadius="55"/>
                     </Border.StrokeShape>
 
-                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="70" HeightRequest="70"
-                                Source="anonymous_person.jpg">
+                    <Image VerticalOptions="Fill" HorizontalOptions="Fill" WidthRequest="70" HeightRequest="70"
+                           Source="{Binding ProfileImageValue, Converter={StaticResource ByteArrayToImageSourceConverter}}" 
+                           x:Name="profilePic" Aspect="AspectFill">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeProfilePictureCommand}"/>
+                        </Image.GestureRecognizers>
                         <Image.Clip>
                             <EllipseGeometry Center="35, 35" RadiusX="35" RadiusY="35"/>
                         </Image.Clip>
@@ -166,7 +171,8 @@
                                     </Border.StrokeShape>
 
                                     <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="45" HeightRequest="45"
-                                           Source="anonymous_person.jpg">
+                                           Source="{Binding BindingContext.UserValue.ProfileImageData, Source={x:Reference EventsLayout}, 
+                                           Converter={StaticResource ByteArrayToImageSourceConverter}}">
                                         <Image.Clip>
                                             <EllipseGeometry Center="22,22" RadiusX="22" RadiusY="22"/>
                                         </Image.Clip>

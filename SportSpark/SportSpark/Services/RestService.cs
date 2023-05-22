@@ -356,5 +356,30 @@ namespace SportSpark.Services
                 return false;
             }
         }
+
+        public async Task CreateNewProfilePictureAsync(DocumentDTO documentDTO)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(documentDTO);
+                StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{SettingsManager.BaseURL}/Document", content);
+                ApiResponseModel responseModel = JsonConvert.DeserializeObject<ApiResponseModel>(await response.Content.ReadAsStringAsync());
+                if (response.IsSuccessStatusCode)
+                {
+                    await Toast.Make("Successfully changed profile picture").Show();
+                }
+                else
+                {
+                    await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup(responseModel.Message));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Toast.Make("An unknown error occurred.").Show();
+            }
+        }
     }
 }

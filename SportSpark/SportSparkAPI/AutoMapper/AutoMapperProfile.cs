@@ -13,7 +13,8 @@ namespace SportSparkAPI.AutoMapper
                 .ForMember(x => x.RequestedFriendships, opt => opt.MapFrom(_ => _.RequestedFriendships)).MaxDepth(2)
                 .ForMember(x => x.ReceivedFriendships, opt => opt.MapFrom(_ => _.ReceivedFriendships)).MaxDepth(2)
                 .ForMember(x => x.Events, opt => opt.MapFrom(_ => _.Events)).MaxDepth(2)
-                .ForMember(x => x.Password, opt => opt.Ignore());
+                .ForMember(x => x.Password, opt => opt.Ignore())
+                .ForMember(x => x.ProfileImageData, opt => opt.MapFrom(_ => _.ProfileImage.ImageData));
             CreateMap<UserDTO, User>();
             CreateMap<Document, DocumentDTO>();
             CreateMap<DocumentDTO, Document>();

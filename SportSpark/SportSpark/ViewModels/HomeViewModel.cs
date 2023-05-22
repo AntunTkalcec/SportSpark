@@ -110,7 +110,7 @@ namespace SportSpark.ViewModels
                 case "GoToProfile":
                     await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
                     {
-                        { "User", LoggedInUserValue }, { "SameUser", true }, { "UserIsNotFriend", true }
+                        { "User", LoggedInUserValue }, { "SameUser", true }, { "UserIsNotFriend", true }, { "UserProfilePicture", LoggedInUserValue.ProfileImageData }
                     });
                     break;
                 case "GoToFriends":
@@ -191,6 +191,7 @@ namespace SportSpark.ViewModels
 
         public async Task GetUser()
         {
+            //maui katastrofalan bug - https://github.com/dotnet/maui/issues/14052
             LoggedInUser = await _restService.GetLoggedInUser();
         }
     }

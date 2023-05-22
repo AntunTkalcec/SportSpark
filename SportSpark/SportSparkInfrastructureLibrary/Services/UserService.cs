@@ -10,7 +10,6 @@ using SportSparkInfrastructureLibrary.Authentication;
 using SportSparkInfrastructureLibrary.Helpers;
 using System.Security.Claims;
 using SportSparkCoreLibrary.Interfaces.Repositories;
-using System.Runtime.InteropServices;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
@@ -125,6 +124,14 @@ namespace SportSparkInfrastructureLibrary.Services
                     ReceiverId = receiverId
                 });
             }
+        }
+
+        public async Task UpdateProfilePictureAsync(int userId, int newDocumentId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            user.ProfileImageId = newDocumentId;
+
+            await _userRepository.UpdateAsync(user);
         }
 
         #region Private methods

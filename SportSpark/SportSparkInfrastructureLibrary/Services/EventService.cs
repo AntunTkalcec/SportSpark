@@ -24,8 +24,7 @@ namespace SportSparkInfrastructureLibrary.Services
             {
                 throw new Exception("Required fields cannot remain empty!");
             }
-            var test = _mapper.Map<Event>(entity);
-            await _eventRepository.AddAsync(test);
+            await _eventRepository.AddAsync(_mapper.Map<Event>(entity));
             return entity.Id;
         }
 

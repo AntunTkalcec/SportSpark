@@ -13,7 +13,8 @@ using System.Diagnostics;
 
 namespace SportSpark.ViewModels
 {
-    [QueryProperty(nameof(User), "User"), QueryProperty(nameof(SameUser), "SameUser"), QueryProperty(nameof(UserIsNotFriend), "UserIsNotFriend")]
+    [QueryProperty(nameof(User), "User"), QueryProperty(nameof(SameUser), "SameUser"), QueryProperty(nameof(UserIsNotFriend), "UserIsNotFriend"),
+        QueryProperty(nameof(ProfileImage), "UserProfilePicture")]
     public partial class ProfileViewModel : BaseViewModel
     {
         #region Properties
@@ -51,6 +52,11 @@ namespace SportSpark.ViewModels
         [NotifyPropertyChangedFor(nameof(UserEventsValue))]
         ObservableCollection<EventDTO> userEvents;
         public ObservableCollection<EventDTO> UserEventsValue => UserEvents;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ProfileImageValue))]
+        byte[] profileImage = Array.Empty<byte>();
+        public byte[] ProfileImageValue => ProfileImage;
         #endregion
 
         public ProfileViewModel(INavigationService navigationService, IRestService restService)
@@ -134,6 +140,45 @@ namespace SportSpark.ViewModels
             {
                 { "User", UserValue }
             });
+        }
+
+        [RelayCommand]
+        async Task ChangeProfilePictureAsync()
+        {
+            var res = await FilePicker.PickAsync(new PickOptions
+            {
+                PickerTitle = "Choose a new profile picture",
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (res is null)
+            {
+                return;
+            }
+
+            var stream = await res.OpenReadAsync();
+
+            byte[] imageData;
+            using var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            imageData = memoryStream.ToArray();
+
+            ProfileImage = imageData;
+
+            bool answer = await Application.Current.MainPage.DisplayAlert("Are you sure", "Keep this profile picture?", "Yes", "No");
+            if (answer)
+            {
+                await _restService.CreateNewProfilePictureAsync(new DocumentDTO
+                {
+                    ImageTitle = res.FileName,
+                    ImageData = imageData,
+                    Owner = UserValue
+                });
+                // save image to db
+                return;
+            }
+
+            ProfileImage = UserValue.ProfileImageData;
         }
 
         private async Task GetUserEventsAsync()

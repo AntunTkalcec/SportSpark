@@ -11,5 +11,7 @@ namespace SportSparkCoreLibrary.Interfaces.Services
         Task<User> UserValid(string emailOrUserName, string password);
 
         Task AddAsFriendAsync(int senderId, int receiverId);
+
+        Task UpdateProfilePictureAsync(int userId, int newDocumentId);
     }
 }
