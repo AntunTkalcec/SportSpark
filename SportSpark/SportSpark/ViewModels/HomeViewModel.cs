@@ -56,12 +56,6 @@ namespace SportSpark.ViewModels
         }
 
         [RelayCommand]
-        async Task OpenMenuAsync()
-        {
-            await _navigationService.NavigateToAsync(nameof(MenuView));
-        }
-
-        [RelayCommand]
         async Task RefreshPageAsync(string searchText = null)
         {
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
@@ -105,6 +99,7 @@ namespace SportSpark.ViewModels
                     Preferences.Set("access_token", "");
                     Preferences.Set("refresh_token", "");
                     Preferences.Set("token_expiration", "");
+                    await Shell.Current.Navigation.PopToRootAsync();
                     Application.Current.MainPage = new AppShell();
                     break;
                 case "GoToProfile":
@@ -120,7 +115,7 @@ namespace SportSpark.ViewModels
                     });
                     break;
                 case "GoToFriendsList":
-                    await GetUser();
+                    //await GetUser(); commented because of catastrophic imagesource bug
                     List<FriendshipDTO> friendships = LoggedInUserValue.RequestedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed).ToList();
                     friendships.AddRange(LoggedInUserValue.ReceivedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed));
                     await _navigationService.NavigateToAsync(nameof(FriendsListView), new Dictionary<string, object>
@@ -191,7 +186,7 @@ namespace SportSpark.ViewModels
 
         public async Task GetUser()
         {
-            //maui katastrofalan bug - https://github.com/dotnet/maui/issues/14052
+            //maui catastrophic imagesource bug - https://github.com/dotnet/maui/issues/14052
             LoggedInUser = await _restService.GetLoggedInUser();
         }
     }

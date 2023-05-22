@@ -84,8 +84,8 @@
                                            Aspect="AspectFill"/>
 
                                     <Image ZIndex="2" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10"
-                                               WidthRequest="45" HeightRequest="45" Aspect="AspectFill"
-                                               Source="{Binding User.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}">
+                                           WidthRequest="45" HeightRequest="45" Aspect="AspectFill"
+                                           Source="{Binding User.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}">
                                         <Image.Clip>
                                             <EllipseGeometry Center="22,22" RadiusX="22" RadiusY="22"/>
                                         </Image.Clip>

@@ -49,23 +49,19 @@
               x:Name="ProfileLayout" VerticalOptions="FillAndExpand" RowSpacing="20">
             
             <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" Spacing="10">
-                <Border WidthRequest="80" HeightRequest="80" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"
-                StrokeThickness="1" BackgroundColor="{StaticResource SportSparkLightGreen}">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="55"/>
-                    </Border.StrokeShape>
-
-                    <Image VerticalOptions="Fill" HorizontalOptions="Fill" WidthRequest="70" HeightRequest="70"
+                <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="80" HeightRequest="80"
                            Source="{Binding ProfileImageValue, Converter={StaticResource ByteArrayToImageSourceConverter}}" 
                            x:Name="profilePic" Aspect="AspectFill">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ChangeProfilePictureCommand}"/>
-                        </Image.GestureRecognizers>
-                        <Image.Clip>
-                            <EllipseGeometry Center="35, 35" RadiusX="35" RadiusY="35"/>
-                        </Image.Clip>
-                    </Image>
-                </Border>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeProfilePictureCommand}"/>
+                    </Image.GestureRecognizers>
+                    <Image.Clip>
+                        <EllipseGeometry Center="40, 40" RadiusX="40" RadiusY="40"/>
+                    </Image.Clip>
+                    <Image.Shadow>
+                        <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                    </Image.Shadow>
+                </Image>
 
                 <!-- Full name & Age -->
                 <Label FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" 
@@ -163,21 +159,17 @@
                                 <Image Source="football.jpg" Grid.RowSpan="3" Grid.ColumnSpan="2" ZIndex="1"
                                            Aspect="AspectFill"/>
 
-                                <Border ZIndex="2" WidthRequest="55" HeightRequest="55" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10"
-                                            BackgroundColor="{StaticResource SportSparkLightGreen}" StrokeThickness="1">
-
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="28"/>
-                                    </Border.StrokeShape>
-
-                                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="45" HeightRequest="45"
-                                           Source="{Binding BindingContext.UserValue.ProfileImageData, Source={x:Reference EventsLayout}, 
-                                           Converter={StaticResource ByteArrayToImageSourceConverter}}">
-                                        <Image.Clip>
-                                            <EllipseGeometry Center="22,22" RadiusX="22" RadiusY="22"/>
-                                        </Image.Clip>
-                                    </Image>
-                                </Border>
+                                <Image ZIndex="2" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10" 
+                                       WidthRequest="55" HeightRequest="55" Aspect="AspectFill"
+                                       Source="{Binding BindingContext.UserValue.ProfileImageData, Source={x:Reference EventsLayout}, 
+                                       Converter={StaticResource ByteArrayToImageSourceConverter}}">
+                                    <Image.Clip>
+                                        <EllipseGeometry Center="27,27" RadiusX="27" RadiusY="27"/>
+                                    </Image.Clip>
+                                    <Image.Shadow>
+                                        <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                                    </Image.Shadow>
+                                </Image>
 
 
                                 <Border BackgroundColor="{StaticResource BackgroundLight}" Grid.Row="3" Grid.ColumnSpan="2" 

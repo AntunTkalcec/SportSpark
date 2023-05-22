@@ -34,7 +34,7 @@ namespace SportSpark.ViewModels
 
             await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
             {
-                { "User", userToSend }, { "SameUser", false }, { "UserIsNotFriend",  false },
+                { "User", userToSend }, { "SameUser", false }, { "UserIsNotFriend",  false }, { "UserProfilePicture", userToSend.ProfileImageData }
             });
         }
 

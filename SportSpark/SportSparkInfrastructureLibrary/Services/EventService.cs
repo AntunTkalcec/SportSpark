@@ -65,6 +65,8 @@ namespace SportSparkInfrastructureLibrary.Services
                     .ThenInclude(x => x.RequestedFriendships)
                 .Include(x => x.User)
                     .ThenInclude(x => x.ReceivedFriendships)
+                .Include(x => x.User)
+                    .ThenInclude(x => x.ProfileImage)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
                 .Where(x => ids.Contains(x.Id)).ToListAsync();

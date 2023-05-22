@@ -60,8 +60,10 @@ namespace SportSparkInfrastructureLibrary.Services
                 .Include(u => u.Events)
                 .Include(u => u.ReceivedFriendships)
                     .ThenInclude(_ => _.Sender)
+                        .ThenInclude(u => u.ProfileImage)
                 .Include(u => u.RequestedFriendships)
                     .ThenInclude(_ => _.Receiver)
+                        .ThenInclude(u => u.ProfileImage)
                 .Include(u => u.ProfileImage)
                 .FirstOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDTO>(user);

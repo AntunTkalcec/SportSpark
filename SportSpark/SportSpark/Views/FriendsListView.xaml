@@ -48,19 +48,16 @@
                             <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
 
                                 <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                    <Border WidthRequest="75" HeightRequest="75" VerticalOptions="Start" HorizontalOptions="Center" Margin="10, 10"
-                                    BackgroundColor="{StaticResource SportSparkLightGreen}" StrokeThickness="1">
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="28"/>
-                                        </Border.StrokeShape>
-
-                                        <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="65" HeightRequest="65"
-                                           Source="{Binding Sender.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}">
-                                            <Image.Clip>
-                                                <EllipseGeometry Center="32,32" RadiusX="32" RadiusY="32"/>
-                                            </Image.Clip>
-                                        </Image>
-                                    </Border>
+                                    <Image VerticalOptions="Start" HorizontalOptions="Center" WidthRequest="75" HeightRequest="75" Margin="10, 10"
+                                           Source="{Binding Sender.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                                           Aspect="AspectFill">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="37,37" RadiusX="37" RadiusY="37"/>
+                                        </Image.Clip>
+                                        <Image.Shadow>
+                                            <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                                        </Image.Shadow>
+                                    </Image>
 
                                     <Label FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Start">
                                         <Label.Text>
@@ -115,19 +112,15 @@
                             <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
 
                                 <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                    <Border WidthRequest="75" HeightRequest="75" VerticalOptions="Start" HorizontalOptions="Center" Margin="10, 10"
-                                    BackgroundColor="{StaticResource SportSparkLightGreen}" StrokeThickness="1">
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="28"/>
-                                        </Border.StrokeShape>
-
-                                        <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="65" HeightRequest="65"
+                                    <Image VerticalOptions="Start" HorizontalOptions="Center" WidthRequest="75" HeightRequest="75" Margin="10, 10"
                                            Source="{Binding Receiver.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}">
-                                            <Image.Clip>
-                                                <EllipseGeometry Center="32,32" RadiusX="32" RadiusY="32"/>
-                                            </Image.Clip>
-                                        </Image>
-                                    </Border>
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="37,37" RadiusX="37" RadiusY="37"/>
+                                        </Image.Clip>
+                                        <Image.Shadow>
+                                            <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                                        </Image.Shadow>
+                                    </Image>
 
                                     <Label FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Start">
                                         <Label.Text>
