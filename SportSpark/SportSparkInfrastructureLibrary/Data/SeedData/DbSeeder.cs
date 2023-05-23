@@ -18,6 +18,8 @@ namespace SportSparkInfrastructureLibrary.Data.SeedData
                 Email = "frank@gmail.com",
                 Bio = "Hey! I'm Frank.",
                 Rating = (decimal?)3.6,
+                VoteCount = 10,
+                VoteSum = 36,
                 Age = 36
             },
             new User
@@ -29,6 +31,8 @@ namespace SportSparkInfrastructureLibrary.Data.SeedData
                 Email = "alice@gmail.com",
                 Bio = "Hey! I'm Alice.",
                 Rating = (decimal?)4.6,
+                VoteCount = 10,
+                VoteSum = 46,
                 Age = 28
             },
             new User
@@ -57,7 +61,9 @@ namespace SportSparkInfrastructureLibrary.Data.SeedData
                 FirstName = "Ross",
                 LastName = "Geller",
                 Email = "ross@gmail.com",
-                Rating = (decimal?)4.9
+                Rating = (decimal?)4.9,
+                VoteCount = 10,
+                VoteSum = 49
             },
             new User
             {
@@ -68,6 +74,8 @@ namespace SportSparkInfrastructureLibrary.Data.SeedData
                 Email = "joey@gmail.com",
                 Bio = "Hey! I'm Joey.",
                 Rating = (decimal?)2.8,
+                VoteCount = 10,
+                VoteSum = 28,
                 Age = 30
             },
         };

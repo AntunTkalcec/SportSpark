@@ -32,6 +32,10 @@ public class User : BaseEntity
     [Column(TypeName = "decimal(9, 6)")]
     public decimal? Rating { get; set; }
 
+    public int? VoteCount { get; set; }
+
+    public int? VoteSum { get; set; }
+
     public int? Age { get; set; }
 
     public double? DesiredRadius { get; set; }

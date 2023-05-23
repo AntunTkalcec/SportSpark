@@ -107,5 +107,20 @@ namespace SportSparkAPI.Controllers
                 return BadRequest(new ApiResponseHelper(400, ex.Message));
             }
         }
+
+        [HttpPut("{id}/rate/{rating}")]
+        public async Task<ActionResult> RateUser(int id, int rating)
+        {
+            try
+            {
+                await _userService.RateUserAsync(id, rating);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
     }
 }

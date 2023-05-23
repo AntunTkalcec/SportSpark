@@ -58,10 +58,14 @@
                 <Label Text="Near you" FontSize="18" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0"
                                Grid.Row="1" FontAttributes="Bold" Margin="15, 0"/>
                 <Label Text="See more" FontSize="14" TextColor="{StaticResource LightThemeEntry}" VerticalOptions="CenterAndExpand" Grid.Column="1" 
-                                   HorizontalOptions="End" Grid.Row="1" Margin="15, 0"/>
+                                   HorizontalOptions="End" Grid.Row="1" Margin="15, 0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeMoreCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
 
                 <CollectionView ItemsSource="{Binding EventsNearUser}" SelectionMode="None" Grid.Row="2" Grid.ColumnSpan="2"
-                            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0" x:Name="eventsCollection">
+                                VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0" x:Name="eventsCollection">
                     <CollectionView.EmptyView>
                         <Label Text="There are no events found near you." TextColor="Black" FontSize="24" FontAttributes="Bold"
                                HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>

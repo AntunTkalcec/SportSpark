@@ -181,6 +181,17 @@ namespace SportSpark.ViewModels
             ProfileImage = UserValue.ProfileImageData;
         }
 
+        [RelayCommand]
+        async Task RateUserAsync()
+        {
+            var res = await Application.Current.MainPage.ShowPopupAsync(new RateUserPopup());
+
+            if (res is int intResult)
+            {
+                await _restService.RateUserAsync(UserValue.Id, intResult);
+            }
+        }
+
         private async Task GetUserEventsAsync()
         {
             try

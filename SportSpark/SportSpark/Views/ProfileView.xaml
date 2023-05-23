@@ -86,6 +86,9 @@
 
                 <!-- Rating -->
                 <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding UserValue.Rating, Converter={StaticResource IsNotNullConverter}}">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RateUserCommand}"/>
+                    </HorizontalStackLayout.GestureRecognizers>
                     <Label Text="{Binding UserValue.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                     <Label Text="{Binding StarCode}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                 </HorizontalStackLayout>

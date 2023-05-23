@@ -2,7 +2,6 @@
 using SportSparkCoreLibrary.Entities;
 using SportSparkCoreLibrary.Enums;
 using SportSparkCoreLibrary.Interfaces.Repositories;
-using SportSparkCoreSharedLibrary.DTOs;
 using SportSparkInfrastructureLibrary.Database;
 
 namespace SportSparkInfrastructureLibrary.Repositories

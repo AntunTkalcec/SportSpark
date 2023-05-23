@@ -13,5 +13,7 @@ namespace SportSparkCoreLibrary.Interfaces.Services
         Task AddAsFriendAsync(int senderId, int receiverId);
 
         Task UpdateProfilePictureAsync(int userId, int newDocumentId);
+
+        Task RateUserAsync(int userId, int rating);
     }
 }

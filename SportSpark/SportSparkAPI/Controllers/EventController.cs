@@ -85,7 +85,7 @@ namespace SportSparkAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ApiResponseHelper(500, ex.Message));
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
             }
         }
 

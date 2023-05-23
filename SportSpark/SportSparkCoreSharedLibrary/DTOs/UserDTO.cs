@@ -15,7 +15,10 @@ namespace SportSparkCoreSharedLibrary.DTOs
         public string Password { get; set; }
 
         public string? Bio { get; set; }
+
         public decimal? Rating { get; set; }
+
+        public int? VoteCount { get; set; }
 
         public int? Age { get; set; }
 

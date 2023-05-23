@@ -381,5 +381,27 @@ namespace SportSpark.Services
                 await Toast.Make("An unknown error occurred.").Show();
             }
         }
+
+        public async Task RateUserAsync(int userId, int rating)
+        {
+            try
+            {
+                HttpResponseMessage response = await _httpClient.PutAsync($"{SettingsManager.BaseURL}/User/{userId}/rate/{rating}", null);
+                ApiResponseModel responseModel = JsonConvert.DeserializeObject<ApiResponseModel>(await response.Content.ReadAsStringAsync());
+                if (response.IsSuccessStatusCode)
+                {
+                    await Toast.Make("Successfully rated the user").Show();
+                }
+                else
+                {
+                    await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup(responseModel.Message));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Toast.Make("An unknown error occurred.").Show();
+            }
+        }
     }
 }

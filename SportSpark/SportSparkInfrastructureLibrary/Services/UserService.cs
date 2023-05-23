@@ -136,6 +136,26 @@ namespace SportSparkInfrastructureLibrary.Services
             await _userRepository.UpdateAsync(user);
         }
 
+        public async Task RateUserAsync(int userId, int rating)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user.Rating is null)
+            {
+                user.VoteCount = 1;
+                user.VoteSum = rating;
+            }
+            else
+            {
+                user.VoteCount += 1;
+                user.VoteSum += rating;
+            }
+            
+            user.Rating = (decimal)user.VoteSum / user.VoteCount;
+
+            await _userRepository.UpdateAsync(user);
+        }
+
         #region Private methods
         private static bool ValidateUser(UserDTO entity)
         {

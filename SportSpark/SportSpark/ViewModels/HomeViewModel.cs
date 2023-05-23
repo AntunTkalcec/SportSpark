@@ -87,8 +87,35 @@ namespace SportSpark.ViewModels
                 eventCreator.ReceivedFriendships.Any(x => x.SenderId == LoggedInUserValue.Id || x.ReceiverId == LoggedInUserValue.Id));
             await _navigationService.NavigateToAsync(nameof(ProfileView), new Dictionary<string, object>
             {
-                { "User", eventCreator }, { "SameUser", false }, { "UserIsNotFriend",  userIsNotFriend },
+                { "User", eventCreator }, { "SameUser", false }, { "UserIsNotFriend",  userIsNotFriend }, { "UserProfilePicture", eventCreator.ProfileImageData }
             });
+        }
+
+        [RelayCommand]
+        async Task SeeMoreAsync()
+        {
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(60));
+
+            Location location = await Geolocation.Default.GetLocationAsync(request);
+
+            if (location != null)
+            {
+                LatLongWrapperDTO wrapper = new()
+                {
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                };
+
+                await _navigationService.NavigateToAsync(nameof(SeeMoreView), new Dictionary<string, object>
+                {
+                    { "User", LoggedInUserValue }, 
+                    { "Events", new ObservableCollection<EventDTO>(await _restService.GetEventsNearUserAsync(LoggedInUserValue.DesiredRadius * 2.5, wrapper)) }
+                });
+            }
+            else
+            {
+                await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("Couldn't get your location."));
+            }
         }
 
         public async void Receive(Message message)
