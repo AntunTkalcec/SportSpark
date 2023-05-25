@@ -24,6 +24,18 @@ namespace SportSparkCoreSharedLibrary.DTOs
 
         public bool Active { get; set; }
 
+        public Location? Location 
+        { 
+            get
+            {
+                return new Location((double)Lat, (double)Long);
+            }
+            set 
+            {
+
+            } 
+        }
+
         #region Relations
         public int UserId { get; set; }        
 
