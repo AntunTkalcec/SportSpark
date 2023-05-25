@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportSparkInfrastructureLibrary.Database;
 
@@ -11,9 +12,11 @@ using SportSparkInfrastructureLibrary.Database;
 namespace SportSparkInfrastructureLibrary.Data.Migrations
 {
     [DbContext(typeof(SportSparkDBContext))]
-    partial class SportSparkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230525143918_EventVisibilityUpdate")]
+    partial class EventVisibilityUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Document", (string)null);
+                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.Event", b =>
@@ -117,7 +120,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Event", (string)null);
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.EventRepeatType", b =>
@@ -140,7 +143,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventRepeatType", (string)null);
+                    b.ToTable("EventRepeatType");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.EventType", b =>
@@ -169,7 +172,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventType", (string)null);
+                    b.ToTable("EventType");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.Friendship", b =>
@@ -195,7 +198,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Friendship", (string)null);
+                    b.ToTable("Friendship");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.User", b =>
@@ -264,7 +267,7 @@ namespace SportSparkInfrastructureLibrary.Data.Migrations
 
                     b.HasIndex("ProfileImageId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("SportSparkCoreLibrary.Entities.Event", b =>

@@ -94,6 +94,10 @@ namespace SportSparkInfrastructureLibrary.Services
             {
                 throw new Exception("Required fields cannot remain empty!");
             }
+            if (entity.DesiredRadius > 500)
+            {
+                throw new Exception("Radius cannot be higher than 500.");
+            }
             User currentEntity = await _userRepository.GetByIdAsync(id);
             entity.Password = currentEntity.Password;
             await _userRepository.UpdateAsync(_mapper.Map<User>(entity));

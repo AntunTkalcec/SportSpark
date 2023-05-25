@@ -1,4 +1,5 @@
 ﻿using SportSpark.Views;
+using SportSpark.Views.ContentViews;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace SportSpark
@@ -18,6 +19,7 @@ namespace SportSpark
             Routing.RegisterRoute(nameof(FriendsView), typeof(FriendsView));
             Routing.RegisterRoute(nameof(FriendsListView), typeof(FriendsListView));
             Routing.RegisterRoute(nameof(SeeMoreView), typeof(SeeMoreView));
+            Routing.RegisterRoute(nameof(EventVisibleToModal), typeof(EventVisibleToModal));
 
             if (CheckIfAuthenticated())
             {

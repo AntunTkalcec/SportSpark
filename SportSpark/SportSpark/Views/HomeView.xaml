@@ -15,6 +15,7 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:DistanceConverter x:Key="DistanceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="65, *"
@@ -115,8 +116,8 @@
                                             <Label Text="{Binding Time, Converter={StaticResource DateTimeConverter}}" FontSize="14" HorizontalOptions="Start" 
                                                    HorizontalTextAlignment="Center"
                                                    Grid.Row="1" Grid.Column="0" TextColor="Black"/>
-                                            <Label Text="Xkm away" FontSize="14" HorizontalOptions="End" HorizontalTextAlignment="Center"
-                                                   Grid.Row="1" Grid.Column="1" TextColor="Black"/>
+                                            <Label FontSize="14" HorizontalOptions="End" HorizontalTextAlignment="Center"
+                                                   Grid.Row="1" Grid.Column="1" TextColor="Black" Text="{Binding LatLong, Converter={StaticResource DistanceConverter}}"/>
                                         </Grid>
                                     </Border>
                                 </Grid>

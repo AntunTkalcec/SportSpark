@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Resources\Styles\ControlTemplates.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ContentViews\EventVisibleToModal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ContentViews\ProfileContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -4,6 +4,7 @@ using SkiaSharp.Views.Maui.Controls.Hosting;
 using SportSpark.Services;
 using SportSpark.ViewModels;
 using SportSpark.Views;
+using SportSpark.Views.ContentViews;
 
 namespace SportSpark
 {
@@ -45,6 +46,7 @@ namespace SportSpark
             builder.Services.AddTransient<FriendsView>();
             builder.Services.AddTransient<FriendsListView>();
             builder.Services.AddTransient<SeeMoreView>();
+            builder.Services.AddTransient<EventVisibleToModal>();
 
             //viewmodels
             builder.Services.AddSingleton<RegisterViewModel>();
@@ -55,6 +57,7 @@ namespace SportSpark
             builder.Services.AddTransient<FriendsViewModel>();
             builder.Services.AddTransient<FriendsListViewModel>();
             builder.Services.AddTransient<SeeMoreViewModel>();
+            builder.Services.AddTransient<EventVisibleToViewModel>();
 
             return builder.Build();
         }

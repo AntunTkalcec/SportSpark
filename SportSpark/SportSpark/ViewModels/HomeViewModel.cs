@@ -45,11 +45,20 @@ namespace SportSpark.ViewModels
         ObservableCollection<EventDTO> eventsNearUser;
         public ObservableCollection<EventDTO> EventsNearUserCollection => EventsNearUser;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(UserLocationValue))]
+        Location location = null;
+        public Location UserLocationValue => Location;
+
         public ICommand GetEventsNearUser { get; }
+
+        public ICommand GetUserLocation { get; }
         #endregion
         public HomeViewModel(INavigationService navigationService, IRestService restService)
             : base(navigationService, restService)
         {
+            GetUserLocation = new AsyncRelayCommand(GetUserLocationAsync);
+            GetUserLocation.Execute(null);
             GetEventsNearUser = new AsyncRelayCommand(async () => await GetEventsNearUserAsync(null));
             GetEventsNearUser.Execute(null);
             WeakReferenceMessenger.Default.Register(this);
@@ -94,16 +103,12 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async Task SeeMoreAsync()
         {
-            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(60));
-
-            Location location = await Geolocation.Default.GetLocationAsync(request);
-
-            if (location != null)
+            if (Location != null)
             {
                 LatLongWrapperDTO wrapper = new()
                 {
-                    Latitude = location.Latitude,
-                    Longitude = location.Longitude
+                    Latitude = Location.Latitude,
+                    Longitude = Location.Longitude
                 };
 
                 await _navigationService.NavigateToAsync(nameof(SeeMoreView), new Dictionary<string, object>
@@ -178,16 +183,12 @@ namespace SportSpark.ViewModels
 
                 await GetUser();
 
-                GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(60));
-
-                Location location = await Geolocation.Default.GetLocationAsync(request);
-
-                if (location != null)
+                if (Location != null)
                 {
                     LatLongWrapperDTO wrapper = new()
                     {
-                        Latitude = location.Latitude,
-                        Longitude = location.Longitude
+                        Latitude = Location.Latitude,
+                        Longitude = Location.Longitude
                     };
 
                     if (string.IsNullOrEmpty(text))
@@ -215,6 +216,13 @@ namespace SportSpark.ViewModels
         {
             //maui catastrophic imagesource bug - https://github.com/dotnet/maui/issues/14052
             LoggedInUser = await _restService.GetLoggedInUser();
+        }
+
+        private async Task GetUserLocationAsync()
+        {
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(60));
+
+            Location = await Geolocation.Default.GetLocationAsync(request);
         }
     }
 }

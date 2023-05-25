@@ -56,7 +56,7 @@ namespace SportSparkInfrastructureLibrary.Services
             await _eventRepository.UpdateAsync(_mapper.Map<Event>(entity));
         }
 
-        public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, double radius)
+        public async Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, double radius, int userId)
         {
             var ids = await _eventRepository.GetEventsByLocation(wrapper, radius);
 
@@ -71,16 +71,16 @@ namespace SportSparkInfrastructureLibrary.Services
                 .Include(x => x.EventType)
                 .Where(x => ids.Contains(x.Id)).ToListAsync();
 
-            return _mapper.Map<List<EventDTO>>(res);
+            return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0).ToList();
         }
 
-        public async Task<List<EventDTO>> GetUserEventsAsync(int userId)
+        public async Task<List<EventDTO>> GetUserEventsAsync(int userId, int loggedInUserId)
         {
             var res = await _eventRepository.Fetch().Where(x => x.UserId == userId).ToListAsync();
-            return _mapper.Map<List<EventDTO>>(res);
+            return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(loggedInUserId) || x.ValidUserIds.Count == 0).ToList();
         }
 
-        public async Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term)
+        public async Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term, int userId)
         {
             var ids = await _eventRepository.GetEventsByLocation(wrapper, radius);
 
@@ -93,7 +93,7 @@ namespace SportSparkInfrastructureLibrary.Services
                 .Include(x => x.EventType)
                 .Where(x => (x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)) && ids.Contains(x.Id)).ToListAsync();
 
-            return _mapper.Map<List<EventDTO>>(res);
+            return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0).ToList();
         }
 
         #region Private Methods

@@ -51,7 +51,7 @@ namespace SportSparkAPI.Controllers
         {
             try
             {
-                return await _eventService.GetUserEventsAsync(id);
+                return await _eventService.GetUserEventsAsync(id, UserId);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace SportSparkAPI.Controllers
         {
             try
             {
-                return await _eventService.GetEventsByTermAsync(latLongWrapperDTO, radius, term);
+                return await _eventService.GetEventsByTermAsync(latLongWrapperDTO, radius, term, UserId);
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace SportSparkAPI.Controllers
         {
             try
             {
-                var res = await _eventService.GetInRadiusAsync(latLongWrapperDTO, radius);
+                var res = await _eventService.GetInRadiusAsync(latLongWrapperDTO, radius, UserId);
 
                 return Ok(res.Where(_ => _.UserId != UserId).ToList());
             }

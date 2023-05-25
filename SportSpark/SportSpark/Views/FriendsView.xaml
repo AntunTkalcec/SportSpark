@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <VerticalStackLayout x:Name="mainLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <Grid x:Name="mainLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0"
                         ItemsSource="{Binding ReceivedFriendships}">
             <CollectionView.EmptyView>
@@ -99,5 +99,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

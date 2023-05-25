@@ -27,6 +27,7 @@
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <toolkit:VariableMultiValueConverter x:Key="MultiConverter" ConditionType="All"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:DistanceConverter x:Key="DistanceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -183,11 +184,12 @@
 
                                     <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowDefinitions="*, *" ColumnDefinitions="*, *" Margin="10, 5">
                                         <Label Text="{Binding Title}" FontAttributes="Bold" HorizontalOptions="Start" HorizontalTextAlignment="Center"
-                                                   Grid.Row="0" Grid.ColumnSpan="2" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black"/>
+                                               Grid.Row="0" Grid.ColumnSpan="2" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black"/>
                                         <Label Text="{Binding Time, Converter={StaticResource DateTimeConverter}}" FontSize="14" HorizontalOptions="Start" HorizontalTextAlignment="Center"
-                                                   Grid.Row="1" Grid.Column="0" TextColor="Black"/>
-                                        <Label Text="Xkm away" FontSize="14" HorizontalOptions="End" HorizontalTextAlignment="Center"
-                                                   Grid.Row="1" Grid.Column="1" TextColor="Black"/>
+                                               Grid.Row="1" Grid.Column="0" TextColor="Black"/>
+                                        <Label Text="{Binding LatLong, Converter={StaticResource DistanceConverter}}" FontSize="14" HorizontalOptions="End" 
+                                               HorizontalTextAlignment="Center"
+                                               Grid.Row="1" Grid.Column="1" TextColor="Black"/>
                                     </Grid>
                                 </Border>
                             </Grid>

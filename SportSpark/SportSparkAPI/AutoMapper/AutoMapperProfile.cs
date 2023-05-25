@@ -25,14 +25,23 @@ namespace SportSparkAPI.AutoMapper
                 .ForMember(x => x.Receiver, opt => opt.Ignore());
             CreateMap<Event, EventDTO>()
                 .ForMember(x => x.Privacy, opt => opt.MapFrom(_ => (int)_.Privacy))
-                .ForMember(x => x.User, opt => opt.MapFrom(_ => _.User));
+                .ForMember(x => x.User, opt => opt.MapFrom(_ => _.User))
+                .ForMember(x => x.LatLong, opt => opt.MapFrom(_ => new double?[] { (double?)_.Lat, (double?)_.Long }))
+                .ForMember(x => x.ValidUserIds, opt => opt.MapFrom(_ => 
+                    _.ValidUserIds != null 
+                    ? _.ValidUserIds.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList()
+                    : new List<int>()));
             CreateMap<EventDTO, Event>()
                 .ForMember(x => x.EventTypeId, opt => opt.MapFrom(_ => _.EventType.Id))
                 .ForMember(x => x.RepeatTypeId, opt => opt.MapFrom(_ => _.RepeatType.Id))
                 .ForMember(x => x.UserId, opt => opt.MapFrom(_ => _.User.Id))
                 .ForMember(x => x.User, opt => opt.Ignore())
                 .ForMember(x => x.EventType, opt => opt.Ignore())
-                .ForMember(x => x.RepeatType, opt => opt.Ignore());
+                .ForMember(x => x.RepeatType, opt => opt.Ignore())
+                .ForMember(x => x.ValidUserIds, opt => opt.MapFrom(_ => 
+                    _.ValidUserIds != null
+                    ? string.Join(",", _.ValidUserIds)
+                    : null));
             CreateMap<EventRepeatType, EventRepeatTypeDTO>();
             CreateMap<EventRepeatTypeDTO, EventRepeatType>();
             CreateMap<EventType, EventTypeDTO>();

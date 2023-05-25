@@ -35,6 +35,8 @@ public class Event : BaseEntity
     [Required]
     public bool Active { get; set; }
 
+    public string? ValidUserIds { get; set; }
+
     #region Relations
     public int UserId { get; set; }
 

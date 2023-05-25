@@ -5,8 +5,11 @@ using CommunityToolkit.Mvvm.Input;
 using SportSpark.Models;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
+using SportSpark.Views.ContentViews;
 using SportSpark.Views.Popups;
+using SportSparkCoreLibrary.Enums;
 using SportSparkCoreSharedLibrary.DTOs;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace SportSpark.ViewModels
@@ -129,8 +132,28 @@ namespace SportSpark.ViewModels
             NewEvent.Time = ChosenDateValue.Add(ChosenTimeValue);
             NewEvent.Privacy = SelectedPrivacyValue.Value;
 
+            if (NewEventValue.Privacy != 0)
+            {
+                List<FriendshipDTO> friendships = UserValue.RequestedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed).ToList();
+                friendships.AddRange(UserValue.ReceivedFriendships.Where(x => x.Status == (int)FriendshipStatus.Confirmed));
+
+                if (NewEventValue.Privacy == (int)Privacy.Selected)
+                {
+                    await _navigationService.NavigateToAsync(nameof(EventVisibleToModal), new Dictionary<string, object>()
+                    {
+                        { "NewEvent", NewEventValue }, { "Friendships", new ObservableCollection<FriendshipDTO>(friendships) }
+                    });
+                    return;
+                }
+                else if (NewEventValue.Privacy == (int)Privacy.Friends)
+                {
+                    List<int> friendIds = friendships.Select(x => x.SenderId).ToList();
+                    friendIds.AddRange(friendships.Select(x => x.ReceiverId));
+                    NewEvent.ValidUserIds = friendIds;
+                }
+            }
             await _restService.CreateNewEventAsync(NewEventValue);
-            await _navigationService.NavigateToAsync("..");
+            await Shell.Current.Navigation.PopToRootAsync();
         }
 
         private async Task GetEventTypesAsync()

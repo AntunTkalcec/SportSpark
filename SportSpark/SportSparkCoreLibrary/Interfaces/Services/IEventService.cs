@@ -5,10 +5,10 @@ namespace SportSparkCoreLibrary.Interfaces.Services
 {
     public interface IEventService : IBaseService<EventDTO>
     {
-        Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, double radius);
+        Task<List<EventDTO>> GetInRadiusAsync(LatLongWrapperDTO wrapper, double radius, int userId);
 
-        Task<List<EventDTO>> GetUserEventsAsync(int userId);
+        Task<List<EventDTO>> GetUserEventsAsync(int userId, int loggedInUserId);
 
-        Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term);
+        Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term, int userId);
     }
 }
