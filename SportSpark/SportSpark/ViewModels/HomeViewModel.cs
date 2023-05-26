@@ -36,11 +36,6 @@ namespace SportSpark.ViewModels
         public string SearchInputValue => SearchInput;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(MenuIconCode))]
-        string menuIcon = FaSolid.BarsStaggered;
-        public string MenuIconCode => MenuIcon;
-
-        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(EventsNearUserCollection))]
         ObservableCollection<EventDTO> eventsNearUser;
         public ObservableCollection<EventDTO> EventsNearUserCollection => EventsNearUser;
@@ -121,6 +116,15 @@ namespace SportSpark.ViewModels
             {
                 await Application.Current.MainPage.ShowPopupAsync(new ErrorPopup("Couldn't get your location."));
             }
+        }
+
+        [RelayCommand]
+        async Task GoToEventDetailsAsync(EventDTO entity)
+        {
+            await _navigationService.NavigateToAsync(nameof(EventDetailsView), new Dictionary<string, object>
+            {
+                { "Event", entity }, { "LoggedInUser", LoggedInUserValue }
+            });
         }
 
         public async void Receive(Message message)

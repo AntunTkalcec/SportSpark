@@ -12,19 +12,26 @@ namespace SportSpark.Converters
         {
             GetLocation = new AsyncRelayCommand(async () =>
             {
-                _location = await Geolocation.Default.GetLocationAsync();
+                _location = await Geolocation.Default.GetLastKnownLocationAsync();
             });
             GetLocation.Execute(null);
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double[] val = (double[])value;
-            if (val[0] != 0 && val[1] != 0)
+            try
             {
-                return ((int)_location.CalculateDistance(new Location(val[0], val[1]), DistanceUnits.Kilometers)).ToString() + "km away";
+                double[] val = (double[])value;
+                if (val[0] != 0 && val[1] != 0)
+                {
+                    return ((int)_location.CalculateDistance(new Location(val[0], val[1]), DistanceUnits.Kilometers)).ToString() + "km away";
+                }
+                return "Unknown distance";
             }
-            return "Unknown distance";
+            catch (Exception ex)
+            {
+                return "Unknown distance";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SportSpark.Views.EventDetailsView"
+             xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
+             xmlns:views="clr-namespace:SportSpark.Views"
+             xmlns:eventModel="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:SportSpark.Converters"
+             x:DataType="viewModels:EventDetailsViewModel"
+             Title="Event details"
+             Shell.PresentationMode="Animated">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
+            <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
+            <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:DistanceConverter x:Key="DistanceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView x:Name="mainLayout" Margin="15, 20, 15, 0">
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, 55" ColumnDefinitions="*, *">
+
+            <Border Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="205">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+                <Image Grid.Row="0" Grid.ColumnSpan="2" Aspect="AspectFill" Source="football.jpg" WidthRequest="325" HeightRequest="205" HorizontalOptions="Center"/>
+            </Border>
+
+            <Grid RowDefinitions="*, *, *" ColumnDefinitions="*, *" Grid.Row="1" Grid.ColumnSpan="2" RowSpacing="9" Margin="0, 7, 0, 0">
+                <Label Text="{Binding EventValue.Title}" TextColor="Black" FontSize="20" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="{Binding EventValue.RepeatType.Description}" TextColor="Black" FontSize="15" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="{Binding EventValue.Time, Converter={StaticResource DateTimeConverter}}" TextColor="Black" FontSize="15" Grid.Row="2" Grid.Column="0"/>
+
+                <Label Text="{Binding EventValue.LatLong, Converter={StaticResource DistanceConverter}}" TextColor="Black" FontSize="20" FontAttributes="Bold" 
+                       Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
+                <Label Text="{Binding EventValue.NumberOfParticipants}" TextColor="Black" FontSize="15" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
+                <Label Text="{Binding EventValue.Duration}" TextColor="Black" FontSize="15" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
+            </Grid>
+
+            <Label Text="{Binding EventValue.Description}" 
+                   TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="14" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
+                   Margin="10, 15" VerticalOptions="CenterAndExpand"/>
+
+            <Label Text="Creator" TextColor="Black" FontSize="20" FontAttributes="Bold" Grid.Row="3" Grid.Column="0"/>
+
+            <Border HeightRequest="260" StrokeThickness="1" Stroke="{StaticResource LightThemeEntry}" Grid.Row="4" Grid.ColumnSpan="2" 
+                    BackgroundColor="{StaticResource BackgroundLight}">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                </Border.Shadow>
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+
+                <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
+
+                    <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
+                        <Image VerticalOptions="Start" HorizontalOptions="Center" WidthRequest="75" HeightRequest="75" Margin="10, 10"
+                               Source="{Binding EventValue.User.ProfileImageData, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                               Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="37,37" RadiusX="37" RadiusY="37"/>
+                            </Image.Clip>
+                            <Image.Shadow>
+                                <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
+                            </Image.Shadow>
+                        </Image>
+
+                        <Label FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Start">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="EventValue.User.FirstName"/>
+                                    <Binding Path="EventValue.User.LastName"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <BoxView BackgroundColor="{StaticResource LightThemeEntry}" HeightRequest="2" HorizontalOptions="Fill" Margin="20, 10"
+                             Grid.Row="1" Grid.ColumnSpan="2"/>
+
+
+                    <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="{Binding EventValue.User.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                               HorizontalOptions="Center" VerticalOptions="Start"/>
+
+                        <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding EventValue.User.Rating, Converter={StaticResource IsNotNullConverter}}">
+                            <Label Text="{Binding EventValue.User.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                            <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                               IsVisible="{Binding EventValue.User.Rating, Converter={StaticResource IsNullConverter}}"/>
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Button Text="View profile" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                                HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
+                                CommandParameter="{Binding EventValue.User}" TextColor="White"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Button Text="Change event status" FontAttributes="Bold" FontSize="28" Grid.Row="5" Grid.ColumnSpan="2"
+                    BackgroundColor="{StaticResource SportSparkDarkBlue}"
+                    TextColor="White" Shadow="{StaticResource DefaultShadow}"
+                    CornerRadius="30" Command="{Binding ChangeEventStatusCommand}"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

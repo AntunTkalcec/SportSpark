@@ -84,6 +84,11 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="15"/>
                                 </Border.StrokeShape>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.GoToEventDetailsCommand, Source={x:Reference eventsCollection}}"
+                                                          CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
                                 <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
                                     <Image Source="football.jpg" Grid.RowSpan="3" Grid.ColumnSpan="2" ZIndex="1"
                                            Aspect="AspectFill"/>

@@ -20,6 +20,7 @@ namespace SportSpark
             Routing.RegisterRoute(nameof(FriendsListView), typeof(FriendsListView));
             Routing.RegisterRoute(nameof(SeeMoreView), typeof(SeeMoreView));
             Routing.RegisterRoute(nameof(EventVisibleToModal), typeof(EventVisibleToModal));
+            Routing.RegisterRoute(nameof(EventDetailsView), typeof(EventDetailsView));
 
             if (CheckIfAuthenticated())
             {
