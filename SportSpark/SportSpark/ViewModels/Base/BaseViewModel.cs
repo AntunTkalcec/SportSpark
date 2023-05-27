@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SportSpark.Helpers;
 using SportSpark.Services;
-using SportSparkCoreSharedLibrary.DTOs;
 
 namespace SportSpark.ViewModels.Base
 {
@@ -16,7 +15,7 @@ namespace SportSpark.ViewModels.Base
 
         public bool IsNotBusy => !IsBusy;
 
-        public static LanguageHelper Language
+        public LanguageHelper Language
         {
             get
             {

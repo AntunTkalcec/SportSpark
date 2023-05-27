@@ -8,7 +8,7 @@
              xmlns:converters="clr-namespace:SportSpark.Converters"
              x:Class="SportSpark.Views.ProfileView"
              x:DataType="viewModels:ProfileViewModel"
-             Title="{Binding User.FirstName, StringFormat='{0}\'s profile'}"
+             Title="{Binding User.FirstName}"
              Shell.PresentationMode="Animated">
 
     <ContentPage.Resources>
@@ -19,7 +19,7 @@
             <Setter Property="Padding" Value="10"/>
         </Style>
         <ResourceDictionary>
-            <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Edit profile" FalseObject="Add as friend"/>
+            <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Edit profile" FalseObject="Add friend"/>
             <toolkit:BoolToObjectConverter x:Key="BoolToColor" FalseObject="{StaticResource SportSparkLightGreen}" TrueObject="{StaticResource Gray100}"/>
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
@@ -28,17 +28,18 @@
             <toolkit:VariableMultiValueConverter x:Key="MultiConverter" ConditionType="All"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converters:DistanceConverter x:Key="DistanceConverter"/>
+            <converters:NameConverter x:Key="NameConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, *" Margin="10, 15" RowSpacing="37">
-        <Label Text="Profile" TextColor="Black" FontSize="24" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"
+        <Label Text="{Binding Language[Profile]}" TextColor="Black" FontSize="24" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"
                x:Name="ProfileLabel">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ShowProfileCommand}" Tapped="ProfileLabelTapped"/>
             </Label.GestureRecognizers>
         </Label>
-        <Label Text="Events" TextColor="Black" FontSize="24" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"
+        <Label Text="{Binding Language[Events]}" TextColor="Black" FontSize="24" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"
                x:Name="EventsLabel">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ShowEventsCommand}" Tapped="EventsLabelTapped"/>
@@ -93,19 +94,19 @@
                     <Label Text="{Binding UserValue.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                     <Label Text="{Binding StarCode}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
-                <Label Text="User has no rating" FontSize="16" TextColor="Black" HorizontalOptions="Center" 
+                <Label Text="{Binding Language[NoRating]}" FontSize="16" TextColor="Black" HorizontalOptions="Center" 
                    IsVisible="{Binding UserValue.Rating, Converter={StaticResource IsNullConverter}}"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5" Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding SameUser}" Margin="0, 20, 0, 0">
-                <Label Text="Radius in which you want to see events" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Radius]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
 
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="radiusBorder" Stroke="{Binding EditableValue, Converter={StaticResource BoolToColor}}">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    
-                    <Entry Text="{Binding User.DesiredRadius}" Placeholder="Enter desired radius..." PlaceholderColor="{StaticResource LightThemeEntry}" TextColor="Black"
+
+                    <Entry Text="{Binding User.DesiredRadius}" Placeholder="{Binding Language[EnterRadius]}" PlaceholderColor="{StaticResource LightThemeEntry}" TextColor="Black"
                        IsReadOnly="{Binding EditableValue}"/>
                 </Border>
 
@@ -119,7 +120,7 @@
                 </Border.StrokeShape>
 
                 <Editor Text="{Binding UserValue.Bio}" TextColor="Black" FontSize="14" Margin="5" IsReadOnly="{Binding EditableValue}" MaxLength="500"
-                        Placeholder="This user hasn't set their bio..." PlaceholderColor="Black"/>
+                        Placeholder="{Binding Language[UserNoBio]}" PlaceholderColor="Black"/>
             </Border>
 
             <Button Text="{Binding SameUser, Converter={StaticResource BoolToObject}}" FontAttributes="Bold" FontSize="28" 
@@ -143,7 +144,7 @@
             <CollectionView ItemsSource="{Binding UserEvents}" SelectionMode="None" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1"
                             VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5, 0">
                 <CollectionView.EmptyView>
-                    <Label Text="This user hasn't created any events." TextColor="Black" FontSize="24" FontAttributes="Bold" 
+                    <Label Text="{Binding Language[NoCreatedEvents]}" TextColor="Black" FontSize="24" FontAttributes="Bold" 
                                HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemsLayout>
@@ -198,7 +199,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button Text="Create an event" FontAttributes="Bold" FontSize="28"
+            <Button Text="{Binding Language[CreateEvent]}" FontAttributes="Bold" FontSize="28"
                 BackgroundColor="{StaticResource SportSparkDarkBlue}" Grid.ColumnSpan="2" Grid.Row="2"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" IsVisible="{Binding SameUser}"
                 CornerRadius="30" Command="{Binding CreateEventCommand}"/>

@@ -1,9 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using SportSpark.Helpers;
 
 namespace SportSpark.ViewModels
 {
     public partial class StartingViewModel
     {
+        public LanguageHelper Language
+        {
+            get
+            {
+                return LanguageHelper.Instance;
+            }
+        }
         public StartingViewModel()
         {
         }

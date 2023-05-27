@@ -69,7 +69,7 @@ namespace SportSparkInfrastructureLibrary.Services
                     .ThenInclude(x => x.ProfileImage)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
-                .Where(x => ids.Contains(x.Id)).ToListAsync();
+                .Where(x => ids.Contains(x.Id) && x.Active).ToListAsync();
 
             return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0).ToList();
         }
@@ -91,7 +91,8 @@ namespace SportSparkInfrastructureLibrary.Services
                     .ThenInclude(x => x.ReceivedFriendships)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
-                .Where(x => (x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)) && ids.Contains(x.Id)).ToListAsync();
+                .Where(x => (x.Title.Contains(term) || x.RepeatType.Description.Contains(term) || x.EventType.Name.Contains(term)) && ids.Contains(x.Id)
+                && x.Active).ToListAsync();
 
             return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0).ToList();
         }

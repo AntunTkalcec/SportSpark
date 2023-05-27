@@ -8,13 +8,14 @@
              xmlns:models="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
              x:DataType="viewModels:FriendsViewModel"
              x:Class="SportSpark.Views.FriendsView"
-             Title="My Requests"
+             Title="{Binding Language[Requests]}"
              Shell.PresentationMode="Animated">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:EventCountConverter x:Key="EventCountConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -22,7 +23,7 @@
         <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0"
                         ItemsSource="{Binding ReceivedFriendships}">
             <CollectionView.EmptyView>
-                <Label Text="You have no friend requests at this time." TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
+                <Label Text="{Binding Language[NoRequests]}" TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
                        HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
 
@@ -72,23 +73,25 @@
 
 
                             <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="{Binding Sender.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                <Label Text="{Binding Sender, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
                                    HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                 <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNotNullConverter}}">
                                     <Label Text="{Binding Sender.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                                     <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                                 </HorizontalStackLayout>
-                                <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                                <Label Text="{Binding BindingContext.Language[NoRating], Source={x:Reference mainLayout}}" FontSize="12" 
+                                       TextColor="Black" HorizontalOptions="Center" 
                                        IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                             </VerticalStackLayout>
 
                             <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                                <Button Text="Confirm" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                                <Button Text="{Binding BindingContext.Language[Confirm], Source={x:Reference mainLayout}}" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" 
+                                        VerticalOptions="Start"
                                         HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ConfirmRequestCommand, Source={x:Reference mainLayout}}"
                                         CommandParameter="{Binding .}" TextColor="White"/>
-                                <Button Text="Decline" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
+                                <Button Text="{Binding BindingContext.Language[Decline], Source={x:Reference mainLayout}}" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
                                         CornerRadius="30"
                                         Command="{Binding BindingContext.DenyRequestCommand, Source={x:Reference mainLayout}}"
                                         CommandParameter="{Binding .}" TextColor="White"/>

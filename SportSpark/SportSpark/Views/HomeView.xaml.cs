@@ -30,6 +30,6 @@ public partial class HomeView : ContentPage
 
     private async void OnMessageReceived()
     {
-        await btmGrid.TranslateTo(0, 360, 250, Easing.SinInOut);
+        await btmGrid.TranslateTo(0, 400, 250, Easing.SinInOut);
     }
 }

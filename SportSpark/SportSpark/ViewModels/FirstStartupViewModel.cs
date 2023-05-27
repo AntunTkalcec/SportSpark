@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
+using SportSpark.Helpers;
 using SportSpark.Views;
 using SportSpark.Views.Popups;
 
@@ -7,6 +8,13 @@ namespace SportSpark.ViewModels
 {
     public partial class FirstStartupViewModel
     {
+        public LanguageHelper Language
+        {
+            get
+            {
+                return LanguageHelper.Instance;
+            }
+        }
         public FirstStartupViewModel()
         {
         }

@@ -141,4 +141,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSportSparkHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>

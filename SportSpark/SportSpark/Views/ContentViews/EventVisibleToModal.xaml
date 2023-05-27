@@ -15,6 +15,7 @@
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:EventCountConverter x:Key="EventCountConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="mainLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowDefinitions="*, 90" ColumnDefinitions="*, *">
@@ -22,7 +23,7 @@
                         ItemsSource="{Binding Friendships}" SelectionMode="Multiple" SelectedItems="{Binding SelectedFriends, Mode=TwoWay}"
                         Grid.ColumnSpan="2" Grid.Row="0">
             <CollectionView.EmptyView>
-                <Label Text="You have no friends to select." TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
+                <Label Text="{Binding Language[NoFriendsToSelect]}" TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
                        HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
 
@@ -74,15 +75,16 @@
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Sender.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
-                                   HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Sender, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                           HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNotNullConverter}}">
                                         <Label Text="{Binding Sender.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                                         <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </HorizontalStackLayout>
-                                    <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
-                                       IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
+                                    <Label Text="{Binding BindingContext.Language[NoRating], Source={x:Reference mainLayout}}" FontSize="12" TextColor="Black" 
+                                           HorizontalOptions="Center" 
+                                           IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                                 </VerticalStackLayout>
                             </Grid>
@@ -123,19 +125,19 @@
                                 </VerticalStackLayout>
 
                                 <BoxView BackgroundColor="{StaticResource LightThemeEntry}" HeightRequest="2" HorizontalOptions="Fill" Margin="20, 0"
-                                     Grid.Row="1" Grid.ColumnSpan="2"/>
+                                         Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Receiver.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
-                                   HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Receiver, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                           HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNotNullConverter}}">
                                         <Label Text="{Binding Receiver.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                                         <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </HorizontalStackLayout>
-                                    <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
-                                       IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNullConverter}}"/>
+                                    <Label Text="{Binding BindingContext.Language[NoRating], Source={x:Reference mainLayout}}" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                                           IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                                 </VerticalStackLayout>
                             </Grid>
@@ -146,7 +148,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Select" FontAttributes="Bold" FontSize="28" 
+        <Button Text="{Binding Language[Select]}" FontAttributes="Bold" FontSize="28" 
                 BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 15, 0, 25"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" Grid.Row="1" Grid.ColumnSpan="2"
                 CornerRadius="30" x:Name="RegisterBtn" Command="{Binding CreateEventCommand}">

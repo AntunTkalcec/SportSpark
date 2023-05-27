@@ -9,7 +9,7 @@
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
              x:DataType="viewModels:CreateEventViewModel"
              x:Class="SportSpark.Views.CreateEventView"
-             Title="CreateEventView"
+             Title="{Binding Language[CreateEvent]}"
              Shell.PresentationMode="Animated">
     <ContentPage.Resources>
         <Style x:Key="EntryBorderStyle" TargetType="Border">
@@ -27,12 +27,12 @@
         <VerticalStackLayout Spacing="18" Margin="15, 10">
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Title*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Title]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="titleBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="title" Placeholder="Enter a title..." TextColor="Black" 
+                    <Entry x:Name="title" Placeholder="{Binding Language[EnterTitle]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="title_Completed" Text="{Binding NewEvent.Title}">
                         <Entry.Keyboard>
@@ -47,7 +47,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Description*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Description]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border VerticalOptions="Center" HorizontalOptions="Fill" Stroke="{StaticResource LightThemeEntry}" 
                         BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="300">
                     <Border.StrokeShape>
@@ -55,14 +55,14 @@
                     </Border.StrokeShape>
 
                     <Editor Text="{Binding NewEvent.Description}" TextColor="Black" FontSize="14" Margin="5" MaxLength="500"
-                            Placeholder="Enter a description..." PlaceholderColor="Black"
+                            Placeholder="{Binding Language[EnterDescription]}" PlaceholderColor="Black"
                             Completed="Editor_Completed" x:Name="description"/>
                 </Border>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Location" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
-                <Label Text="Choose a location..." TextColor="Blue" FontAttributes="Bold" FontSize="20" IsVisible="{Binding LocationNotChosenValue}">
+                <Label Text="{Binding Language[Location]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[ChooseLocation]}" TextColor="Blue" FontAttributes="Bold" FontSize="20" IsVisible="{Binding LocationNotChosenValue}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenLocationSelectionPopupCommand}"/>
                     </Label.GestureRecognizers>
@@ -76,22 +76,22 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Date" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Date]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <DatePicker TextColor="Black" FontAttributes="Bold" Date="{Binding ChosenDate}" MinimumDate="{Binding TodayValue}"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Time" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Time]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <TimePicker TextColor="Black" FontAttributes="Bold" Time="{Binding ChosenTime}"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Duration" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Duration]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="durationBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="duration" Placeholder="Enter a duration (hours)..." TextColor="Black" 
+                    <Entry x:Name="duration" Placeholder="{Binding Language[EnterDuration]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="duration_Completed" Text="{Binding NewEvent.Duration}" Keyboard="Numeric">
                     </Entry>
@@ -99,12 +99,12 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Price" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Price]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="priceBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="price" Placeholder="Enter a price..." TextColor="Black"
+                    <Entry x:Name="price" Placeholder="{Binding Language[EnterPrice]}" TextColor="Black"
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="price_Completed" Text="{Binding NewEvent.Price}" Keyboard="Numeric">
                     </Entry>
@@ -112,12 +112,12 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Number of participants" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[NumberOfParticipants]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="participantsBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="participants" Placeholder="How many participants?" TextColor="Black"
+                    <Entry x:Name="participants" Placeholder="{Binding Language[EnterParticipants]}" TextColor="Black"
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Text="{Binding NewEvent.NumberOfParticipants}" Keyboard="Numeric">
                     </Entry>
@@ -125,27 +125,27 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Privacy*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Privacy]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Picker ItemsSource="{Binding EventPrivacies}"
                         ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedPrivacy}" Title="Select privacy..." TextColor="Black" FontAttributes="Bold"/>
+                        SelectedItem="{Binding SelectedPrivacy}" Title="{Binding Language[SelectPrivacy]}" TextColor="Black" FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Event type*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[EventType]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Picker ItemsSource="{Binding EventTypes}"
                         ItemDisplayBinding="{Binding Description}"
-                        SelectedItem="{Binding NewEvent.EventType}" Title="Select event type..." TextColor="Black" FontAttributes="Bold"/>
+                        SelectedItem="{Binding NewEvent.EventType}" Title="{Binding Language[SelectEventType]}" TextColor="Black" FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Event repeat type*" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[EventRepeatType]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Picker ItemsSource="{Binding EventRepeatTypes}"
                         ItemDisplayBinding="{Binding Description}"
-                        SelectedItem="{Binding NewEvent.RepeatType}" Title="Select event repeat type..." TextColor="Black" FontAttributes="Bold"/>
+                        SelectedItem="{Binding NewEvent.RepeatType}" Title="{Binding Language[SelectEventRepeatType]}" TextColor="Black" FontAttributes="Bold"/>
             </VerticalStackLayout>
 
-            <Button Text="Create event" FontAttributes="Bold" FontSize="28" 
+            <Button Text="{Binding Language[CreateEvent2]}" FontAttributes="Bold" FontSize="28" 
                     BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 15, 0, 25"
                     TextColor="White" Shadow="{StaticResource DefaultShadow}"
                     CornerRadius="30" x:Name="RegisterBtn" Command="{Binding CreateEventCommand}"/>

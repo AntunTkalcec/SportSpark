@@ -9,7 +9,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:converters="clr-namespace:SportSpark.Converters"
              x:DataType="viewModels:SeeMoreViewModel"
-             Title="See more">
+             Title="{Binding Language[SeeMore]}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBool"/>
@@ -22,7 +22,7 @@
         <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0" x:Name="eventsCollection"
                         ItemsSource="{Binding EventsCollection}">
             <CollectionView.EmptyView>
-                <Label Text="Your friends have no events, or you haven't befriended anyone." TextColor="Black" FontSize="24" FontAttributes="Bold"
+                <Label Text="{Binding Language[FriendsNoEvents]}" TextColor="Black" FontSize="24" FontAttributes="Bold"
                        HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
             </CollectionView.EmptyView>
             <CollectionView.ItemsLayout>

@@ -29,7 +29,7 @@ public partial class App : Application
         try
         {
             CultureInfo culture;
-            string chosenCulture = await SecureStorage.GetAsync("Language");
+            string chosenCulture = Preferences.Get("Language", "en-US");
 
             if (chosenCulture == "en-US")
             {

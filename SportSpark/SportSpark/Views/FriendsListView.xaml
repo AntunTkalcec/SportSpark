@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:SportSpark.ViewModels"
@@ -8,13 +8,14 @@
              xmlns:models="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
              x:DataType="viewModels:FriendsListViewModel"
              x:Class="SportSpark.Views.FriendsListView"
-             Title="My Friends"
+             Title="{Binding Language[Friends]}"
              Shell.PresentationMode="Animated">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <converters:EventCountConverterAlt x:Key="EventCountConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -22,7 +23,7 @@
         <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0"
                         ItemsSource="{Binding Friendships}">
             <CollectionView.EmptyView>
-                <Label Text="You have no friend requests at this time." TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
+                <Label Text="{Binding Language[NoRequests]}" TextColor="Black" FontSize="24" HorizontalTextAlignment="Center"
                        HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
 
@@ -70,37 +71,39 @@
                                 </VerticalStackLayout>
 
                                 <BoxView BackgroundColor="{StaticResource LightThemeEntry}" HeightRequest="2" HorizontalOptions="Fill" Margin="20, 10"
-                                     Grid.Row="1" Grid.ColumnSpan="2"/>
+                                         Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Sender.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
-                                   HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Sender, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                           HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNotNullConverter}}">
                                         <Label Text="{Binding Sender.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                                         <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </HorizontalStackLayout>
-                                    <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
-                                       IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
+                                    <Label Text="{Binding BindingContext.Language[NoRating], Source={x:Reference mainLayout}}" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                                           IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Button Text="View profile" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
-                                        HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
-                                        CommandParameter="{Binding .}" TextColor="White"/>
-                                    <Button Text="Remove friend" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
-                                        CornerRadius="30"
-                                        Command="{Binding BindingContext.RemoveFriendCommand, Source={x:Reference mainLayout}}"
-                                        CommandParameter="{Binding .}" TextColor="White"/>
+                                    <Button Text="{Binding BindingContext.Language[ViewProfile], Source={x:Reference mainLayout}}" FontAttributes="Bold" FontSize="14" 
+                                            BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                                            HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
+                                            CommandParameter="{Binding .}" TextColor="White"/>
+                                    <Button Text="{Binding BindingContext.Language[RemoveFriend], Source={x:Reference mainLayout}}" FontAttributes="Bold" 
+                                            FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
+                                            CornerRadius="30"
+                                            Command="{Binding BindingContext.RemoveFriendCommand, Source={x:Reference mainLayout}}"
+                                            CommandParameter="{Binding .}" TextColor="White"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Receiver populated -->
                         <Border HeightRequest="260" BackgroundColor="{StaticResource BackgroundLight}" Margin="0, 0, 0, 15"
-                            StrokeThickness="1" Stroke="{StaticResource LightThemeEntry}" IsVisible="{Binding Receiver, Converter={StaticResource IsNotNullConverter}}">
+                                StrokeThickness="1" Stroke="{StaticResource LightThemeEntry}" IsVisible="{Binding Receiver, Converter={StaticResource IsNotNullConverter}}">
                             <Border.Shadow>
                                 <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
                             </Border.Shadow>
@@ -133,30 +136,31 @@
                                 </VerticalStackLayout>
 
                                 <BoxView BackgroundColor="{StaticResource LightThemeEntry}" HeightRequest="2" HorizontalOptions="Fill" Margin="20, 10"
-                                     Grid.Row="1" Grid.ColumnSpan="2"/>
+                                         Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Receiver.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
-                                   HorizontalOptions="Center" VerticalOptions="Start"/>
+                                    <Label Text="{Binding Receiver, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                           HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNotNullConverter}}">
                                         <Label Text="{Binding Receiver.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                                         <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </HorizontalStackLayout>
-                                    <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
-                                       IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNullConverter}}"/>
+                                    <Label Text="{Binding BindingContext.Language[NoRating], Source={x:Reference mainLayout}}" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                                           IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Button Text="View profile" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
-                                        HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
-                                        CommandParameter="{Binding .}" TextColor="White"/>
-                                    <Button Text="Remove friend" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
-                                        CornerRadius="30"
-                                        Command="{Binding BindingContext.RemoveFriendCommand, Source={x:Reference mainLayout}}"
-                                        CommandParameter="{Binding .}" TextColor="White"/>
+                                    <Button Text="{Binding BindingContext.Language[ViewProfile], Source={x:Reference mainLayout}}" FontAttributes="Bold" 
+                                            FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                                            HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
+                                            CommandParameter="{Binding .}" TextColor="White"/>
+                                    <Button Text="{Binding BindingContext.Language[RemoveFriend], Source={x:Reference mainLayout}}" FontAttributes="Bold" FontSize="14" BackgroundColor="Red" VerticalOptions="End" HorizontalOptions="Center"
+                                            CornerRadius="30"
+                                            Command="{Binding BindingContext.RemoveFriendCommand, Source={x:Reference mainLayout}}"
+                                            CommandParameter="{Binding .}" TextColor="White"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>

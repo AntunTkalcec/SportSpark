@@ -15,19 +15,19 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Spacing="20" Margin="15, 0">
-            <Label Text="Welcome to SportSpark" TextColor="Black" Margin="0, 35, 0, 0" HorizontalOptions="CenterAndExpand"
+            <Label Text="{Binding Language[Welcome]}" TextColor="Black" Margin="0, 35, 0, 0" HorizontalOptions="CenterAndExpand"
                    FontSize="36" FontAttributes="Bold" HorizontalTextAlignment="Center" 
                    Shadow="{StaticResource DefaultShadow}"/>
-            <Label Text="Enter your information to register" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
+            <Label Text="{Binding Language[EnterInfo]}" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center" Shadow="{StaticResource DefaultShadow}" Margin="0, 0, 0, 15"/>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="First name" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[FirstName]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="firstNameBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="firstName" Placeholder="Enter first name..." TextColor="Black" 
+                    <Entry x:Name="firstName" Placeholder="{Binding Language[EnterFirstName]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="FirstName_Completed" Unfocused="FirstName_Unfocused" Text="{Binding FirstName}">
                         <Entry.Keyboard>
@@ -42,12 +42,12 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Last name" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[LastName]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="lastNameBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="lastName" Placeholder="Enter last name..." TextColor="Black" 
+                    <Entry x:Name="lastName" Placeholder="{Binding Language[EnterLastName]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="LastName_Completed" Unfocused="LastName_Unfocused" Text="{Binding LastName}">
                         <Entry.Keyboard>
@@ -62,37 +62,37 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Username" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Username]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="usernameBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="username" Placeholder="Enter username..." TextColor="Black" 
+                    <Entry x:Name="username" Placeholder="{Binding Language[EnterUsername]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="Username_Completed" Unfocused="Username_Unfocused" Text="{Binding Username}"/>
                 </Border>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Email" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Email]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="emailBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry x:Name="email" Placeholder="Enter email..." TextColor="Black" 
+                    <Entry x:Name="email" Placeholder="{Binding Language[EnterEmail]}" TextColor="Black" 
                            PlaceholderColor="{StaticResource LightThemeEntry}"
                            Completed="Email_Completed" Unfocused="Email_Unfocused" Text="{Binding Email}"/>
                 </Border>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Password" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Password]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border Style="{StaticResource EntryBorderStyle}" x:Name="passwordBorder">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <Grid>
-                        <Entry x:Name="password" Placeholder="Enter password..." TextColor="Black" 
+                        <Entry x:Name="password" Placeholder="{Binding Language[EnterPassword]}" TextColor="Black" 
                                PlaceholderColor="{StaticResource LightThemeEntry}"
                                IsPassword="{Binding IsPassword}" Completed="Password_Completed" 
                                Unfocused="Password_Unfocused" Text="{Binding Password}"/>
@@ -104,11 +104,11 @@
                         </Label>
                     </Grid>
                 </Border>
-                <Label Text="Need 6-20 characters, 1 uppercase letter, 1 lowercase letter and 1 number." TextColor="Red"
+                <Label Text="{Binding Language[PasswordError]}" TextColor="Red"
                        IsVisible="{Binding PasswordErrorVisible}"/>
             </VerticalStackLayout>
 
-            <Button Text="Register" FontAttributes="Bold" FontSize="28" 
+            <Button Text="{Binding Language[Register2]}" FontAttributes="Bold" FontSize="28" 
                     BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 15, 0, 25"
                     TextColor="White" Shadow="{StaticResource DefaultShadow}"
                     CornerRadius="30" x:Name="RegisterBtn" Command="{Binding RegisterCommand}"/>

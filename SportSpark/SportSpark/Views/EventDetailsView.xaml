@@ -6,9 +6,10 @@
              xmlns:views="clr-namespace:SportSpark.Views"
              xmlns:eventModel="clr-namespace:SportSparkCoreSharedLibrary.DTOs;assembly=SportSparkCoreSharedLibrary"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:converters="clr-namespace:SportSpark.Converters"
              x:DataType="viewModels:EventDetailsViewModel"
-             Title="Event details"
+             Title="{Binding Language[EventDetails]}"
              Shell.PresentationMode="Animated">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,10 +17,13 @@
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converters:DistanceConverter x:Key="DistanceConverter"/>
+            <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Active" FalseObject="Inactive" />
+            <converters:EventCountConverter x:Key="EventCountConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView x:Name="mainLayout" Margin="15, 20, 15, 0">
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, 55" ColumnDefinitions="*, *">
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, 350, *" ColumnDefinitions="*, *">
 
             <Border Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="205">
                 <Border.StrokeShape>
@@ -29,11 +33,16 @@
             </Border>
 
             <Grid RowDefinitions="*, *, *" ColumnDefinitions="*, *" Grid.Row="1" Grid.ColumnSpan="2" RowSpacing="9" Margin="0, 7, 0, 0">
-                <Label Text="{Binding EventValue.Title}" TextColor="Black" FontSize="20" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
+                <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="7">
+                    <Label Text="{Binding EventValue.Title}" TextColor="Black" FontSize="16" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"
+                           LineBreakMode="WordWrap" MaximumWidthRequest="150"/>
+                    <Label Text="{Binding EventValue.Active, Converter={StaticResource BoolToObject}, StringFormat='({0})'}" 
+                           TextColor="Black" FontSize="16" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
                 <Label Text="{Binding EventValue.RepeatType.Description}" TextColor="Black" FontSize="15" Grid.Row="1" Grid.Column="0"/>
                 <Label Text="{Binding EventValue.Time, Converter={StaticResource DateTimeConverter}}" TextColor="Black" FontSize="15" Grid.Row="2" Grid.Column="0"/>
 
-                <Label Text="{Binding EventValue.LatLong, Converter={StaticResource DistanceConverter}}" TextColor="Black" FontSize="20" FontAttributes="Bold" 
+                <Label Text="{Binding EventValue.LatLong, Converter={StaticResource DistanceConverter}}" TextColor="Black" FontSize="16" FontAttributes="Bold" 
                        Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
                 <Label Text="{Binding EventValue.NumberOfParticipants}" TextColor="Black" FontSize="15" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
                 <Label Text="{Binding EventValue.Duration}" TextColor="Black" FontSize="15" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Padding="0,0,7,0"/>
@@ -43,10 +52,10 @@
                    TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="14" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
                    Margin="10, 15" VerticalOptions="CenterAndExpand"/>
 
-            <Label Text="Creator" TextColor="Black" FontSize="20" FontAttributes="Bold" Grid.Row="3" Grid.Column="0"/>
+            <Label Text="{Binding Language[Creator]}" TextColor="Black" FontSize="20" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" Margin="0, 0, 0, 10"/>
 
             <Border HeightRequest="260" StrokeThickness="1" Stroke="{StaticResource LightThemeEntry}" Grid.Row="4" Grid.ColumnSpan="2" 
-                    BackgroundColor="{StaticResource BackgroundLight}">
+                    BackgroundColor="{StaticResource BackgroundLight}" Margin="0, 0, 0, 10">
                 <Border.Shadow>
                     <Shadow Brush="Black" Offset="10, 15" Radius="10" Opacity="0.25"/>
                 </Border.Shadow>
@@ -84,30 +93,40 @@
 
 
                     <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="{Binding EventValue.User.Events.Count, StringFormat='{0} events'}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                        <Label Text="{Binding EventValue, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
                                HorizontalOptions="Center" VerticalOptions="Start"/>
 
                         <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding EventValue.User.Rating, Converter={StaticResource IsNotNullConverter}}">
                             <Label Text="{Binding EventValue.User.Rating, StringFormat='{0:F1}'}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                             <Label Text="{Binding BindingContext.StarCode, Source={x:Reference mainLayout}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <Label Text="User has no rating" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
+                        <Label Text="{Binding Language[NoRating]}" FontSize="12" TextColor="Black" HorizontalOptions="Center" 
                                IsVisible="{Binding EventValue.User.Rating, Converter={StaticResource IsNullConverter}}"/>
 
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Button Text="View profile" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
+                        <Button Text="{Binding Language[ViewProfile]}" FontAttributes="Bold" FontSize="14" BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="Start"
                                 HorizontalOptions="Center" CornerRadius="30" Command="{Binding BindingContext.ViewProfileCommand, Source={x:Reference mainLayout}}"
                                 CommandParameter="{Binding EventValue.User}" TextColor="White"/>
                     </VerticalStackLayout>
                 </Grid>
             </Border>
 
-            <Button Text="Change event status" FontAttributes="Bold" FontSize="28" Grid.Row="5" Grid.ColumnSpan="2"
-                    BackgroundColor="{StaticResource SportSparkDarkBlue}"
-                    TextColor="White" Shadow="{StaticResource DefaultShadow}"
-                    CornerRadius="30" Command="{Binding ChangeEventStatusCommand}"/>
+            <maps:Map x:Name="map" Grid.Row="5" Grid.ColumnSpan="2" IsVisible="False"/>
+            <Label x:Name="loadMapBtn" Grid.Row="5" Grid.ColumnSpan="2" IsVisible="True" Text="{Binding Language[LoadEventLocation]}" FontAttributes="Bold" 
+                   FontSize="28" Margin="0, 10" TextColor="Blue" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                   HeightRequest="55">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="loadMapBtn_Clicked"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button Text="{Binding Language[ChangeEventStatus]}" FontAttributes="Bold" FontSize="28" Grid.Row="6" Grid.ColumnSpan="2"
+                    BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 20, 0, 10"
+                    TextColor="White" Shadow="{StaticResource DefaultShadow}" HeightRequest="55"
+                    CornerRadius="30" Command="{Binding ChangeEventStatusCommand}"
+                    IsVisible="{Binding SameUser}"/>
         </Grid>
     </ScrollView>
 </ContentPage>

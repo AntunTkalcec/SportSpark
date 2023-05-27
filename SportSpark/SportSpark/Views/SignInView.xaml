@@ -8,31 +8,31 @@
              Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout Spacing="20" Margin="15, 0">
-            <Label Text="Hello again!" TextColor="Black" Margin="0, 65, 0, 0" HorizontalOptions="CenterAndExpand"
+            <Label Text="{Binding Language[Hello]}" TextColor="Black" Margin="0, 65, 0, 0" HorizontalOptions="CenterAndExpand"
                    FontSize="36" FontAttributes="Bold" HorizontalTextAlignment="Center"
                    Shadow="{StaticResource DefaultShadow}"/>
-            <Label Text="Welcome back to SportSpark." TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
+            <Label Text="{Binding Language[WelcomeBack]}" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center" Shadow="{StaticResource DefaultShadow}" Margin="0, 0, 0, 15"/>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Username or email" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[UsernameOrEmail]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
-                    <Entry Placeholder="Enter username or email..." TextColor="Black" PlaceholderColor="#B4B4B4"
+                    <Entry Placeholder="{Binding Language[EnterUsernameOrEmail]}" TextColor="Black" PlaceholderColor="#B4B4B4"
                            Text="{Binding UsernameOrEmail}"/>
                 </Border>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Password" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
+                <Label Text="{Binding Language[Password]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <Grid>
-                        <Entry Placeholder="Enter password..." TextColor="Black" PlaceholderColor="#B4B4B4" 
+                        <Entry Placeholder="{Binding Language[EnterPassword]}" TextColor="Black" PlaceholderColor="#B4B4B4" 
                                IsPassword="{Binding IsPassword}" Text="{Binding Password}"/>
                         <Label Text="{Binding PasswordVisibilityCode}" TextColor="Black" HorizontalOptions="EndAndExpand" 
                                VerticalOptions="CenterAndExpand" FontFamily="faSolid" FontSize="24">
@@ -44,7 +44,7 @@
                 </Border>
             </VerticalStackLayout>
 
-            <Button Text="Sign In" FontAttributes="Bold" FontSize="28" 
+            <Button Text="{Binding Language[SignIn]}" FontAttributes="Bold" FontSize="28" 
                     BackgroundColor="{StaticResource SportSparkDarkBlue}" Margin="0, 0, 0, 10"
                     TextColor="White" Shadow="{StaticResource DefaultShadow}"
                     CornerRadius="30" Command="{Binding SignInCommand}"/>
@@ -52,8 +52,8 @@
             <Image Source="or_group.png" HorizontalOptions="CenterAndExpand"/>
 
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 15" Spacing="10">
-                <Label Text="Not a member?" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
-                <Label Text="Register now" TextColor="{StaticResource SportSparkDarkBlue}" FontAttributes="Bold">
+                <Label Text="{Binding Language[NotAMember]}" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                <Label Text="{Binding Language[Register]}" TextColor="{StaticResource SportSparkDarkBlue}" FontAttributes="Bold">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
                     </Label.GestureRecognizers>

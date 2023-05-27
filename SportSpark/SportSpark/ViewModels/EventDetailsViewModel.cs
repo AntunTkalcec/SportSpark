@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SportSpark.Models.Font;
 using SportSpark.Services;
 using SportSpark.ViewModels.Base;
 using SportSpark.Views;
@@ -7,7 +8,7 @@ using SportSparkCoreSharedLibrary.DTOs;
 
 namespace SportSpark.ViewModels
 {
-    [QueryProperty(nameof(Ev), "Event"), QueryProperty(nameof(LoggedInUser), "LoggedInUser")]
+    [QueryProperty(nameof(Ev), "Event"), QueryProperty(nameof(LoggedInUser), "LoggedInUser"), QueryProperty(nameof(SameUser), "SameUser")]
     public partial class EventDetailsViewModel : BaseViewModel
     {
         #region Properties
@@ -20,6 +21,14 @@ namespace SportSpark.ViewModels
         [NotifyPropertyChangedFor(nameof(LoggedInUserValue))]
         UserDTO loggedInUser = null;
         public UserDTO LoggedInUserValue => LoggedInUser;
+
+        [ObservableProperty]
+        bool sameUser;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(StarCode))]
+        string star = FaSolid.Star;
+        public string StarCode => Star;
         #endregion
         public EventDetailsViewModel(INavigationService navigationService, IRestService restService) : base(navigationService, restService)
         {
@@ -30,7 +39,7 @@ namespace SportSpark.ViewModels
         {
             entity.Active = !entity.Active;
 
-            //update event
+            await _restService.UpdateEventStatusAsync(entity);
         }
 
         [RelayCommand]

@@ -16,12 +16,13 @@
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converters:DistanceConverter x:Key="DistanceConverter"/>
+            <converters:WelcomeConverter x:Key="WelcomeConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="MainContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" RowDefinitions="65, *"
               ColumnDefinitions="*, *" BackgroundColor="{StaticResource BackgroundLight}">
 
-        <Label Text="{Binding LoggedInUserValue.FirstName, StringFormat='Welcome, {0}'}" TextColor="Black" Grid.Column="0" 
+        <Label Text="{Binding LoggedInUserValue, Converter={StaticResource WelcomeConverter}}" TextColor="Black" Grid.Column="0" 
                    VerticalOptions="CenterAndExpand" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"
                    HorizontalOptions="Start" Grid.Row="0" Margin="20, 0, 0, 0"/>
 
@@ -51,14 +52,14 @@
                     <Grid RowDefinitions="*" ColumnDefinitions="40, *">
                         <Label Text="{Binding SearchIconCode}" TextColor="Black" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontFamily="faSolid"
                                        FontSize="24" Grid.Row="0" Grid.Column="0" Margin="10, 0, 0, 0"/>
-                        <Entry Placeholder="Search for events" PlaceholderColor="{StaticResource LightThemeEntry}" TextColor="Black" Text="{Binding SearchInput}"
+                        <Entry Placeholder="{Binding Language[SearchEvents]}" PlaceholderColor="{StaticResource LightThemeEntry}" TextColor="Black" Text="{Binding SearchInput}"
                                        Grid.Row="0" Grid.Column="1" VerticalOptions="CenterAndExpand" Completed="SearchEntry_Completed"/>
                     </Grid>
                 </Border>
 
-                <Label Text="Near you" FontSize="18" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0"
+                <Label Text="{Binding Language[NearYou]}" FontSize="18" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0"
                                Grid.Row="1" FontAttributes="Bold" Margin="15, 0"/>
-                <Label Text="See more" FontSize="14" TextColor="{StaticResource LightThemeEntry}" VerticalOptions="CenterAndExpand" Grid.Column="1" 
+                <Label Text="{Binding Language[SeeMore]}" FontSize="14" TextColor="{StaticResource LightThemeEntry}" VerticalOptions="CenterAndExpand" Grid.Column="1" 
                                    HorizontalOptions="End" Grid.Row="1" Margin="15, 0">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SeeMoreCommand}"/>
@@ -68,7 +69,7 @@
                 <CollectionView ItemsSource="{Binding EventsNearUser}" SelectionMode="None" Grid.Row="2" Grid.ColumnSpan="2"
                                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15, 0" x:Name="eventsCollection">
                     <CollectionView.EmptyView>
-                        <Label Text="There are no events found near you." TextColor="Black" FontSize="24" FontAttributes="Bold"
+                        <Label Text="{Binding Language[NoEventsNear]}" TextColor="Black" FontSize="24" FontAttributes="Bold"
                                HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
@@ -137,8 +138,8 @@
         <skia:SKLottieView Source="loading.json" IsAnimationEnabled="True" RepeatCount="-1" Padding="20" VerticalOptions="CenterAndExpand" 
                            HorizontalOptions="CenterAndExpand" Grid.Row="1" HeightRequest="300" WidthRequest="300" RepeatMode="Restart" IsVisible="{Binding IsBusy}"
                            Grid.ColumnSpan="2"/>
-        <Grid Grid.Row="1" VerticalOptions="End" TranslationY="300" x:Name="btmGrid" Grid.ColumnSpan="2">
-            <views:MenuView HeightRequest="300" Padding="10" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="1" VerticalOptions="End" TranslationY="400" x:Name="btmGrid" Grid.ColumnSpan="2">
+            <views:MenuView HeightRequest="400" Padding="10" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </ContentPage>

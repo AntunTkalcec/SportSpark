@@ -123,7 +123,7 @@ namespace SportSpark.ViewModels
         {
             await _navigationService.NavigateToAsync(nameof(EventDetailsView), new Dictionary<string, object>
             {
-                { "Event", entity }, { "LoggedInUser", LoggedInUserValue }
+                { "Event", entity }, { "LoggedInUser", LoggedInUserValue }, { "SameUser", entity.UserId == LoggedInUserValue.Id }
             });
         }
 
