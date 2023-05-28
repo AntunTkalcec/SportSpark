@@ -8,11 +8,11 @@
              HorizontalOptions="Center" VerticalOptions="Center"
              Size="200, 350">
     <Grid RowDefinitions="*, *" ColumnDefinitions="*, *" VerticalOptions="Fill" HorizontalOptions="Fill">
-        <Label Text="Rate user" TextColor="Black" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="Center" 
-			   VerticalOptions="Start" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Label TextColor="Black" FontSize="24" HorizontalTextAlignment="Center" HorizontalOptions="Center" 
+			   VerticalOptions="Start" Grid.Row="0" Grid.ColumnSpan="2" x:Name="rateUserLbl"/>
 
         <Label x:Name="stepperValue" TextColor="Black" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <Stepper Minimum="1" Maximum="5" x:Name="rateStepper" VerticalOptions="Center" HorizontalOptions="Center" ValueChanged="rateStepper_ValueChanged" 
+        <Stepper Minimum="1" Maximum="5" x:Name="rateStepper" VerticalOptions="Center" HorizontalOptions="Center" ValueChanged="rateStepper_ValueChanged"
                  Grid.Row="1" Grid.ColumnSpan="2"/> 
 
         <Button Text="Ok" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource BackgroundLight}"

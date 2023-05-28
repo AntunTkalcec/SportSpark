@@ -53,6 +53,7 @@ public partial class MenuView : ContentView
        
         if (currentLanguage == "en-US")
         {
+            Preferences.Set("Language", "hr-HR");
             CultureInfo newCulture = new("hr-HR");
             Thread.CurrentThread.CurrentCulture = newCulture;
             Thread.CurrentThread.CurrentUICulture = newCulture;
@@ -63,6 +64,7 @@ public partial class MenuView : ContentView
         }
         else
         {
+            Preferences.Set("Language", "en-US");
             CultureInfo newCulture = new("en-US");
             Thread.CurrentThread.CurrentCulture = newCulture;
             Thread.CurrentThread.CurrentUICulture = newCulture;

@@ -17,6 +17,7 @@ public partial class RateUserPopup : Popup
 		InitializeComponent();
 		stepperValue.Text = rateStepper.Value.ToString();
         BindingContext = this;
+        rateUserLbl.Text = Language["RateUser"];
 	}
 
     private void rateStepper_ValueChanged(object sender, ValueChangedEventArgs e)

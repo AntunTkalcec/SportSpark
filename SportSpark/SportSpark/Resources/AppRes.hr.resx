@@ -1,101 +1,372 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Dodaj prijatelja</value>
+  </data>
+  <data name="ChangeEventStatus" xml:space="preserve">
+    <value>Promijeni status</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Promijeni jezik</value>
+  </data>
+  <data name="ChooseLocation" xml:space="preserve">
+    <value>Odaberi lokaciju...</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="CreateEvent" xml:space="preserve">
+    <value>Stvori događaj</value>
+  </data>
+  <data name="CreateEvent2" xml:space="preserve">
+    <value>Stvori događaj</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Kreator</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Odbij</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis*</value>
+  </data>
+  <data name="Discover" xml:space="preserve">
+    <value>Otkrij super događaje u samo par klika</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Trajanje</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Uredi profil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnterDescription" xml:space="preserve">
+    <value>Unesi opis...</value>
+  </data>
+  <data name="EnterDuration" xml:space="preserve">
+    <value>Unesi trajanje (sati)...</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Unesi email...</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>Unesi ime...</value>
+  </data>
+  <data name="EnterInfo" xml:space="preserve">
+    <value>Unesi svoje informacije za registraciju</value>
+  </data>
+  <data name="EnterLastName" xml:space="preserve">
+    <value>Unesi prezime...</value>
+  </data>
+  <data name="EnterParticipants" xml:space="preserve">
+    <value>Koliko sudionika?</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Unesi lozinku...</value>
+  </data>
+  <data name="EnterPrice" xml:space="preserve">
+    <value>Unesi cijenu...</value>
+  </data>
+  <data name="EnterRadius" xml:space="preserve">
+    <value>Unesi radijus...</value>
+  </data>
+  <data name="EnterTitle" xml:space="preserve">
+    <value>Unesi naslov...</value>
+  </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Unesi korisničko ime...</value>
+  </data>
+  <data name="EnterUsernameOrEmail" xml:space="preserve">
+    <value>Unesi korisničko ime ili email...</value>
+  </data>
+  <data name="EventDetails" xml:space="preserve">
+    <value>Detalji događaja</value>
+  </data>
+  <data name="EventRepeatType" xml:space="preserve">
+    <value>Vrsta ponavljanja*</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Događaji</value>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>Vrsta događaja*</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Istraži sve mogućnosti nakon što se prijaviš u svoj račun.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>Moji prijatelji</value>
+  </data>
+  <data name="FriendsNoEvents" xml:space="preserve">
+    <value>Tvoji prijatelji nemaju događaja, ili nisi s nikim prijatelj.</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Započni</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Bok, opet!</value>
+  </data>
+  <data name="Hello!" xml:space="preserve">
+    <value>Bok!</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Neaktivno</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="LoadEventLocation" xml:space="preserve">
+    <value>Učitaj lokaciju događaja</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokacija</value>
+  </data>
+  <data name="MyFriendRequests" xml:space="preserve">
+    <value>Moji zahtjevi za prijateljstvo</value>
+  </data>
+  <data name="MyFriends" xml:space="preserve">
+    <value>Moji prijatelji</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Moj profil</value>
+  </data>
+  <data name="NearYou" xml:space="preserve">
+    <value>Blizu tebe</value>
+  </data>
+  <data name="NoCreatedEvents" xml:space="preserve">
+    <value>Ovaj korisnik nije stvorio nijedan događaj.</value>
+  </data>
+  <data name="NoEventsNear" xml:space="preserve">
+    <value>Nema događaja blizu tebe.</value>
+  </data>
+  <data name="NoFriendsToSelect" xml:space="preserve">
+    <value>Nemaš prijatelja za odabrati.</value>
+  </data>
+  <data name="NoRating" xml:space="preserve">
+    <value>Korisnik nema ocjenu</value>
+  </data>
+  <data name="NoRequests" xml:space="preserve">
+    <value>Trenutno nemaš nijedan zahtjev za prijateljstvo.</value>
+  </data>
+  <data name="NotAMember" xml:space="preserve">
+    <value>Nisi član?</value>
+  </data>
+  <data name="NumberOfParticipants" xml:space="preserve">
+    <value>Broj sudionika</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Trebaš 6-20 znakova, 1 veliko slovo, 1 malo slovo i 1 broj.</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privatnost*</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Radijus unutar kojeg želiš vidjeti događaje</value>
+  </data>
+  <data name="RateUser" xml:space="preserve">
+    <value>Ocijeni korisnika</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registriraj se sada</value>
+  </data>
+  <data name="Register2" xml:space="preserve">
+    <value>Registriraj se</value>
+  </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Obriši prijatelja</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Moji zahtjevi</value>
+  </data>
+  <data name="SearchEvents" xml:space="preserve">
+    <value>Traži događaje</value>
+  </data>
+  <data name="SeeMore" xml:space="preserve">
+    <value>Vidi više</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Odaberi</value>
+  </data>
+  <data name="SelectEventRepeatType" xml:space="preserve">
+    <value>Odaberi vrstu ponavljanja...</value>
+  </data>
+  <data name="SelectEventType" xml:space="preserve">
+    <value>Odaberi vrstu događaja...</value>
+  </data>
+  <data name="SelectPrivacy" xml:space="preserve">
+    <value>Odaberi privatnost...</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Prijavi se</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Odjavi se</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vrijeme</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov*</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="UsernameOrEmail" xml:space="preserve">
+    <value>Korisničko ime ili email</value>
+  </data>
+  <data name="UserNoBio" xml:space="preserve">
+    <value>Ovaj korisnik nije postavio biografiju...</value>
+  </data>
+  <data name="Vicinity" xml:space="preserve">
+    <value>Koristeći SportSpark, možeš pronaći događaje u svojoj blizini koji bi te mogli zanimati!</value>
+  </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>Pogledaj profil</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Dobrodošao u SportSpark</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Dobrodošao natrag u SportSpark.</value>
+  </data>
 </root>

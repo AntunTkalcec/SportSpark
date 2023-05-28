@@ -19,7 +19,6 @@
             <Setter Property="Padding" Value="10"/>
         </Style>
         <ResourceDictionary>
-            <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Edit profile" FalseObject="Add friend"/>
             <toolkit:BoolToObjectConverter x:Key="BoolToColor" FalseObject="{StaticResource SportSparkLightGreen}" TrueObject="{StaticResource Gray100}"/>
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
@@ -29,6 +28,7 @@
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converters:DistanceConverter x:Key="DistanceConverter"/>
             <converters:NameConverter x:Key="NameConverter"/>
+            <converters:ProfileFriendBtnConverter x:Key="ProfileFriendBtnConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -123,7 +123,7 @@
                         Placeholder="{Binding Language[UserNoBio]}" PlaceholderColor="Black"/>
             </Border>
 
-            <Button Text="{Binding SameUser, Converter={StaticResource BoolToObject}}" FontAttributes="Bold" FontSize="28" 
+            <Button Text="{Binding SameUser, Converter={StaticResource ProfileFriendBtnConverter}}" FontAttributes="Bold" FontSize="28" 
                 BackgroundColor="{StaticResource SportSparkDarkBlue}" VerticalOptions="End" Grid.Row="3"
                 TextColor="White" Shadow="{StaticResource DefaultShadow}" Command="{Binding EditOrAddCommand}"
                 CornerRadius="30" Grid.ColumnSpan="2">
