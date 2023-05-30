@@ -37,5 +37,14 @@ namespace SportSpark.ViewModels
                 { "User", eventCreator }, { "SameUser", false }, { "UserIsNotFriend",  userIsNotFriend }, { "UserProfilePicture", eventCreator.ProfileImageData }
             });
         }
+
+        [RelayCommand]
+        async Task GoToEventDetailsAsync(EventDTO entity)
+        {
+            await _navigationService.NavigateToAsync(nameof(EventDetailsView), new Dictionary<string, object>
+            {
+                { "Event", entity }, { "LoggedInUser", UserValue }, { "SameUser", false }
+            });
+        }
     }
 }

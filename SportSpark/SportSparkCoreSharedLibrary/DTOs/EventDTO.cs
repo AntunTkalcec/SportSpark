@@ -14,7 +14,7 @@ namespace SportSparkCoreSharedLibrary.DTOs
 
         public DateTime? Time { get; set; }
 
-        public int? Duration { get; set; }
+        public double? Duration { get; set; }
 
         public double? Price { get; set; }
 

@@ -16,6 +16,7 @@
             <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converters:DistanceConverter x:Key="DistanceConverter"/>
+            <converters:EventImageConverter x:Key="EventImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid x:Name="mainLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -38,8 +39,13 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.GoToEventDetailsCommand, Source={x:Reference eventsCollection}}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
                         <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, *" HorizontalOptions="Fill" VerticalOptions="Fill">
-                            <Image Source="football.jpg" Grid.RowSpan="3" Grid.ColumnSpan="2" ZIndex="1"
+                            <Image Source="{Binding ., Converter={StaticResource EventImageConverter}}" Grid.RowSpan="3" Grid.ColumnSpan="2" ZIndex="1"
                                    Aspect="AspectFill"/>
 
                             <Image ZIndex="2" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Margin="10, 10"

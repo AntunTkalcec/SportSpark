@@ -192,6 +192,15 @@ namespace SportSpark.ViewModels
             }
         }
 
+        [RelayCommand]
+        async Task GoToEventDetailsAsync(EventDTO entity)
+        {
+            await _navigationService.NavigateToAsync(nameof(EventDetailsView), new Dictionary<string, object>
+            {
+                { "Event", entity }, { "LoggedInUser", null }, { "SameUser", false }
+            });
+        }
+
         private async Task GetUserEventsAsync()
         {
             try

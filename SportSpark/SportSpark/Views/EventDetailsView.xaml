@@ -20,6 +20,7 @@
             <toolkit:BoolToObjectConverter x:Key="BoolToObject" TrueObject="Active" FalseObject="Inactive" />
             <converters:EventCountConverter x:Key="EventCountConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView x:Name="mainLayout" Margin="15, 20, 15, 0">
@@ -114,7 +115,8 @@
             </Border>
 
             <maps:Map x:Name="map" Grid.Row="5" Grid.ColumnSpan="2" IsVisible="False"/>
-            <Label x:Name="loadMapBtn" Grid.Row="5" Grid.ColumnSpan="2" IsVisible="True" Text="{Binding Language[LoadEventLocation]}" FontAttributes="Bold" 
+            <Label x:Name="loadMapBtn" Grid.Row="5" Grid.ColumnSpan="2" IsVisible="{Binding EventValue.Lat, Converter={StaticResource IsNotNullConverter}}"
+                   Text="{Binding Language[LoadEventLocation]}" FontAttributes="Bold" 
                    FontSize="28" Margin="0, 10" TextColor="Blue" HorizontalOptions="Center" HorizontalTextAlignment="Center"
                    HeightRequest="55">
                 <Label.GestureRecognizers>

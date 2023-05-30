@@ -76,7 +76,15 @@ namespace SportSparkInfrastructureLibrary.Services
 
         public async Task<List<EventDTO>> GetUserEventsAsync(int userId, int loggedInUserId)
         {
-            var res = await _eventRepository.Fetch().Where(x => x.UserId == userId).ToListAsync();
+            var res = await _eventRepository.Fetch()
+                .Include(x => x.EventType)
+                .Include(x => x.RepeatType)
+                .Include(x => x.User)
+                    .ThenInclude(_ => _.Events)
+                .Include(x => x.User)
+                    .ThenInclude(_ => _.ProfileImage)
+                .Where(x => x.UserId == userId).ToListAsync();
+
             return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(loggedInUserId) || x.ValidUserIds.Count == 0).ToList();
         }
 
