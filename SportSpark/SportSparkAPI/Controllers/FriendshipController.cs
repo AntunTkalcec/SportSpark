@@ -8,6 +8,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [ActionFilters.AuthorizationFilter()]
     public class FriendshipController : BaseController
     {
         private readonly IFriendshipService _friendshipService;

@@ -8,7 +8,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[ActionFilters.AuthorizationFilter()]
+    [ActionFilters.AuthorizationFilter()]
     public class DocumentController : BaseController
     {
         private readonly IDocumentService _documentService;

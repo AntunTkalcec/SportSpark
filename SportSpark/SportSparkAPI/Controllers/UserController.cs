@@ -16,7 +16,7 @@ namespace SportSparkAPI.Controllers
             _userService = userService;
         }
 
-        //[ActionFilters.AuthorizationFilter()]
+        [ActionFilters.AuthorizationFilter()]
         [HttpGet]
         [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<ActionResult<List<UserDTO>>> Get()
@@ -31,7 +31,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        //[ActionFilters.AuthorizationFilter()]
+        [ActionFilters.AuthorizationFilter()]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<ActionResult<UserDTO>> GetById(int id)
@@ -61,7 +61,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        //[ActionFilters.AuthorizationFilter()]
+        [ActionFilters.AuthorizationFilter()]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, UserDTO userDto)
         {
@@ -77,7 +77,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
-        //[ActionFilters.AuthorizationFilter()]
+        [ActionFilters.AuthorizationFilter()]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -93,6 +93,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
+        [ActionFilters.AuthorizationFilter()]
         [HttpPost("befriend")]
         public async Task<ActionResult> AddAsFriend([FromBody] int id)
         {
@@ -108,6 +109,7 @@ namespace SportSparkAPI.Controllers
             }
         }
 
+        [ActionFilters.AuthorizationFilter()]
         [HttpPut("{id}/rate/{rating}")]
         public async Task<ActionResult> RateUser(int id, int rating)
         {

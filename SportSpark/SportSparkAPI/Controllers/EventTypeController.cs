@@ -8,7 +8,7 @@ namespace SportSparkAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[ActionFilters.AuthorizationFilter()]
+    [ActionFilters.AuthorizationFilter()]
     public class EventTypeController : BaseController
     {
         private readonly IEventTypeService _eventTypeService;
