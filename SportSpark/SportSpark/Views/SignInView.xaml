@@ -15,6 +15,11 @@
                    HorizontalTextAlignment="Center" Shadow="{StaticResource DefaultShadow}" Margin="0, 0, 0, 15"/>
 
             <VerticalStackLayout Spacing="5">
+                <VerticalStackLayout.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="WinUI">400, 0, 400, 0</On>
+                    </OnPlatform>
+                </VerticalStackLayout.Margin>
                 <Label Text="{Binding Language[UsernameOrEmail]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
                     <Border.StrokeShape>
@@ -26,6 +31,13 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
+                <VerticalStackLayout.Margin>
+                    <OnIdiom x:TypeArguments="Thickness">
+                        <OnIdiom.Desktop>
+                            <Thickness>400, 0, 400, 0</Thickness>
+                        </OnIdiom.Desktop>
+                    </OnIdiom>
+                </VerticalStackLayout.Margin>
                 <Label Text="{Binding Language[Password]}" TextColor="Black" Margin="15, 0, 0, 0" FontAttributes="Bold"/>
                 <Border BackgroundColor="{StaticResource BackgroundLight}" StrokeThickness="1" Stroke="#B4B4B4" Padding="10">
                     <Border.StrokeShape>

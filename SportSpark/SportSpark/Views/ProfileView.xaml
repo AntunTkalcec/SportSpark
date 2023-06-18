@@ -96,7 +96,11 @@
                     <Label Text="{Binding StarCode}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
                 <Label Text="{Binding Language[NoRating]}" FontSize="16" TextColor="Black" HorizontalOptions="Center" 
-                   IsVisible="{Binding UserValue.Rating, Converter={StaticResource IsNullConverter}}"/>
+                   IsVisible="{Binding UserValue.Rating, Converter={StaticResource IsNullConverter}}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RateUserCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5" Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding SameUser}" Margin="0, 20, 0, 0">

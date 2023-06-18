@@ -184,6 +184,7 @@ namespace SportSpark.ViewModels
         [RelayCommand]
         async Task RateUserAsync()
         {
+            if (SameUser) return;
             var res = await Application.Current.MainPage.ShowPopupAsync(new RateUserPopup());
 
             if (res is int intResult)

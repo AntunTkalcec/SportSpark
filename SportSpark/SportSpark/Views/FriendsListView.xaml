@@ -15,7 +15,7 @@
             <toolkit:IsNotNullConverter x:Key="IsNotNullConverter"/>
             <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
-            <converters:EventCountConverterAlt x:Key="EventCountConverter"/>
+            <converters:EventCountConverterAlt x:Key="EventCountConverterAlt"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -75,7 +75,7 @@
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Sender, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                    <Label Text="{Binding Sender, Converter={StaticResource EventCountConverterAlt}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
                                            HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Sender.Rating, Converter={StaticResource IsNotNullConverter}}">
@@ -140,7 +140,7 @@
 
 
                                 <VerticalStackLayout Spacing="10" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Receiver, Converter={StaticResource EventCountConverter}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
+                                    <Label Text="{Binding Receiver, Converter={StaticResource EventCountConverterAlt}}" FontSize="14" TextColor="Black" Grid.Row="2" Grid.Column="0"
                                            HorizontalOptions="Center" VerticalOptions="Start"/>
 
                                     <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" IsVisible="{Binding Receiver.Rating, Converter={StaticResource IsNotNullConverter}}">
