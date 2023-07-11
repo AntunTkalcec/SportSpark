@@ -1,0 +1,79 @@
+﻿@using System.ComponentModel;
+@attribute [Authorize]
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <img src="/appicon.png" alt="Logo" class="d-inline-block" height="40" width="50"/>
+            SportSpark
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100 h-100">
+                <li class="my-auto">
+                    <NavLink class="nav-link fw-bold hvr-grow" href="" Match="NavLinkMatch.All">
+                        <i class="fa-solid fa-house-chimney fa-lg fw-bold"></i>
+                        Home
+                    </NavLink>
+                </li>
+                
+                <li class="my-auto">
+                    <NavLink class="nav-link fw-bold hvr-grow" href="createEvent">
+                        <i class="fa-solid fa-plus fa-lg fw-bold"></i>
+                        Create an event
+                    </NavLink>
+                </li>
+                
+                <li class="my-auto">
+                    <NavLink class="nav-link fw-bold hvr-grow" href="friendRequests">
+                        <i class="fa-solid fa-user-group fw-bold fa-lg"></i>
+                        Friend requests
+                    </NavLink>
+                </li>
+                
+                <li class="my-auto">
+                    <NavLink class="nav-link fw-bold hvr-grow" href="friendsList">
+                        <i class="fa-solid fa-users fw-bold fa-lg"></i>
+                        Friends list
+                    </NavLink>
+                </li>
+                
+                @if (userData.UserDTO is not null)
+                {
+                    <ProfileImageBtn User="userData.UserDTO"/>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@inject UserData userData
+@code {
+    [Inject]
+    private IRestService restService { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            userData.PropertyChanged += UserData_PropertyChanged;
+            userData.UpdateUserData(await restService.GetUserAsync());
+        }
+    }
+
+    private void UserData_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (userData.UserDTO is not null)
+        {
+            StateHasChanged();
+        }
+    }
+
+    void Dispose()
+    {
+        userData.PropertyChanged -= UserData_PropertyChanged;
+    }
+}

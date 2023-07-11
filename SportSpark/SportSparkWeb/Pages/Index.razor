@@ -1,0 +1,52 @@
+﻿@page "/"
+@using Newtonsoft.Json;
+@attribute [Authorize]
+@inherits IndexBase
+
+<PageTitle>Home</PageTitle>
+
+@if (Events is null && ErrorMsg is null)
+{
+    <h3>Loading...</h3>
+}
+else if (ErrorMsg is not null)
+{
+    <h3 class="text-danger">@ErrorMsg</h3>
+}
+else if (Events.Count == 0)
+{
+    <h3>There are no events near you</h3>
+}
+else
+{
+    <h3 class="fw-bold">Events near you</h3>
+    <div class="card-group justify-content-evenly">
+        @foreach (var ev in Events)
+        {
+            <div class="card hvr-glow" style="max-width: 350px;" @onclick="() => GoToEventDetails(ev.Id)">
+                <img src="appicon.png" class="card-img-top" style="max-width: 350px; max-height: 250px;" alt="@ev.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@ev.Title</h5>
+                    <p class="card-text">@ev.Description</p>
+                </div>
+                <div class="card-footer">
+                    @if (ev.Time is null)
+                    {
+                        <small class="text-muted">
+                            Date unspecified
+                        </small>
+                    }
+                    else
+                    {
+                        <small class="text-muted">
+                            @ev.Time
+                        </small>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+}

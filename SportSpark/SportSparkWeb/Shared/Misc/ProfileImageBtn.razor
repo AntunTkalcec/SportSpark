@@ -1,0 +1,53 @@
+﻿@using Newtonsoft.Json;
+@using SportSparkCoreSharedLibrary.DTOs;
+@using SportSparkWeb.StateStores;
+@using System.ComponentModel;
+
+@if (userProfileImageData?.Length > 0 && User is not null)
+{
+    <div class="btn-group dropstart ms-lg-auto">
+        <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle" role="button">
+            <img class="rounded-circle shadow-4-strong img-fluid hvr-grow" style="width: 50px; height: 50px;" alt="avatar2" src="@userProfileImageData" />
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/profile/@User.Id">My profile</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr /></li>
+            <li><a class="dropdown-item" href="#" @onclick="Logout">Log out</a></li>
+        </ul>
+    </div>
+}
+
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@code {
+    string userProfileImageData = string.Empty;
+    [Parameter]
+    public UserDTO User { get; set; }
+
+    protected override void OnInitialized()
+    {
+        userProfileImageData = GetProfileImageData();
+    }
+
+    string GetProfileImageData()
+    {
+        if (User.ProfileImageData is not null && User.ProfileImageData.Length > 0)
+        {
+            return $"data:image/png;base64,{Convert.ToBase64String(User.ProfileImageData)}";
+        }
+
+        return @"https://w7.pngwing.com/pngs/844/95/png-transparent-anonymity-person-computer-icons-word-of-mouth-silhouette-business-internet-thumbnail.png";
+    }
+
+    async Task Logout()
+    {
+        await LocalStorage.RemoveItemAsync("access_token");
+        await LocalStorage.RemoveItemAsync("refresh_token");
+        await LocalStorage.RemoveItemAsync("token_expiration");
+        await LocalStorage.RemoveItemAsync("UserId");
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+}

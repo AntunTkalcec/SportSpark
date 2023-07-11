@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSpark", "SportSpark\Sp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SportSparkCoreSharedLibrary", "SportSparkCoreSharedLibrary", "{10CAD7BD-9021-49C4-9DD7-04AEFE7FC581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportSparkCoreSharedLibrary", "SportSparkCoreSharedLibrary\SportSparkCoreSharedLibrary.csproj", "{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkCoreSharedLibrary", "SportSparkCoreSharedLibrary\SportSparkCoreSharedLibrary.csproj", "{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportSparkWeb", "SportSparkWeb\SportSparkWeb.csproj", "{EB0C60FF-2B10-4671-925F-FA5E419A74D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0C60FF-2B10-4671-925F-FA5E419A74D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0C60FF-2B10-4671-925F-FA5E419A74D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0C60FF-2B10-4671-925F-FA5E419A74D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0C60FF-2B10-4671-925F-FA5E419A74D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{5EDEE242-29EF-4A2C-AC18-77A4B668939F} = {AF3DB425-D7C9-43CC-8986-A30B7B4D2274}
 		{D8CAA94E-5B03-4E7A-97EE-1A946925C252} = {AC7419F0-D621-4D95-A3FF-6C1CDBFDA1E9}
 		{B8D42E4C-C482-48D8-9367-8F1F6AB92E77} = {10CAD7BD-9021-49C4-9DD7-04AEFE7FC581}
+		{EB0C60FF-2B10-4671-925F-FA5E419A74D2} = {AC7419F0-D621-4D95-A3FF-6C1CDBFDA1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D28FF10-3818-4C0B-894E-CC0356992953}

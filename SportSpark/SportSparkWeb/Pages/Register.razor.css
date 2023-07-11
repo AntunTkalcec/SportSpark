@@ -1,0 +1,9 @@
+﻿.pwd:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .w-md {
+        width: 90% !important;
+    }
+}

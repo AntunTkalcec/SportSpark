@@ -62,11 +62,6 @@ namespace SportSparkInfrastructureLibrary.Services
 
             var res = await _eventRepository.Fetch()
                 .Include(x => x.User)
-                    .ThenInclude(x => x.RequestedFriendships)
-                .Include(x => x.User)
-                    .ThenInclude(x => x.ReceivedFriendships)
-                .Include(x => x.User)
-                    .ThenInclude(x => x.ProfileImage)
                 .Include(x => x.RepeatType)
                 .Include(x => x.EventType)
                 .Where(x => ids.Contains(x.Id) && x.Active).ToListAsync();

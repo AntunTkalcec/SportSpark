@@ -33,7 +33,7 @@ namespace SportSparkAPI.Controllers
                     var userDto = _userService.Login(user);
                     return Ok(userDto);
                 }
-                return Unauthorized();
+                return NotFound(new ApiResponseHelper(404, "A user with that information does not exist!"));
             }
             catch (Exception ex)
             {

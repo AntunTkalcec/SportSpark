@@ -1,0 +1,95 @@
+﻿@page "/register"
+@using SportSparkCoreSharedLibrary.DTOs;
+@inject IRestService RestService
+@inject IToastService ToastService
+@inject NavigationManager NavigationManager
+@layout AltLayout
+
+<div class="card w-50 mx-auto shadow-lg p-3 mb-5 bg-body rounded w-md">
+    <div class="card-header bg-primary text-white fw-bold">Register</div>
+
+    <div class="card-body">
+        <h5 class="card-title mb-3">Welcome to SportSpark</h5>
+        <EditForm Model="user" OnValidSubmit="HandleRegister" class="row g-3">
+            <DataAnnotationsValidator />
+            <div class="col-md-6 form-floating">
+                <InputText id="inputFirstName" @bind-Value="user.FirstName" class="form-control hvr-glow" placeholder="Enter first name"/>
+                <label for="inputFirstName" class="form-label">First name</label>
+                <ValidationMessage For="@(() => user.FirstName)" />
+            </div>
+            <div class="col-md-6 form-floating">
+                <InputText id="inputLastName" @bind-Value="user.LastName" class="form-control hvr-glow" placeholder="Enter last name" />
+                <label for="inputLastName" class="form-label">Last name</label>
+                <ValidationMessage For="@(() => user.LastName)" />
+            </div>
+            <div class="col-12 form-floating">
+                <InputText id="inputEmail" @bind-Value="user.Email" class="form-control hvr-glow" placeholder="Enter email"/>
+                <label for="inputEmail" class="form-label">Email</label>
+                <ValidationMessage For="@(() => user.Email)" />
+            </div>
+            <div class="col-12 form-floating">
+                <InputText id="username" @bind-Value="user.UserName" class="form-control hvr-glow" placeholder="Enter username" />
+                <label for="username" class="form-label">Username</label>
+                <ValidationMessage For="@(() => user.UserName)" />
+            </div>
+            <div class="col-12">
+                <div class="input-group flex-nowrap">
+                    <div class="form-floating">
+                        <InputText id="password" @bind-Value="user.Password" type="@pswrd" class="form-control hvr-glow" placeholder="Enter password" />
+                        <label for="password" class="form-label">Password</label>
+                    </div>
+                    <i class="input-group-text fa-solid fa-eye fa-lg fw-bold pwd" @onclick="TogglePassword" />
+                </div>
+                <ValidationMessage For="@(() => user.Password)"/>
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary fw-bold hvr-glow mb-3 col-md-4 col-sm-6 mx-auto">Register</button>
+
+            <div>
+                <div class="card-text">Already registered?</div>
+                <a href="login" class="fw-bold">Sign In</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    UserDTO user = new();
+    ApiResponseModel? apiResponse;
+    string pswrd = "password";
+    EditContext editContext;
+
+    protected override Task OnInitializedAsync()
+    {
+        editContext = new(user);
+        return base.OnInitializedAsync();
+    }
+
+    async Task HandleRegister()
+    {
+        apiResponse = await RestService.RegisterAsync(user);
+
+        if (apiResponse.Status == 201)
+        {
+            ToastService.ShowSuccess(apiResponse.Message);
+            NavigationManager.NavigateTo("login");
+        }
+        else
+        {
+            ToastService.ShowError(apiResponse.Message);
+        }
+    }
+
+    void TogglePassword()
+    {
+        switch (pswrd)
+        {
+            case "password":
+                pswrd = "text";
+                break;
+            case "text":
+                pswrd = "password";
+                break;
+        }
+    }
+}
