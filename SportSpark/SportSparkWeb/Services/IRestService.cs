@@ -11,4 +11,6 @@ public interface IRestService
     Task<UserDTO> GetUserAsync();
     Task<List<EventDTO>> GetEventsNearUserAsync(double? radius, LatLongWrapperDTO location);
     Task<UserDTO> GetUserByIdAsync(int id);
+    Task<EventDTO> GetEventByIdAsync(int id);
+    Task<List<EventDTO>> GetFriendEventsAsync();
 }

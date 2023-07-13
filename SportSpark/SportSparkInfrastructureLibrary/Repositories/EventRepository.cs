@@ -13,6 +13,16 @@ namespace SportSparkInfrastructureLibrary.Repositories
         {
         }
 
+        public async Task<Event> GetByIdDetailedAsync(int id)
+        {
+            return await _context.Events
+                .Include(x => x.User)
+                    .ThenInclude(_ => _.ProfileImage)
+                .Include(x => x.EventType)
+                .Include(x => x.RepeatType)
+                .FirstAsync(x => x.Id == id);
+        }
+
         public async Task<List<int>> GetEventsByLocation(LatLongWrapperDTO wrapper, double radius)
         {
             //must call ToListAsync() to make query composable

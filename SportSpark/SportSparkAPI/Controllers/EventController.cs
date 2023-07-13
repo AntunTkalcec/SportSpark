@@ -133,5 +133,18 @@ namespace SportSparkAPI.Controllers
                 return BadRequest(new ApiResponseHelper(400, ex.Message));
             }
         }
+
+        [HttpGet("friendevents")]
+        public async Task<ActionResult<List<EventDTO>>> GetUserFriendEvents()
+        {
+            try
+            {
+                return await _eventService.GetUserFriendEventsAsync(UserId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
     }
 }

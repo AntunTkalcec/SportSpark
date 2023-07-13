@@ -14,12 +14,11 @@ public class IndexBase : ComponentBase, IAsyncDisposable
     public IJSRuntime JSRuntime { get; set; } = default!;
     public UserDTO? User { get; set; }
     public List<EventDTO> Events { get; set; }
+    public List<EventDTO> FriendEvents { get; set; }
     public string ErrorMsg { get; set; }
 
     public Lazy<Task<IJSObjectReference>> moduleTask = default!;
     public LatLongWrapperDTO LatLongWrapper { get; set;}
-    [Inject]
-    public NavigationManager NavManager { get; set; }
 
     public IndexBase()
     {
@@ -41,6 +40,7 @@ public class IndexBase : ComponentBase, IAsyncDisposable
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            ErrorMsg = ex.Message;
         }
     }
 
@@ -59,6 +59,7 @@ public class IndexBase : ComponentBase, IAsyncDisposable
             Longitude = geoCoordinates.Longitude
         };
         Events = await RestService.GetEventsNearUserAsync(6000, LatLongWrapper);
+        FriendEvents = await RestService.GetFriendEventsAsync();
         StateHasChanged();
     }
 
@@ -69,10 +70,5 @@ public class IndexBase : ComponentBase, IAsyncDisposable
             var module = await moduleTask.Value;
             await module.DisposeAsync();
         }
-    }
-
-    public void GoToEventDetails(int id)
-    {
-        NavManager.NavigateTo($"eventDetails/{id}");
     }
 }

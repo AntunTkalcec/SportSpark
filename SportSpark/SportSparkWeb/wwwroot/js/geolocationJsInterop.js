@@ -23,3 +23,12 @@
 
     navigator.geolocation.getCurrentPosition(success, error, options);
 }
+
+//export function initializeMaps(latLng) {
+//    var latlng = new google.maps.LatLng(latLng[0], latLng[1]);
+//    var options = {
+//        zoom: 14, center: latLng,
+//        mapTypeId: google.maps.MapTypeId.ROADMAP
+//    };
+//    var map = new google.maps.Map(document.getElementById("map"), options);
+//}

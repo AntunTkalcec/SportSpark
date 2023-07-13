@@ -1,0 +1,32 @@
+﻿@inherits FriendEventsListBase
+
+@foreach (var ev in Events)
+{
+    <div class="col mb-5">
+        <div class="card h-100 hvr-glow" style="max-width: 350px;" @onclick="() => GoToEventDetails(ev.Id)">
+            <img src="@GetImg(ev)" style="max-width: 350px; max-height: 350px;" class="card-img-top" alt="@ev.Title">
+            <div class="card-body">
+                <h5 class="card-title">@ev.Title</h5>
+                <p class="card-text">@ev.Description</p>
+            </div>
+            <div class="card-footer">
+                @if (ev.Time is null)
+                {
+                    <small class="text-muted">
+                        Date unspecified
+                    </small>
+                }
+                else
+                {
+                    <small class="text-muted">
+                        @ev.Time
+                    </small>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+}

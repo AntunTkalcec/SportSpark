@@ -1,8 +1,124 @@
 ﻿@page "/eventDetails/{Id:int}"
+@inherits EventDetailsBase
 @attribute [Authorize]
 
-<h3>EventDetails</h3>
+<PageTitle>Event details</PageTitle>
 
-@code {
-
+@if (Event is null && ErrorMsg is null)
+{
+    <h3>Loading...</h3>
 }
+else if (ErrorMsg is not null)
+{
+    <h3 class="text-danger">@ErrorMsg</h3>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="fw-bolder fs-3">@Event?.Title</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="text-center">
+                <img class="rounded-circle shadow-4-strong img-fluid hvr-glow" style="max-width: 230px; max-height: 230px;" alt="avatar2" src="@UserProfileImageData" />
+                <div class="fw-bold fs-4">
+                    @Event?.User.FirstName @Event?.User.LastName
+                </div>
+                <div class="cursor hvr-grow">
+                    <b>Rating: </b>
+                    @if (Event.User.Rating.HasValue)
+                    {
+                        @Math.Round((decimal)@Event.User.Rating, 2, MidpointRounding.AwayFromZero)
+                        <i class="fa-solid fa-star ms-1"></i>
+                    }
+                    else
+                    {
+                        <span>Unrated</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-12 pt-3">
+            <div class="my-1">
+                <b>Contact: </b>
+                @Event?.User.Email
+            </div>
+            <div class="my-1">
+                <b>Time: </b>
+                @if (Event.Time is not null)
+                {
+                    @Event.Time
+                }
+                else
+                {
+                    <span>No time has been set</span>
+                }
+            </div>
+            <div class="my-1">
+                <b>Duration: </b>
+                @if (Event.Duration is not null)
+                {
+                    @Event?.Duration
+                }
+                else
+                {
+                    <span>No duration has been set</span>
+                }
+            </div>
+            <div class="my-1">
+                <b>Price: </b>
+                @if (Event.Price is not null)
+                {
+                    @Event.Price
+                }
+                else 
+                {
+                    <span>No price has been set</span>
+                }
+            </div>
+            <div class="my-1">
+                <b>Number of participants: </b>
+                @if (Event.NumberOfParticipants is not null)
+                {
+                    @Event.NumberOfParticipants
+                }
+                else
+                {
+                    <span>The number of participants hasn't been set</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="fw-bolder fs-4">
+                Where is it?
+            </div>
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <div class="fw-bolder fs-4">
+                Description
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div id="map">
+                <img src="https://www.kpmindustries.com/wp-content/uploads/2018/08/Placeholder-Map-Image-768x409.png" class="img-fluid"/>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-12">
+            <div>
+                @Event.Description
+            </div>
+        </div>
+    </div>
+}
+

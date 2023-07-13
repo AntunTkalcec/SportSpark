@@ -10,5 +10,7 @@ namespace SportSparkCoreLibrary.Interfaces.Services
         Task<List<EventDTO>> GetUserEventsAsync(int userId, int loggedInUserId);
 
         Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term, int userId);
+
+        Task<List<EventDTO>> GetUserFriendEventsAsync(int userId);
     }
 }

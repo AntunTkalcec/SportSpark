@@ -1,4 +1,5 @@
 ﻿using SportSparkCoreLibrary.Entities;
+using SportSparkCoreSharedLibrary.DTOs;
 
 namespace SportSparkCoreLibrary.Interfaces.Repositories
 {
