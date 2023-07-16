@@ -7,27 +7,30 @@
 @layout AltLayout
 
 <div class="card mx-auto shadow-lg p-3 mb-5 bg-body rounded w-md" style="width: 33%;">
-    <div class="card-header bg-primary text-white fw-bold">Sign In</div>
+    <div class="card-header bg-secondary text-white fw-bold">Sign In</div>
 
     <div class="card-body">
         <h5 class="card-title mb-3">Welcome back to SportSpark</h5>
-        <EditForm Model="user" OnSubmit="HandleLogin" class="row g-3">
+        <EditForm Model="user" OnValidSubmit="HandleLogin" class="row g-3">
+            <DataAnnotationsValidator />
             <div class="col-12 form-floating mb-3">
                 <InputText id="usernameOrEmail" @bind-Value="user.EmailOrUserName" class="form-control hvr-glow" placeholder="Enter username or email" />
-                <label for="usernameOrEmail" class="form-label">Username or email</label>
+                <label for="usernameOrEmail">Username or email</label>
+                <ValidationMessage For="@(() => user.EmailOrUserName)" />
             </div>
 
 
             <div class="col-12 form-floating mb-3">
                 <InputText id="password" @bind-Value="user.Password" type="password" class="form-control hvr-glow" placeholder="Enter password" />
-                <label for="password" class="form-label">Password</label>
+                <label for="password">Password</label>
+                <ValidationMessage For="@(() => user.Password)" />
             </div>
 
-            <button type="submit" class="btn btn-outline-primary fw-bold hvr-glow mb-3 col-md-6 mx-auto">Log in</button>
+            <button type="submit" class="btn btn-outline-secondary fw-bold hvr-glow mb-3 col-md-6 mx-auto">Log in</button>
 
             <div>
                 <div class="card-text">Not registered yet?</div>
-                <a href="register" class="fw-bold">Register now</a>
+                <a href="register" class="fw-bold text-secondary">Register now</a>
             </div>
         </EditForm>
     </div>
@@ -37,6 +40,13 @@
 @code {
     UserLogin user = new();
     ApiResponseModel? apiResponse;
+    EditContext editContext;
+
+    protected override Task OnInitializedAsync()
+    {
+        editContext = new(user);
+        return base.OnInitializedAsync();
+    }
 
     async Task HandleLogin()
     {
@@ -45,7 +55,6 @@
         if (apiResponse.Status == 200)
         {
             await AuthStateProvider.GetAuthenticationStateAsync();
-            ToastService.ShowSuccess(apiResponse.Message);
             NavigationManager.NavigateTo("");
         }
         else

@@ -15,15 +15,87 @@ else
 {
     <PageTitle>@User.FirstName's profile</PageTitle>
 
-    <h3 class="mb-5">@User.FirstName's profile</h3>
+    @*<h3 class="mb-5">@User.FirstName's profile</h3>
     <div class="row">
         <div class="col-12 mb-4 text-center">
             <img class="img-fluid rounded-circle shadow-4-strong" style="width: 250px; height: 275px;" alt="Avatar" src="@UserProfileImageData" />
             <p>Test</p>
         </div>
+    </div>*@
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-2">
+                <img class="img-fluid rounded-circle shadow-4-strong" style="width: 150px; height: 150px;" alt="avatar" src="@UserProfileImageData" />
+            </div>
+            <div class="col-7">
+                <div class="fs-2">@User?.FirstName @User?.LastName</div>
+                <div class="d-flex py-1">
+                    <i class="fa-solid fa-hourglass fw-bold text-primary fa-lg align-self-center pe-2"></i>
+                    @if (User?.Age is not null)
+                    {
+                        <div class="text-muted">@User.Age years old</div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">Age unknown</div>
+                    }
+                </div>
+                <div class="d-flex py-1">
+                    <i class="fa-solid fa-circle-info text-primary fw-bold fa-lg align-self-center pe-2"></i>
+                    @if (User?.Bio is not null)
+                    {
+                        <div class="fs-5">@User?.Bio</div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">User hasn't set their bio</div>
+                    }
+                </div>
+                <div class="d-flex py-1">
+                    <div class="fs-5">@User?.Events.Count events</div>
+                </div>
+            </div>
+
+            <div class="col-3 text-md-end text-center">
+                <div class="fs-2">@User?.Rating</div>
+            </div>
+        </div>
+
+        <div class="row text-center my-5">
+            <div class="col-6 text-end">
+                @if (!IsSameUser)
+                {
+                    if (IsFriend)
+                    {
+                        <button type="button" class="btn btn-danger fw-bold text-white btn-lg">Remove friend</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary fw-bold text-white btn-lg">Add as friend</button>
+                    }
+                }
+                else
+                {
+                    <button type="button" class="btn btn-secondary fw-bold text-white btn-lg">Edit profile</button>
+                }
+            </div>
+            @if (!IsSameUser)
+            {
+                <div class="col-6 text-start">
+                    <button type="button" class="btn btn-primary text-white btn-lg fw-bold">Message</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-6 text-start">
+                    <button type="button" class="btn btn-primary text-white btn-lg fw-bold disabled">Message</button>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <EventsList Events="UserEvents" />
+        </div>
     </div>
-}
-
-@code {
-
 }

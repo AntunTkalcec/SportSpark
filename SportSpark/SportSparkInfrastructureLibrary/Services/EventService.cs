@@ -6,8 +6,6 @@ using SportSparkCoreLibrary.Interfaces.Repositories;
 using SportSparkCoreLibrary.Interfaces.Repositories.Base;
 using SportSparkCoreLibrary.Interfaces.Services;
 using SportSparkCoreSharedLibrary.DTOs;
-using SportSparkInfrastructureLibrary.Extensions;
-using System.Linq;
 
 namespace SportSparkInfrastructureLibrary.Services
 {
@@ -93,7 +91,7 @@ namespace SportSparkInfrastructureLibrary.Services
                     .ThenInclude(_ => _.ProfileImage)
                 .Where(x => x.UserId == userId).ToListAsync();
 
-            return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(loggedInUserId) || x.ValidUserIds.Count == 0).ToList();
+            return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(loggedInUserId) || x.ValidUserIds.Count == 0 || x.UserId == userId).ToList();
         }
 
         public async Task<List<EventDTO>> GetEventsByTermAsync(LatLongWrapperDTO wrapper, double radius, string term, int userId)
@@ -142,6 +140,16 @@ namespace SportSparkInfrastructureLibrary.Services
                 .Where(x => x.Active && friendIds.Contains(x.UserId)).ToListAsync();
 
             return _mapper.Map<List<EventDTO>>(res).Where(x => x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0).ToList();
+        }
+
+        public async Task<List<EventDTO>> GetMoreEventsAsync(int userId)
+        {
+            var res = await _eventRepository.Fetch()
+                .Include(x => x.RepeatType)
+                .Include(x => x.EventType)
+                .Where(x => x.Active).ToListAsync();
+
+            return _mapper.Map<List<EventDTO>>(res).Where(x => (x.ValidUserIds.Contains(userId) || x.ValidUserIds.Count == 0) && x.UserId != userId).ToList();
         }
 
         #region Private Methods

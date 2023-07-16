@@ -13,4 +13,6 @@ public interface IRestService
     Task<UserDTO> GetUserByIdAsync(int id);
     Task<EventDTO> GetEventByIdAsync(int id);
     Task<List<EventDTO>> GetFriendEventsAsync();
+    Task<List<EventDTO>> GetUserEventsAsync(int userId);
+    Task<List<EventDTO>> SeeMoreEventsAsync();
 }

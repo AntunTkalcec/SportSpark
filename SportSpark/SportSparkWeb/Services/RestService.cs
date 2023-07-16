@@ -257,4 +257,58 @@ public class RestService : IRestService
             throw;
         }
     }
+
+    public async Task<List<EventDTO>> GetUserEventsAsync(int userId)
+    {
+        try
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"Event/user/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return default;
+                }
+
+                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+            }
+            else
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+    public async Task<List<EventDTO>> SeeMoreEventsAsync()
+    {
+        try
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"Event/seeMore");
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return default;
+                }
+
+                return await response.Content.ReadFromJsonAsync<List<EventDTO>>();
+            }
+            else
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
 }

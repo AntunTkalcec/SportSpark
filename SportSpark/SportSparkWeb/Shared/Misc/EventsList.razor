@@ -2,12 +2,12 @@
 
 @foreach (var ev in Events)
 {
-    <div class="col">
-        <div class="card h-100 hvr-glow" style="max-width: 350px;" @onclick="() => GoToEventDetails(ev.Id)">
-            <img src="@GetImg(ev)" style="max-width: 350px; max-height: 350px;" class="card-img-top" alt="@ev.Title">
+    <div class="col mb-5">
+        <div class="card h-100 hvr-grow border-1 shadow" style="max-width: 450px;" @onclick="() => GoToEventDetails(ev.Id)">
+            <img src="@GetImg(ev)" style="max-width: 450px; max-height: 250px;" class="card-img-top" alt="@ev.Title">
             <div class="card-body">
                 <h5 class="card-title">@ev.Title</h5>
-                <p class="card-text">@ev.Description</p>
+                <p class="card-text text-break">@ev.Description</p>
             </div>
             <div class="card-footer">
                 @if (ev.Time is null)

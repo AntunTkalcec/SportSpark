@@ -146,5 +146,19 @@ namespace SportSparkAPI.Controllers
                 return BadRequest(new ApiResponseHelper(400, ex.Message));
             }
         }
+
+        [HttpGet("seeMore")]
+        [ProducesResponseType(typeof(List<EventDTO>), 200)]
+        public async Task<ActionResult<List<EventDTO>>> SeeMoreEventsAsync()
+        {
+            try
+            {
+                return await _eventService.GetMoreEventsAsync(UserId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseHelper(400, ex.Message));
+            }
+        }
     }
 }

@@ -18,26 +18,26 @@ else if (Events?.Count == 0)
 }
 else
 {
-    <div class="row">
-        <div class="col-6">
-            <h3 class="fw-bold">Events near you</h3>
+    <div class="row mb-3">
+        <div class="col-9">
+            <h3 class="fw-bold text-secondary">Events near you</h3>
         </div>
-        <div class="col-6 text-end">
-            <a href="seeMore" class="text-secondary">See more</a>
+        <div class="col-3 text-end">
+            <a href="seeMore" class="text-muted hvr-grow text-decoration-none fst-italic">See more</a>
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-6 g-4">
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         <EventsList Events="Events"/>
     </div>
-
-    <div class="row mt-5">
-        <div class="col-6">
-            <h3 class="fw-bold">Friends' events</h3>
+    <hr />
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="fw-bold text-secondary">Friends' events</h3>
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-6 g-4">
-        <FriendEventsList Events="FriendEvents"/>
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <EventsList Events="FriendEvents"/>
     </div>
 }

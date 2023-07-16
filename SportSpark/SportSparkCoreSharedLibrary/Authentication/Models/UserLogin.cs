@@ -4,10 +4,10 @@ namespace SportSparkCoreSharedLibrary.Authentication.Models;
 
 public class UserLogin
 {
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
     public string EmailOrUserName { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "This field is required")]
     [StringLength(50)]
     public string Password { get; set; }
 }

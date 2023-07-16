@@ -1,9 +1,9 @@
 ﻿@using System.ComponentModel;
 @attribute [Authorize]
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+<nav class="navbar navbar-expand-lg bg-secondary navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand fw-bold" href="">
             <img src="/appicon.png" alt="Logo" class="d-inline-block" height="40" width="50"/>
             SportSpark
         </a>
@@ -14,28 +14,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav w-100 h-100">
                 <li class="my-auto">
-                    <NavLink class="nav-link fw-bold hvr-grow" href="" Match="NavLinkMatch.All">
+                    <NavLink class="nav-link fw-bold" href="" Match="NavLinkMatch.All">
                         <i class="fa-solid fa-house-chimney fa-lg fw-bold"></i>
                         Home
                     </NavLink>
                 </li>
                 
                 <li class="my-auto">
-                    <NavLink class="nav-link fw-bold hvr-grow" href="createEvent">
+                    <NavLink class="nav-link fw-bold" href="createEvent">
                         <i class="fa-solid fa-plus fa-lg fw-bold"></i>
                         Create an event
                     </NavLink>
                 </li>
                 
                 <li class="my-auto">
-                    <NavLink class="nav-link fw-bold hvr-grow" href="friendRequests">
+                    <NavLink class="nav-link fw-bold" href="friendRequests">
                         <i class="fa-solid fa-user-group fw-bold fa-lg"></i>
                         Friend requests
                     </NavLink>
                 </li>
                 
                 <li class="my-auto">
-                    <NavLink class="nav-link fw-bold hvr-grow" href="friendsList">
+                    <NavLink class="nav-link fw-bold" href="friendsList">
                         <i class="fa-solid fa-users fw-bold fa-lg"></i>
                         Friends list
                     </NavLink>

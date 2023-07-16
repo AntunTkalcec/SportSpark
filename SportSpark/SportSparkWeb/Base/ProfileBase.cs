@@ -14,17 +14,30 @@ public class ProfileBase : ComponentBase
 
     public UserDTO User { get; set; }
 
+    public UserDTO LoggedInUser { get; set; }
+    
+    public List<EventDTO> UserEvents { get; set; }
+
     public string ErrorMsg { get; set; }
 
     public string UserProfileImageData { get; set; } = string.Empty;
+
+    public bool IsSameUser { get; set; }
+    public bool IsFriend { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            User = await RestService.GetUserAsync();
+            User = await RestService.GetUserByIdAsync(Id);
             UserProfileImageData = GetProfileImageData();
-
+            UserEvents = await RestService.GetUserEventsAsync(Id);
+            LoggedInUser = await RestService.GetUserAsync();
+            await CheckSameUser();
+            if (!IsSameUser)
+            {
+                await CheckIsFriend();
+            }
         }
         catch (Exception ex)
         {
@@ -40,5 +53,16 @@ public class ProfileBase : ComponentBase
         }
 
         return @"https://w7.pngwing.com/pngs/844/95/png-transparent-anonymity-person-computer-icons-word-of-mouth-silhouette-business-internet-thumbnail.png";
+    }
+
+    private async Task CheckSameUser()
+    {
+        IsSameUser = User.Id == LoggedInUser.Id;
+    }
+
+    private async Task CheckIsFriend()
+    {
+        IsFriend = User.RequestedFriendships.Any(x => x.SenderId == LoggedInUser.Id || x.ReceiverId == LoggedInUser.Id) ||
+            User.ReceivedFriendships.Any(x => x.SenderId == LoggedInUser.Id || x.ReceiverId == LoggedInUser.Id);
     }
 }

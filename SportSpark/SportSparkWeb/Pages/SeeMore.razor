@@ -1,6 +1,23 @@
 ﻿@page "/seeMore"
-<h3>SeeMore</h3>
+@attribute [Authorize]
+@inherits SeeMoreBase
 
-@code {
 
+@if (Events is null && ErrorMsg is null)
+{
+    <h3>Loading...</h3>
+}
+else if (ErrorMsg is not null)
+{
+    <h3 class="text-danger">@ErrorMsg</h3>
+}
+else if (Events?.Count == 0)
+{
+    <h3>There are no events to show you</h3>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <EventsList Events="Events"/>
+    </div>
 }

@@ -14,109 +14,92 @@ else if (ErrorMsg is not null)
 }
 else
 {
-    <div class="row">
-        <div class="col-12">
-            <div class="fw-bolder fs-3">@Event?.Title</div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <div class="text-center">
-                <img class="rounded-circle shadow-4-strong img-fluid hvr-glow" style="max-width: 230px; max-height: 230px;" alt="avatar2" src="@UserProfileImageData" />
-                <div class="fw-bold fs-4">
-                    @Event?.User.FirstName @Event?.User.LastName
+    <div class="container pt-md-5">
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <div class="d-flex">
+                    <i class="fa-solid fa-bolt pe-2 pt-3 fa-lg text-primary"></i>
+                    <div class="text-uppercase fs-3 fw-bold">@Event?.Title</div>
                 </div>
-                <div class="cursor hvr-grow">
-                    <b>Rating: </b>
-                    @if (Event.User.Rating.HasValue)
+                <div class="d-flex">
+                    <i class="fa-solid fa-location-dot pe-2 pt-2 fa-lg text-primary"></i>
+                    @if (Event?.Lat is not null && Event?.Long is not null)
                     {
-                        @Math.Round((decimal)@Event.User.Rating, 2, MidpointRounding.AwayFromZero)
-                        <i class="fa-solid fa-star ms-1"></i>
+                        <div class="fs-6 fw-bold">@Event?.Lat, @Event?.Long</div>
                     }
                     else
                     {
-                        <span>Unrated</span>
+                        <div class="fs-6 fw-bold">Location not set</div>
                     }
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-8 col-sm-12 pt-3">
-            <div class="my-1">
-                <b>Contact: </b>
-                @Event?.User.Email
-            </div>
-            <div class="my-1">
-                <b>Time: </b>
-                @if (Event.Time is not null)
-                {
-                    @Event.Time
-                }
-                else
-                {
-                    <span>No time has been set</span>
-                }
-            </div>
-            <div class="my-1">
-                <b>Duration: </b>
-                @if (Event.Duration is not null)
-                {
-                    @Event?.Duration
-                }
-                else
-                {
-                    <span>No duration has been set</span>
-                }
-            </div>
-            <div class="my-1">
-                <b>Price: </b>
-                @if (Event.Price is not null)
-                {
-                    @Event.Price
-                }
-                else 
-                {
-                    <span>No price has been set</span>
-                }
-            </div>
-            <div class="my-1">
-                <b>Number of participants: </b>
-                @if (Event.NumberOfParticipants is not null)
-                {
-                    @Event.NumberOfParticipants
-                }
-                else
-                {
-                    <span>The number of participants hasn't been set</span>
-                }
-            </div>
-        </div>
-    </div>
+                <div class="py-5 d-flex">
+                    <img class="rounded-circle shadow-4-strong img-fluid hvr-glow cursor" style="max-width: 80px; max-height: 80px;" alt="avatar2" src="@UserProfileImageData"
+                        @onclick="() => GoToUserProfile(Event?.User.Id)" />
+                    <div class="ms-md-5 ms-3 mt-2">
+                        <div class="fs-5 fw-bold">@Event?.User.FirstName @Event?.User.LastName</div>
+                        <div class="text-muted fs-6 fw-semibold">Event creator</div>
+                    </div>
+                </div>
+                
+                <hr>
 
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <div class="fw-bolder fs-4">
-                Where is it?
-            </div>
-        </div>
-        <div class="col-md-8 col-sm-12">
-            <div class="fw-bolder fs-4">
-                Description
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <div id="map">
-                <img src="https://www.kpmindustries.com/wp-content/uploads/2018/08/Placeholder-Map-Image-768x409.png" class="img-fluid"/>
-            </div>
-        </div>
+                <div class="row py-3 g-4">
+                    <div class="col-6">
+                        <div class="d-flex align-content-center">
+                            <i class="fa-solid fa-calendar-day fa-lg text-primary align-self-center pe-3"></i>
+                            <div class="fw-bold fs-5">Date</div>
+                        </div>
+                        @if (Event?.Time is not null)
+                        {
+                            <div class="fs-3 fw-bold text-uppercase">
+                                @Event?.Time.Value.Day @Event?.Time.Value.ToString("MMM")
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="fs-5 fw-bold text-muted">Date not set</div>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-content-center">
+                            <i class="fa-solid fa-clock fa-lg text-primary align-self-center pe-3"></i>
+                            <div class="fw-bold fs-5">Time</div>
+                        </div>
+                        @if (Event?.Time is not null)
+                        {
+                            <div class="fs-3 fw-bold text-uppercase">
+                                @GetTime(Event?.Time.Value.TimeOfDay.ToString())
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="fs-5 fw-bold text-muted">Time not set</div>
+                        }
+                    </div>
+                </div>
 
-        <div class="col-md-8 col-sm-12">
-            <div>
-                @Event.Description
+                <div class="row mt-md-5 pt-md-5 align-content-center">
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-secondary col-6 fw-bold text-white" @onclick="() => SaveEvent(Event)">Save event</button>
+                        <a href=".." class="btn col-6 hvr-grow fw-bold align-self-center">
+                            Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+
+            <div class="col-md-6 col-sm-12 py-4 py-md-0">
+                <div>
+                    <img class="img-fluid rounded-3" style="max-height: 350px; width: 100%;" alt="alt" src="@GetImg(Event)">
+                </div>
+
+                <div class="fs-3 fw-bold py-3">
+                    Description
+                </div>
+                <div class="fs-6 text-muted fw-semibold text-break">@Event?.Description</div>
             </div>
         </div>
     </div>
